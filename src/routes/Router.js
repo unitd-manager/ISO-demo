@@ -118,6 +118,8 @@ const EditProject = Loadable(lazy(() => import('../views/cubosale/EditProject'))
 
 // Tender
 const StaffTable = Loadable(lazy(() => import('../views/smartconTables/Staff')));
+const ScoreManagementTable = Loadable(lazy(() => import('../views/smartconTables/ScoreManagement')));
+
 const TaskTable = Loadable(lazy(() => import('../views/smartconTables/Task')));
 const ProductTable = Loadable(lazy(() => import('../views/smartconTables/product')));
 const TestTable = Loadable(lazy(() => import('../views/smartconTables/Test')));
@@ -166,6 +168,8 @@ const UserGroupTable = Loadable(lazy(() => import('../views/smartconTables/UserG
 const UserGroupDetails = Loadable(lazy(() => import('../views/detailTable/UserGroupDetails')));
 const Support = Loadable(lazy(() => import('../views/smartconTables/Support')));
 const StaffDetails = Loadable(lazy(() => import('../views/detailTable/StaffDetails')));
+const ScoreManagementDetails = Loadable(lazy(() => import('../views/detailTable/ScoreManagementDetails')));
+
 const PurchaseOrderEdit = Loadable(lazy(() => import('../views/EditData/PurchaseOrderEdit')));
 //SupplierModal
 
@@ -175,6 +179,8 @@ const SupportDetails = Loadable(lazy(() => import('../views/detailTable/SupportD
 
 const ProductEdit = Loadable(lazy(() => import('../views/EditData/ProductEdit')));
 const StaffEdit = Loadable(lazy(() => import('../views/EditData/StaffEdit')));
+const ScoreManagementEdit = Loadable(lazy(() => import('../views/EditData/ScoreManagementEdit')));
+
 const OrdersEdit = Loadable(lazy(() => import('../views/EditData/OrdersEdit')));
 const ContentEdit = Loadable(lazy(() => import('../views/EditData/ContentEdit')));
 const CustomerEdit = Loadable(lazy(() => import('../views/EditData/CustomerEdit')));
@@ -256,6 +262,8 @@ const Routernew = () => {
           ></Route>
           <Route path="/CategoryEdit/:id" name="categorydata" element={<CategoryEdit />}></Route>
           <Route path="/StaffEdit/:id" name="staffdata" element={<StaffEdit />}></Route>
+          <Route path="/ScoreManagementEdit/:id" name="scoreManagementdata" element={<ScoreManagementEdit />}></Route>
+
           <Route path="/SupportEdit/:id" name="supportdata" element={<SupportEdit />}></Route>
           <Route path="/SettingEdit/:id" name="settingdata" element={<SettingEdit />}></Route>
           <Route path="/UserGroupEdit/:id" name="usergroupdata" element={<UserGroupEdit />}></Route>
@@ -358,8 +366,12 @@ const Routernew = () => {
           <Route path="/SupplierDetails" name="supplierDetaildata" element={<SupplierDetailsTable />}></Route>
           <Route path="/Task" name="taskdata" element={<TaskTable />}></Route>
           <Route path="/Staff" name="staffdata" element={<StaffTable />}></Route>
+          <Route path="/ScoreManagement" name="scoreManagementdata" element={<ScoreManagementTable />}></Route>
+
           <Route path="/ProductDetails" name="productDetaildata" element={<ProductDetailsTable />}></Route>
           <Route path="/StaffDetails" name="staffDetaildata" element={<StaffDetails />}></Route>
+          <Route path="/ScoreManagementDetails" name="scoreManagementDetaildata" element={<ScoreManagementDetails />}></Route>
+
           <Route path="/Product" name="productdata" element={<ProductTable />}></Route>
           <Route path="/Orders" name="ordersdata" element={<FinanceTable />}></Route>
           <Route
