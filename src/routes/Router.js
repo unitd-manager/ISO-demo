@@ -143,8 +143,10 @@ const FinanceTable = Loadable(lazy(() => import('../views/smartconTables/Orders'
 // Admin
 
 const Content = Loadable(lazy(() => import('../views/smartconTables/Content')));
+const ISOcodesManagement = Loadable(lazy(() => import('../views/smartconTables/ISOcodesManagement')));
 const Customer = Loadable(lazy(() => import('../views/smartconTables/Customer')));
 const ContentDetailsTable = Loadable(lazy(() => import('../views/detailTable/ContentDetails')));
+const ISOcodeDetail = Loadable(lazy(() => import('../views/detailTable/ISOcodeDetail')));
 const CustomerDetailsTable = Loadable(lazy(() => import('../views/detailTable/CustomerDetails')));
 const SubCategoryTable = Loadable(lazy(() => import('../views/smartconTables/SubCategory')));
 const BlogDetailsTable = Loadable(lazy(() => import('../views/detailTable/BlogDetails')));
@@ -183,6 +185,7 @@ const ScoreManagementEdit = Loadable(lazy(() => import('../views/EditData/ScoreM
 
 const OrdersEdit = Loadable(lazy(() => import('../views/EditData/OrdersEdit')));
 const ContentEdit = Loadable(lazy(() => import('../views/EditData/ContentEdit')));
+const ISOcodeEdit = Loadable(lazy(() => import('../views/EditData/ISOcodeEdit')));
 const CustomerEdit = Loadable(lazy(() => import('../views/EditData/CustomerEdit')));
 const SectionEdit = Loadable(lazy(() => import('../views/EditData/SectionEdit')));
 const Login = Loadable(lazy(() => import('../views/detailTable/Login')));
@@ -245,6 +248,7 @@ const Routernew = () => {
           <Route path="/ProductEdit/:id" name="productdata" element={<ProductEdit />}></Route>
           <Route path="/OrdersEdit/:id" name="orderdata" element={<OrdersEdit />}></Route>
           <Route path="/ContentEdit/:id" name="contentdata" element={<ContentEdit />}></Route>
+          <Route path="/ISOcodeEdit/:id" name="contentdata" element={<ISOcodeEdit />}></Route>
           <Route path="/CustomerEdit/:id" name="customerdata" element={<CustomerEdit />}></Route>
           <Route path="/BlogEdit/:id" name="blogdata" element={<BlogEdit />}></Route>
           <Route path="/InventoryEdit/:id" name="inventorydata" element={<InventoryEdit />}></Route>
@@ -410,11 +414,17 @@ const Routernew = () => {
           <Route path="/UserGroupDetails" name="usergroupdetailsdata" element={<UserGroupDetails />}></Route>
         
           <Route path="/Content" name="contentdata" element={<Content />}></Route>
+          <Route path="/ISOCodes" name="contentdata" element={<ISOcodesManagement />}></Route>
           <Route path="/Customer" name="customerdata" element={<Customer />}></Route>
           <Route
             path="/ContentDetails"
             name="contentdetailsdata"
             element={<ContentDetailsTable />}
+          ></Route>
+          <Route
+            path="/ISOcodeDetail"
+            name="detailsdata"
+            element={<ISOcodeDetail />}
           ></Route>
            <Route
             path="/CustomerDetails"
