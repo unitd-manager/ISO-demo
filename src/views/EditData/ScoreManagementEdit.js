@@ -79,7 +79,7 @@ const StaffEdit = () => {
   };
   useEffect(() => {
     getCustomerName();
- 
+
   }, []);
 
   // Setting Data in Staff Details
@@ -174,7 +174,7 @@ const StaffEdit = () => {
   // Api call for Deleting Score History
   const handleDeleteScore = (questionid) => {
     api
-      .post('/score/deleteScoreHistory', { score_management_history_id:questionid })
+      .post('/score/deleteScoreHistory', { score_management_history_id: questionid })
       .then(() => {
         message('Score deleted successfully', 'success');
         fetchScoreHistory();
@@ -230,7 +230,7 @@ const StaffEdit = () => {
                   onClick={() => {
                     setModalType('add');
                     setCurrentScore({
-                      score_management_id:id,
+                      score_management_id: id,
                       question_id: '',
                       title: '',
                       review_status: '',
@@ -272,7 +272,7 @@ const StaffEdit = () => {
                           >
                             Edit
                           </Button>
-                          </td><td>
+                        </td><td>
                           <Button
                             color="danger"
                             onClick={() => handleDeleteScore(score.score_management_history_id)}
@@ -333,25 +333,25 @@ const StaffEdit = () => {
         <ModalBody>
           <Form>
             <FormGroup>
-                <Label>Question ID</Label>
-                <Input
-                  type="select"
-                  name="question_id"
-                  onChange={handleInputChange}
-                  value={currentScore.question_id}
-                  // disabled={modalType === 'edit'}
-                >
-                  <option value="">Please Select</option>
-                  {customername &&
-                    customername.map((e) => {
-                      return (
-                        <option key={e.question_management_id} value={e.question_management_id}>
-                          {e.question}
-                        </option>
-                      );
-                    })}
-                </Input>
-              </FormGroup>
+              <Label>Question ID</Label>
+              <Input
+                type="select"
+                name="question_id"
+                onChange={handleInputChange}
+                value={currentScore.question_id}
+              // disabled={modalType === 'edit'}
+              >
+                <option value="">Please Select</option>
+                {customername &&
+                  customername.map((e) => {
+                    return (
+                      <option key={e.question_management_id} value={e.question_management_id}>
+                        {e.question}
+                      </option>
+                    );
+                  })}
+              </Input>
+            </FormGroup>
             <FormGroup>
               <Label>Title</Label>
               <input
