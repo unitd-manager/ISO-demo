@@ -169,6 +169,8 @@ const UserGroupDetails = Loadable(lazy(() => import('../views/detailTable/UserGr
 const Support = Loadable(lazy(() => import('../views/smartconTables/Support')));
 const StaffDetails = Loadable(lazy(() => import('../views/detailTable/StaffDetails')));
 const PurchaseOrderEdit = Loadable(lazy(() => import('../views/EditData/PurchaseOrderEdit')));
+const QuestionManagement = Loadable(lazy(() => import('../views/smartconTables/QuestionManagement')));
+const QuestionManagementDetails = Loadable(lazy(() => import('../views/detailTable/QuestionManagementDetails')));
 //SupplierModal
 
 const SupportDetails = Loadable(lazy(() => import('../views/detailTable/SupportDetails')));
@@ -191,6 +193,7 @@ const SettingEdit = Loadable(lazy(() => import('../views/EditData/SettingEdit'))
 const UserGroupEdit = Loadable(lazy(() => import('../views/EditData/UserGroupEdit')));
 const BlogEdit = Loadable(lazy(() => import('../views/EditData/BlogEdit')));
 const EnquiryEdit = Loadable(lazy(() => import('../views/EditData/EnquiryEdit')));
+const QuestionManagementEdit = Loadable(lazy(() => import('../views/EditData/QuestionManagementEdit')));
 const EnquiryDetailsTable = Loadable(
   lazy(() => import('../views/detailTable/EnquiryDetails')),
 );
@@ -248,7 +251,7 @@ const Routernew = () => {
           <Route path="/InventoryEdit/:id" name="inventorydata" element={<InventoryEdit />}></Route>
                    <Route path="/SupplierEdit/:id" name="supplierdata" element={<SupplierEdit />}></Route>
           <Route path="/sectionEdit/:id" name="sectiondata" element={<SectionEdit />}></Route>
-         
+          <Route path="/QuestionManagementEdit/:id" name="contentdata" element={<QuestionManagementEdit />}></Route>
           
           
           <Route path="/Login/:id" name="logindata" element={<Login />}></Route>
@@ -434,7 +437,8 @@ const Routernew = () => {
           <Route path="/IR8AReport" name="ir8areportdata" element={<IR8AReport />}></Route>
           <Route path="/PurchaseGstReport" name="purchasegstreportdata" element={<PurchaseGstReport />}></Route>
           <Route path="/Supplier" name="supplierdata" element={<SupplierTable />}></Route>
-        
+          <Route path="/QuestionManagement" name="questionmanagementdata" element={<QuestionManagement />}></Route>
+          <Route path="/QuestionManagementDetails" name="questionmanagementdata" element={<QuestionManagementDetails />}></Route>
         </Route>
 
         
