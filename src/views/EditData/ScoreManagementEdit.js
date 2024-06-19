@@ -345,7 +345,7 @@ const StaffEdit = () => {
                 {customername &&
                   customername.map((e) => {
                     return (
-                      <option key={e.question_management_id} value={e.question_management_id}>
+                      <option key={e.question_id} value={e.question_id}>
                         {e.question}
                       </option>
                     );
