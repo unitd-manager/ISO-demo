@@ -3,6 +3,7 @@ import { Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { ToastContainer } from 'react-toastify';
 import ComponentCard from '../ComponentCard';
+import api from '../../constants/api';
 
 export default function QuestionmoreDetails({
   questionDetails,
@@ -18,11 +19,17 @@ export default function QuestionmoreDetails({
       };
 
       const [question, setQuestion] = useState(questionDetails?.question_type || '');
-
+      const [category, setCategory] = useState();
+      const getCategory= () => {
+        api.get('/questionmanagement/getCategory').then((res) => {
+          setCategory(res.data.data);
+        });
+      };
   useEffect(() => {
     if (questionDetails) {
       setQuestion(questionDetails.question_type);
     }
+    getCategory();
   }, [questionDetails]);
 
   if (!questionDetails) {
@@ -34,35 +41,7 @@ export default function QuestionmoreDetails({
    <ComponentCard title="Question details" creationModificationDate={questionDetails}>
             <ToastContainer></ToastContainer>
             <Row>
-              <Col md="3">
-                <FormGroup>
-                  <Label> ISO Code </Label>
-                  <Input
-                    type="text"
-                    onChange={handleInputs}
-                    value={questionDetails && questionDetails.iso_code}
-                    name="iso_code"
-                    disabled
-                  />
-                </FormGroup>
-              </Col>
-             
-              <Col md="3">
-                <FormGroup>
-                  {/* Category title from Category table */}
-                  <Label>Category</Label>
-                  <Input
-                    type="text"
-                    name="category_title"
-                    value={questionDetails && questionDetails.category_title}
-                    onChange={handleInputs}
-                    disabled
-                  >
-                  </Input>
-                </FormGroup>
-              </Col>
-
-              <Col md="3">
+            <Col md="3">
                 <FormGroup>
                   {/* Section title from section table */}
                   <Label>Question</Label>
@@ -75,6 +54,28 @@ export default function QuestionmoreDetails({
                   </Input>
                 </FormGroup>
               </Col>
+             
+              <Col md="3">
+                <Label>Category</Label>
+                <Input
+                  type="select"
+                  onChange={handleInputs}
+                  value={questionDetails && questionDetails.category_id}
+                  name="category_id"
+                >
+                  <option value="selected">Please Select</option>
+                  {category &&
+                    category.map((e) => {
+                      return (
+                        <option key={e.category_id} value={e.category_id}>
+                          {' '}
+                          {e.category_title}
+                        </option>
+                      );
+                    })}
+                </Input>
+              </Col>
+          
 
               <Col md="3">
             <FormGroup>

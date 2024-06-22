@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -11,8 +11,8 @@ import AppContext from '../../context/AppContext';
 
 const ContentDetails = () => {
   //All const variables
-//   const [category, setCategory] = useState();
-  const [isocode, setIsoCode] = useState();
+  //   const [category, setCategory] = useState();
+  const [category, setCategory] = useState();
   const { loggedInuser } = useContext(AppContext);
   const navigate = useNavigate();
   const [questionDetails, setQuestionDetails] = useState([]);
@@ -21,16 +21,16 @@ const ContentDetails = () => {
     setQuestionDetails({ ...questionDetails, [e.target.name]: e.target.value });
   };
   //getting data from category
-//   const getCategory = () => {
-//     api.get('/questionmanagement/getCategory').then((res) => {
-//       setCategory(res.data.data);
-//       console.log(category);
-//     });
-//   };
+  //   const getCategory = () => {
+  //     api.get('/questionmanagement/getCategory').then((res) => {
+  //       setCategory(res.data.data);
+  //       console.log(category);
+  //     });
+  //   };
   // Get Iso Code
   const getIsoCode = () => {
-    api.get('/questionmanagement/getIsoCode').then((res) => {
-      setIsoCode(res.data.data);
+    api.get('/questionmanagement/getCategory').then((res) => {
+      setCategory(res.data.data);
     });
   };
   //Insert Content Data
@@ -63,95 +63,69 @@ const ContentDetails = () => {
     <div>
       <BreadCrumbs />
       <ToastContainer></ToastContainer>
-      <Row>
-        <Col md="6">
-          <ComponentCard title="Key Details">
-            <Form>
-              <FormGroup>
-                <Row>
-                  <Col md="12">
-                    <Label>ISO Code</Label>
-                    <Input
-                      type="select"
-                      onChange={handleInputs}
-                      value={questionDetails && questionDetails.iso_code_id}
-                      name="iso_code_id">
-                      <option value="selected">Please Select</option>
-                    {isocode &&
-                      isocode.map((e) => {
-                        return (
-                          <option key={e.iso_code_id} value={e.iso_code_id}>
-                            {' '}
-                            {e.iso_code}
-                          </option>
-                          );
-                        })}
-                        </Input>
-                  </Col>
-                  </Row>
-                  
-                <Row>
-                  <Col md="12">
-                    <Label>Question</Label>
-                    <Input
-                      type="text"
-                      onChange={handleInputs}
-                      value={questionDetails && questionDetails.question}
-                      name="question">
-                    </Input>
-                  </Col>
-                </Row>
+      <ComponentCard>
+        <Form>
+          <FormGroup>
+            <Row>
+              <Col md="6">
+                <Label>Question</Label>
+                <Input
+                  type="text"
+                  onChange={handleInputs}
+                  value={questionDetails && questionDetails.question}
+                  name="question"
+                ></Input>
+              </Col>
+            </Row>
 
-                {/* <Row>
-                  <Col md="12">
-                    <Label>Category</Label>
-                    <Input
-                      type="select"
-                      onChange={handleInputs}
-                      value={questionDetails && questionDetails.category_id}
-                      name="category_id">
-                      <option value="selected">Please Select</option>
-                    {category &&
-                      category.map((e) => {
-                        return (
-                          <option key={e.category_id} value={e.category_id}>
-                            {' '}
-                            {e.category_title}
-                          </option>
-                          );
-                        })}
-                        </Input>
-                  </Col>
-                </Row> */}
-              </FormGroup>
-              <FormGroup>
-                <Row>
-                  <div className="pt-3 mt-3 d-flex align-items-center gap-2">
-                    <Button
-                      className="shadow-none"
-                      color="primary"
-                      onClick={() => {
-                        insertQuestion();
-                      }}
-                    >
-                      Save
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        navigate(-1);
-                      }}
-                      type="button"
-                      className="btn btn-dark shadow-none"
-                    >
-                      Cancel
-                    </Button>
-                  </div>
-                </Row>
-              </FormGroup>
-            </Form>
-          </ComponentCard>
-        </Col>
-      </Row>
+            <Row>
+              <Col md="6">
+                <Label>Category</Label>
+                <Input
+                  type="select"
+                  onChange={handleInputs}
+                  value={questionDetails && questionDetails.category_id}
+                  name="category_id"
+                >
+                  <option value="selected">Please Select</option>
+                  {category &&
+                    category.map((e) => {
+                      return (
+                        <option key={e.category_id} value={e.category_id}>
+                          {' '}
+                          {e.category_title}
+                        </option>
+                      );
+                    })}
+                </Input>
+              </Col>
+            </Row>
+
+            <Row>
+              <div className="pt-3 mt-3 d-flex align-items-center gap-2">
+                <Button
+                  className="shadow-none"
+                  color="primary"
+                  onClick={() => {
+                    insertQuestion();
+                  }}
+                >
+                  Save
+                </Button>
+                <Button
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                  type="button"
+                  className="btn btn-dark shadow-none"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Row>
+          </FormGroup>
+        </Form>
+      </ComponentCard>
     </div>
   );
 };
