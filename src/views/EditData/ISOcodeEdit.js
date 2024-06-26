@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Form, FormGroup, Button, Label, Input, NavItem, NavLink, TabPane, TabContent, Nav } from 'reactstrap';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,6 +12,8 @@ import ViewFileComponentV2 from '../../components/ProjectModal/ViewFileComponent
 import message from '../../components/Message';
 import api from '../../constants/api';
 import QuestionTab from '../../components/ProductTable/QusetionTab';
+import AppContext from '../../context/AppContext';
+import creationdatetime from '../../constants/creationdatetime';
 
 const ContentUpdate = () => {
   // All state variables
@@ -30,6 +32,7 @@ const ContentUpdate = () => {
   // Navigation and Parameter Constants
   const { id } = useParams();
   const navigate = useNavigate();
+  const { loggedInuser } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState('1');
   const handleInputs = (e) => {
     const { name, value } = e.target;
@@ -59,7 +62,11 @@ const ContentUpdate = () => {
       contentDetails.content_title !== '' &&
       contentDetails.sub_category_id !== '' &&
       contentDetails.published !== ''
-    ) {
+    )
+  
+    {
+      contentDetails.modification_date = creationdatetime;
+      contentDetails.modified_by = loggedInuser.first_name;
       api
         .post('/isocode/editISOCode', contentDetails)
         .then(() => {
@@ -149,7 +156,7 @@ const ContentUpdate = () => {
             </Row>
           </ComponentCardV2>
           {/* Content Details Form */}
-          <ComponentCard title="ISO Details">
+          <ComponentCard title="ISO Details" creationModificationDate={contentDetails}>
             <ToastContainer></ToastContainer>
             <Row>
               <Col md="3">
