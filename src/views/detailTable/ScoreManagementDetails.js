@@ -24,8 +24,22 @@ const StaffDetails = () => {
         message('Company not found', 'info');
       });
   };
+
+  const [isoname, setIsoName] = useState([]);
+
+  const getIsoName = () => {
+    api
+      .get('/score/getIsoName')
+      .then((res) => {
+        setIsoName(res.data.data);
+      })
+      .catch(() => {
+        message('Iso not found', 'info');
+      });
+  };
   useEffect(() => {
     getCustomerName();
+    getIsoName();
  
   }, []);
   // Navigation and Parameter Constants
@@ -82,6 +96,32 @@ const StaffDetails = () => {
                         return (
                           <option key={e.company_id} value={e.company_id}>
                             {e.company_name}
+                          </option>
+                        );               
+                      })}
+                  </Input>
+                </FormGroup>
+              </Col>
+              </Row>
+            </FormGroup>
+              
+            <FormGroup>
+              <Row>
+              <Col md="3">
+                <FormGroup>
+                <Label>
+                Iso Code</Label>
+                  <Input
+                    type="select"
+                    onChange={handleInputs}
+                    name="iso_code_id"
+                  >
+                    <option defaultValue="selected">Please Select</option>
+                    {isoname &&
+                      isoname.map((e) => {
+                        return (
+                          <option key={e.iso_code_id} value={e.iso_code_id}>
+                            {e.iso_code}
                           </option>
                         );               
                       })}

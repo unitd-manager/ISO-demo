@@ -124,7 +124,7 @@ const Staff = () => {
                         <Icon.Edit2 />
                       </Link>
                     </td>
-                    <td>{element.score}</td>
+                    <td>{element.correct_count}</td>
                     <td>{element.review_status}</td>
                     <td>{element.company_name}</td>
                   

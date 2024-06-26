@@ -49,8 +49,9 @@ export default function KeyStaffDetails({
                 <Input
                   type="text"
                   onChange={handleInputs}
-                  value={staffeditdetails && staffeditdetails.score}
+                  value={staffeditdetails && staffeditdetails.correct_count}
                   name="score"
+                  disabled
                 />
               </FormGroup>
             </Col>
