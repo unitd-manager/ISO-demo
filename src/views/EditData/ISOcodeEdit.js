@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Form, FormGroup, Button, Label, Input } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Button, Label, Input, NavItem, NavLink, TabPane, TabContent, Nav } from 'reactstrap';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -11,6 +11,7 @@ import ComponentCardV2 from '../../components/ComponentCardV2';
 import ViewFileComponentV2 from '../../components/ProjectModal/ViewFileComponentV2';
 import message from '../../components/Message';
 import api from '../../constants/api';
+import QuestionTab from '../../components/ProductTable/QusetionTab';
 
 const ContentUpdate = () => {
   // All state variables
@@ -29,10 +30,14 @@ const ContentUpdate = () => {
   // Navigation and Parameter Constants
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const [activeTab, setActiveTab] = useState('1');
   const handleInputs = (e) => {
     const { name, value } = e.target;
     setContentDetails({ ...contentDetails, [name]: stripHtmlTags(value) });
+  };
+
+  const toggle = (tab) => {
+    if (activeTab !== tab) setActiveTab(tab);
   };
 
   // Get content data By content id
@@ -70,7 +75,7 @@ const ContentUpdate = () => {
 
   // getting data from Category
   const getCategory = () => {
-    api.get('/content/getCategory', categoryLinked).then((res) => {
+    api.get('/isocode/getCategory', categoryLinked).then((res) => {
       setCategoryLinked(res.data.data);
     });
   };
@@ -144,7 +149,7 @@ const ContentUpdate = () => {
             </Row>
           </ComponentCardV2>
           {/* Content Details Form */}
-          <ComponentCard title="Content details">
+          <ComponentCard title="ISO Details">
             <ToastContainer></ToastContainer>
             <Row>
               <Col md="3">
@@ -242,10 +247,49 @@ const ContentUpdate = () => {
         </FormGroup>
       </Form>
       {/* Picture and Attachments Form */}
+      <ComponentCard>
       <Form>
         <FormGroup>
-          <ComponentCard title="Attachments">
-            <Row>
+      
+
+
+            <TabContent className="p-4" activeTab={activeTab}>
+          <Row>
+          <Nav tabs>   
+          <NavItem>
+              <NavLink
+                className={activeTab === '1' ? 'active' : ''}
+                onClick={() => {
+                  toggle('1');
+                }}
+              >
+                Question Linked
+              </NavLink>
+            </NavItem>                
+            <NavItem>
+              <NavLink
+                className={activeTab === '2' ? 'active' : ''}
+                onClick={() => {
+                  toggle('2');
+                }}
+              >
+                Attachments
+              </NavLink>
+            </NavItem>
+          </Nav>
+        </Row>
+     
+
+       <TabPane tabId="1">
+          <ComponentCard >
+            <QuestionTab
+            id={id}
+            ></QuestionTab>
+          </ComponentCard>
+        </TabPane>
+        <TabPane tabId="2">
+        <ComponentCard title="Attachments">
+        <Row>
               <Col xs="12" md="3" className="mb-3">
                 <Button
                   color="primary"
@@ -269,8 +313,12 @@ const ContentUpdate = () => {
             />
             <ViewFileComponentV2 moduleId={id} roomName="ISO" />
           </ComponentCard>
+        </TabPane>
+      </TabContent>
+    
         </FormGroup>
       </Form>
+      </ComponentCard>
     </>
   );
 };

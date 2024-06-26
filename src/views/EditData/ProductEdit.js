@@ -17,7 +17,6 @@ import ViewFileComponentV2 from '../../components/ProjectModal/ViewFileComponent
 import AttachmentModalV2 from '../../components/Tender/AttachmentModalV2';
 import ProductDetail from '../../components/ProductTable/ProductDetail';
 import ProductColor from '../../components/ProductTable/ProductColor';
-import ProductSize from '../../components/ProductTable/ProductSize';
 
 const ProductUpdate = () => {
   // All state variables
@@ -197,9 +196,7 @@ const ProductUpdate = () => {
         </TabPane>
         <TabPane tabId="3">
           <ComponentCard title="Product Size">
-          <ProductSize
-            projectId={id}
-          ></ProductSize>
+    
           </ComponentCard>
         </TabPane>
         <TabPane tabId="4">
