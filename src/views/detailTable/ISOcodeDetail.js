@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
@@ -8,6 +8,7 @@ import ComponentCard from '../../components/ComponentCard';
 import message from '../../components/Message';
 import api from '../../constants/api';
 import creationdatetime from '../../constants/creationdatetime';
+import AppContext from '../../context/AppContext';
 
 const ContentDetails = () => {
   //All const variables
@@ -17,6 +18,8 @@ const ContentDetails = () => {
     creation_date: moment(),
   
   });
+  const { loggedInuser } = useContext(AppContext);
+
   //setting data in contentDetails
   const handleInputs = (e) => {
     setContentDetails({ ...contentDetails, [e.target.name]: e.target.value });
@@ -27,6 +30,7 @@ const ContentDetails = () => {
     if (contentDetails.title !== '') {
       contentDetails.iso_code = code;
       contentDetails.creation_date = creationdatetime;
+      contentDetails.created_by = loggedInuser.first_name;
       api
         .post('/isocode/insertISOcode', contentDetails)
         .then((res) => {
