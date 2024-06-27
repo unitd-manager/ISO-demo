@@ -4,10 +4,12 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import AuthLogo from "../../layouts/logo/AuthLogo";
+import loginApi from '../../constants/api';
 import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.svg';
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
 
 const RegisterFormik = () => {
+
   const initialValues = {
     UserName: '',
     email: '',
@@ -15,7 +17,8 @@ const RegisterFormik = () => {
     confirmPassword: '',
     acceptTerms: false,
   };
-
+  //const navigate = useNavigate();
+  
   const validationSchema = Yup.object().shape({
     UserName: Yup.string().required('UserName is required'),
     email: Yup.string().email('Email is invalid').required('Email is required'),
@@ -27,6 +30,39 @@ const RegisterFormik = () => {
       .required('Confirm Password is required'),
     acceptTerms: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
   });
+
+  const signup = (value) => {
+    
+     
+    loginApi
+          .post("/api/register", value)
+          .then((res) => {
+            console.log(res.data.data);
+         
+            // addToast("Registered Successfully", {
+            //   appearance: "success",
+            //   autoDismiss: true,
+            // });
+            // setTimeout(() => {
+            //   // Pass the contact ID as state to the next page
+            //   navigate({
+            //     pathname: `/register-verification/${value.email}`,
+            //    state: { otpNo: value.otp_no },
+             
+            //   });
+            // }, 1000);
+           
+            // console.log('contact',res.data.data.contact_id);
+            
+          })
+          .catch(() => {
+            // addToast("This Email is already Registered", {
+            //   appearance: "error",
+            //   autoDismiss: true,
+            // });
+          });
+      
+  };
 
   return (
     <div className="loginBox">
@@ -46,6 +82,7 @@ const RegisterFormik = () => {
                   initialValues={initialValues}
                   validationSchema={validationSchema}
                   onSubmit={(fields) => {
+                    signup(fields);
                     // eslint-disable-next-line no-alert
                     alert(`SUCCESS!! :-)\n\n${JSON.stringify(fields, null, 4)}`);
                   }}
@@ -75,6 +112,7 @@ const RegisterFormik = () => {
                           className={`form-control${
                             errors.email && touched.email ? ' is-invalid' : ''
                           }`}
+                          
                         />
                         <ErrorMessage name="email" component="div" className="invalid-feedback" />
                       </FormGroup>
