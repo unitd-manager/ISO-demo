@@ -292,30 +292,30 @@ const StaffEdit = () => {
                             </FormGroup>
                           ))
                         )}
-                        {question.question_type === 'True/False' && (
+                        {question.question_type === 'Yes/No' && (
                           <div>
                             <FormGroup check>
                               <Label check>
                                 <Input
                                   type="radio"
-                                  checked={selectedAnswers[question.question_id] === 'True'}
-                                  onChange={() => handleCheckboxChange(question.question_id, 'True')}
+                                  checked={selectedAnswers[question.question_id] === 'Yes'}
+                                  onChange={() => handleCheckboxChange(question.question_id, 'Yes')}
                                 />
-                                True
+                                Yes
                               </Label>
                             </FormGroup>
                             <FormGroup check>
                               <Label check>
                                 <Input
                                   type="radio"
-                                  checked={selectedAnswers[question.question_id] === 'False'}
-                                  onChange={() => handleCheckboxChange(question.question_id, 'False')}
+                                  checked={selectedAnswers[question.question_id] === 'No'}
+                                  onChange={() => handleCheckboxChange(question.question_id, 'No')}
                                 />
                                 False
                               </Label>
                             </FormGroup>
                           </div>
-                        )}
+                        )} 
                         {question.question_type === 'Objective' && (
                           <FormGroup>
                             <Input
