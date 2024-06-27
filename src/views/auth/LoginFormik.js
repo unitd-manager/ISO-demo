@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Label, FormGroup, Container, Row, Col, Card, CardBody, Input } from 'reactstrap';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { usePermify } from '@permify/react-role';
 import AuthLogo from '../../layouts/logo/AuthLogo';
@@ -127,9 +127,9 @@ const LoginFormik = ({ setToken }) => {
                           <Input type="checkbox" />
                           Remember me
                         </Label>
-                        {/* <Link className="ms-auto text-decoration-none" to="/auth/forgotPwd">
+                        <Link className="ms-auto text-decoration-none" to="/forgotPwd">
                           <small>Forgot Pwd?</small>
-                        </Link> */}
+                        </Link>
                       </FormGroup>
                       <FormGroup>
                         <Button type="submit" color="primary" className="me-2">
