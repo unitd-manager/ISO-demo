@@ -30,6 +30,7 @@ import Tab from '../../components/ScoreManage/Tab';
 import './StaffEdit.css'; // Custom CSS for further styling
 
 import BarChart from './BarChart';
+import CategoryChart from '../../components/ScoreManage/CategoryChartss'; 
 
 const StaffEdit = () => {
   // All state variables
@@ -47,7 +48,8 @@ const StaffEdit = () => {
 
   const tabs = [
     { id: '1', name: 'Score History' },
-    { id: '2', name: 'Score Sumary' },
+    { id: '2', name: 'Score Summary' },
+    { id: '3', name: 'Category Wise Chart' },
   ];
   const [activeTab, setActiveTab] = useState('1');
 
@@ -245,6 +247,22 @@ const StaffEdit = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const calculateCategoryData = () => {
+    const categoryData = questions.reduce((acc, question) => {
+      const category = question.category_title;
+      if (!acc[category]) {
+        acc[category] = { name: category, answeredCount: 0, correctCount: 0 };
+      }
+      acc[category].answeredCount += selectedAnswers[question.question_id] ? 1 : 0;
+      acc[category].correctCount += correctAnswers[question.question_id] === selectedAnswers[question.question_id] ? 1 : 0;
+      return acc;
+    }, {});
+
+    return Object.values(categoryData);
+  };
+
+  const categories = calculateCategoryData();
+
   return (
     <>
       <BreadCrumbs />
@@ -311,7 +329,7 @@ const StaffEdit = () => {
                                   checked={selectedAnswers[question.question_id] === 'No'}
                                   onChange={() => handleCheckboxChange(question.question_id, 'No')}
                                 />
-                                False
+                                No
                               </Label>
                             </FormGroup>
                           </div>
@@ -355,13 +373,16 @@ const StaffEdit = () => {
                 </Pagination>
               </TabPane>
               <TabPane tabId="2">
-    <BarChart
-      answeredCount={scoreHistory.length} // Example usage, adjust as needed
-      unansweredCount={questions.length - scoreHistory.length} // Example usage, adjust as needed
-      totalQuestion={questions.length}
-      correctCount={scoreHistory.filter(item => correctAnswers[item.question_id] === item.answer).length}
-    />
-  </TabPane>
+                <BarChart
+                  answeredCount={scoreHistory.length}
+                  unansweredCount={questions.length - scoreHistory.length}
+                  totalQuestion={questions.length}
+                  correctCount={scoreHistory.filter(item => correctAnswers[item.question_id] === item.answer).length}
+                />
+              </TabPane>
+              <TabPane tabId="3">
+                <CategoryChart categories={categories} />
+              </TabPane>
             </TabContent>
           </ComponentCard>
         </FormGroup>
