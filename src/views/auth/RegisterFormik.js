@@ -40,7 +40,7 @@ const RegisterFormik = () => {
               <CardBody className="p-4 m-1">
                 <h5 className="mb-0">Register</h5>
                 <small className="pb-4 d-block">
-                  Already have an account? <Link to="/auth/loginformik">Login</Link>
+                  Already have an account? <Link to="/login">Login</Link>
                 </small>
                 <Formik
                   initialValues={initialValues}

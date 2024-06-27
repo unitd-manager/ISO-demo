@@ -14,7 +14,7 @@ const EditCostingSummaryModal = Loadable(
   lazy(() => import('../components/Tender/EditCostingSummaryModal')),
 );
 const EnquiryTable = Loadable(lazy(() => import('../views/smartconTables/Enquiry')));
-
+const ProjectDashboard = Loadable(lazy(() => import('../views/smartconTables/ProjectDashboard')));
 const EditQuoteModal = Loadable(lazy(() => import('../components/Tender/EditQuoteModal')));
 const EditLineItemModal = Loadable(lazy(() => import('../components/Tender/EditLineItemModal')));
 
@@ -112,7 +112,9 @@ const CASL = Loadable(lazy(() => import('../views/apps/accessControlCASL/AccessC
 const Error = Loadable(lazy(() => import('../views/auth/Error')));
 const LoginFormik = Loadable(lazy(() => import('../views/auth/LoginFormik')));
 const Reports = Loadable(lazy(() => import('../views/cubosale/Reports')));
+const RegisterFormik = Loadable(lazy(() => import('../views/auth/RegisterFormik')));
 
+const RecoverPassword = Loadable(lazy(() => import('../views/auth/RecoverPassword')));
 const AddProjects = Loadable(lazy(() => import('../views/cubosale/AddProjects')));
 const EditProject = Loadable(lazy(() => import('../views/cubosale/EditProject')));
 
@@ -235,7 +237,28 @@ const Routernew = () => {
           ></Route>
           <Route path="/editquote" name="editquote" element={<EditQuoteModal />}></Route>
           <Route path="/editlineitem" name="editlineitem" element={<EditLineItemModal />}></Route>
-         
+          
+          <Route
+            path="/signup"
+            name="signup"
+            element={<RegisterFormik />}
+            ></Route>
+             <Route
+            path="/login"
+            name="login"
+            element={<LoginFormik />}
+            ></Route>
+            forgotPwd
+            <Route
+            path="/forgotPwd"
+            name="forgotPwd"
+            element={<RecoverPassword />}
+            ></Route>
+          <Route
+            path="/userdashboard"
+            name="Dashboard"
+            element={<ProjectDashboard />}
+            ></Route>
           <Route
             path="/Enquiry"
             name="enquirydata"
