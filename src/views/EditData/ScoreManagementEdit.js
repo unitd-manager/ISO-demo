@@ -315,7 +315,7 @@ const StaffEdit = () => {
                               </Label>
                             </FormGroup>
                           </div>
-                        )}
+                        )} 
                         {question.question_type === 'Objective' && (
                           <FormGroup>
                             <Input
