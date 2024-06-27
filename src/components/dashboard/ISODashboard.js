@@ -4,10 +4,11 @@ import ComponentCard from '../ComponentCard';
 
 const IsoDashboard = ({ userId }) => {
   const [isoStandards, setIsoStandards] = useState([
-    {id:1,name:'ISO1000',description:'Quality'},
-    {id:2,name:'ISO1001',description:'Assurance'},
-    {id:3,name:'ISO1002',description:'Service'},
-    {id:4,name:'ISO1003',description:'product'}
+    {id:1,name:'ISO 9000',description:'Quality Management'},
+    {id:2,name:'ISO 22000',description:'Food Safety Management'},
+    {id:3,name:'ISO 14001',description:'Environmental Management'},
+    {id:4,name:'ISO 45000',description:'Occupational Health and Safety'},
+    {id:5,name:'ISO 50000',description:'Energy Management'}
   ]);
 
 //   useEffect(() => {

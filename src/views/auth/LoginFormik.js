@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Label, FormGroup, Container, Row, Col, Card, CardBody, Input } from 'reactstrap';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { usePermify } from '@permify/react-role';
 import AuthLogo from '../../layouts/logo/AuthLogo';
@@ -14,8 +14,9 @@ import loginApi from '../../constants/api';
 import message from '../../components/Message';
 
 const LoginFormik = ({ setToken }) => {
+  const navigate=useNavigate
   const { setUser } = usePermify();
-  const getPermissions = (user) => {
+  const getPermissions = (user,tok) => {
     loginApi
       .post('/usergroup/getusergroupForLoginUser', { user_group_id: user.user_group_id })
       .then((res) => {
@@ -34,13 +35,14 @@ const LoginFormik = ({ setToken }) => {
           if (element.remove) permissionArray.push(`${element.section_title}-remove`);
         });
         localStorage.setItem('user', JSON.stringify(user));
-        setToken('123');
+        localStorage.setItem('token', JSON.stringify(tok.token));
+         setToken('123');
         setUser({
           id: '1',
           roles: ['admin'],
           permissions: permissionArray,
         });
-        window.location.reload()
+     navigate('/')
       })
       .catch(() => {
         message('Network connection error.', 'error');
@@ -51,10 +53,10 @@ const LoginFormik = ({ setToken }) => {
     loginApi
       .post('/api/backlogin', value)
       .then((res) => {
-        if (res && res.data.status === '400') {
+        if (res && res.data.status === '401') {
           alert('Invalid Username or Password');
         } else {
-          getPermissions(res.data.data);
+          getPermissions(res.data.data,res.data);
         }
       })
       .catch((err) => {

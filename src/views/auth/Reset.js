@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Button,
   Label,
@@ -11,29 +12,34 @@ import {
   CardBody,
 } from 'reactstrap';
 //import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import AuthLogo from '../../layouts/logo/AuthLogo';
 import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.svg';
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
 //import img1 from '../../assets/images/users/user4.jpg';
+import message from '../../components/Message';
 import api from '../../constants/api';
 
 const ResetPassword = () => {
   //const navigate = useNavigate();
+  const [token, setToken] = useState(null);
+  const location = useLocation();
 
   const initialValues = {
     password: '',
     confirmPassword: ''
   };
 const sendotp=(value)=>{
-  
+  value.resetToken=token;
+  value.newPassword=value.password;
           api.post("/api/reset", value)
           .then(() => {
-            
+            message('Password has been Changed successfully', 'success');
           })
           .catch(() => {
-           
+            message(' Unable to Change the Password', 'error');
           });
 }
   const validationSchema = Yup.object().shape({
@@ -44,8 +50,16 @@ const sendotp=(value)=>{
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
       .required('Confirm Password is required')
   });
+  console.log('token',token);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const tokens = searchParams.get('token');
+    console.log('tokens',tokens);
+    setToken(tokens);
+  }, [location]);
   return (
     <div className="loginBox">
+        <ToastContainer></ToastContainer>
       <LeftBg className="position-absolute left bottom-0" />
       <RightBg className="position-absolute end-0 top" />
       <Container fluid className="h-100">

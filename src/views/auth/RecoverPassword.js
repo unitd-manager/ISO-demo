@@ -11,6 +11,7 @@ import {
   CardBody,
 } from 'reactstrap';
 //import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import AuthLogo from '../../layouts/logo/AuthLogo';
@@ -18,6 +19,7 @@ import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.sv
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
 //import img1 from '../../assets/images/users/user4.jpg';
 import api from '../../constants/api';
+import message from '../../components/Message';
 
 const RecoverPassword = () => {
   //const navigate = useNavigate();
@@ -29,10 +31,10 @@ const sendotp=(value)=>{
   
           api.post("/api/forgot", value)
           .then(() => {
-            
+            message('Link has been sent to your email', 'success');
           })
           .catch(() => {
-           
+            message('Unable to send token', 'error');
           });
 }
   const validationSchema = Yup.object().shape({
@@ -40,6 +42,7 @@ const sendotp=(value)=>{
   });
   return (
     <div className="loginBox">
+      <ToastContainer></ToastContainer>
       <LeftBg className="position-absolute left bottom-0" />
       <RightBg className="position-absolute end-0 top" />
       <Container fluid className="h-100">
@@ -90,7 +93,7 @@ const sendotp=(value)=>{
                       </FormGroup>
                       <FormGroup>
                         <Button type="submit" color="info" block className="me-2">
-                          Reset
+                          Send Link
                         </Button>
                       </FormGroup>
                     </Form>

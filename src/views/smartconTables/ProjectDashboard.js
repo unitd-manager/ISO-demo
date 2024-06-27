@@ -14,7 +14,7 @@ import IsoDashboard from '../../components/dashboard/ISODashboard';
 import ScoreprogressSummary from '../../components/dashboard/ScoreprogressSummary';
 import SubmissionScoreCharts from '../../components/DashboardProj/SubmissionScoreCharts';
 import Questionaries from '../../components/DashboardProj/Questionaries';
-
+import MultiCharts from '../charts/MultiCharts';
 
 const Test = () => {
 
@@ -27,6 +27,7 @@ const Test = () => {
         <SubmissionScoreCharts/>
         <LabourSummary/>
         <Questionaries/>
+        <MultiCharts />
         {/* <CustoChart/>
         <ProjectEnq/> */}
        

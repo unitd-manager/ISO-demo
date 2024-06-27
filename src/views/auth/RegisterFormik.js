@@ -3,10 +3,12 @@ import { Button, Label, FormGroup, Container, Row, Col, Card, CardBody } from 'r
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import AuthLogo from "../../layouts/logo/AuthLogo";
 import loginApi from '../../constants/api';
 import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.svg';
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
+import message from '../../components/Message';
 
 const RegisterFormik = () => {
 
@@ -38,7 +40,7 @@ const RegisterFormik = () => {
           .post("/api/register", value)
           .then((res) => {
             console.log(res.data.data);
-         
+            message('Account is Registered successfully', 'success');
             // addToast("Registered Successfully", {
             //   appearance: "success",
             //   autoDismiss: true,
@@ -56,6 +58,7 @@ const RegisterFormik = () => {
             
           })
           .catch(() => {
+            message('Unable to register', 'error');
             // addToast("This Email is already Registered", {
             //   appearance: "error",
             //   autoDismiss: true,
@@ -66,6 +69,7 @@ const RegisterFormik = () => {
 
   return (
     <div className="loginBox">
+      <ToastContainer></ToastContainer>
       <LeftBg className="position-absolute left bottom-0" />
       <RightBg className="position-absolute end-0 top" />
       <Container fluid className="h-100">
