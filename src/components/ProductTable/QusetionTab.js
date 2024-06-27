@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CardBody, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import {
+  Button, CardBody, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table
+} from 'reactstrap';
 import Swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import * as Icon from 'react-feather';
@@ -11,17 +13,17 @@ export default function QuestionTab({ id }) {
     id: PropTypes.any,
   };
 
-  const [getQuestion, setQuestions] = useState([]);
-  const [getISOQuestion, setISOQuestions] = useState([]);
+  const [questions, setQuestions] = useState([]);
+  const [isoQuestions, setIsoQuestions] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [addContactModal, setAddContactModal] = useState(false);
-  const [newQuestionData, setNewQuestionData] = useState({
-    question_id: '',
-    iso_code_id: id,
-  });
 
   const addContactToggle = () => {
     setAddContactModal(!addContactModal);
   };
+
   const deleteRecord = (questionId) => {
     Swal.fire({
       title: `Are you sure?`,
@@ -48,8 +50,8 @@ export default function QuestionTab({ id }) {
     });
   };
 
-  const getQuestions = () => {
-    api.get('/isocode/getQuestion', { params: { iso_code_id: id } })
+  const getQuestions = (categoryId) => {
+    api.get('/isocode/getQuestion', { params: { iso_code_id: id, category_id: categoryId } })
       .then((res) => {
         setQuestions(res.data.data);
       })
@@ -58,46 +60,73 @@ export default function QuestionTab({ id }) {
       });
   };
 
-  const getISOQuestions = () => {
+  const getIsoQuestions = () => {
     api.post('/isocode/getIsoQuestionById', { iso_code_id: id })
       .then((res) => {
-        setISOQuestions(res.data.data);
+        setIsoQuestions(res.data.data);
       })
       .catch(() => {
         message('Content Data Not Found', 'info');
       });
   };
 
+  const getQuestionCategories = () => {
+    api.get('/questionmanagement/getCategory')
+      .then((res) => {
+        setCategories(res.data.data);
+      })
+      .catch(() => {
+        message('Unable to fetch categories', 'error');
+      });
+  };
+
   const insertQuestionHistory = () => {
-    if (newQuestionData.question_id !== '') {
-      api.post('/isocode/insertQuestion', newQuestionData)
+    if (selectedQuestions.length > 0) {
+      const questionData = selectedQuestions.map(questionId => ({
+        question_id: questionId,
+        iso_code_id: id,
+      }));
+  
+      api.post('/isocode/insertQuestion', { questionData })
         .then(() => { 
           message('Client inserted successfully.', 'success');
           addContactToggle();
-          getISOQuestions();
+          getIsoQuestions();
+          // Optionally, you can reload specific data without refreshing the entire page
           window.location.reload();
         })
         .catch(() => {
           message('Network connection error.', 'error');
         });
     } else {
-      message('Please fill all required fields', 'warning');
+      message('Please select at least one question', 'warning');
     }
   };
 
-  const handleAddNewQuestion = (e) => {
-    setNewQuestionData({ ...newQuestionData, [e.target.name]: e.target.value });
+  const handleCategoryChange = (e) => {
+    const categoryId = e.target.value;
+    setSelectedCategory(categoryId);
+    getQuestions(categoryId);
   };
 
+  const handleQuestionSelect = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedQuestions([...selectedQuestions, value]);
+    } else {
+      setSelectedQuestions(selectedQuestions.filter(q => q !== value));
+    }
+  };
 
   useEffect(() => {
-    getQuestions();
-    getISOQuestions();
+    getQuestionCategories();
+    getIsoQuestions();
   }, [id]);
 
   const columns = [
-    { name: 'id' },
-    { name: 'Title' }
+    { name: 'ID' },
+    { name: 'Title' },
+    { name: 'Actions' },
   ];
 
   return (
@@ -120,25 +149,37 @@ export default function QuestionTab({ id }) {
                             <Row>
                               <Col md="4">
                                 <FormGroup>
-                                  <Label>
-                                    Title<span className="required">*</span>
-                                  </Label>
+                                  <Label>Category<span className="required">*</span></Label>
                                   <Input
                                     type="select"
-                                    name="question_id"
-                                    onChange={handleAddNewQuestion}
-                                    value={newQuestionData.question_id}
+                                    name="category"
+                                    onChange={handleCategoryChange}
+                                    value={selectedCategory}
                                   >
-                                    <option value="" selected="selected">
-                                      Please Select
-                                    </option>
-                                    {getQuestion && getQuestion.map((ele) => (
-                                      <option key={ele.question_id} value={ele.question_id}>
-                                        {ele.question}
+                                    <option value="">Please Select</option>
+                                    {categories && categories.map((cat) => (
+                                      <option key={cat.category_id} value={cat.category_id}>
+                                        {cat.category_title}
                                       </option>
                                     ))}
                                   </Input>
                                 </FormGroup>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col md="12">
+                                {questions && questions.map((q) => (
+                                  <FormGroup key={q.question_id} check>
+                                    <Label check>
+                                      <Input
+                                        type="checkbox"
+                                        value={q.question_id}
+                                        onChange={handleQuestionSelect}
+                                      />{' '}
+                                      {q.question}
+                                    </Label>
+                                  </FormGroup>
+                                ))}
                               </Col>
                             </Row>
                           </Form>
@@ -166,31 +207,31 @@ export default function QuestionTab({ id }) {
               </FormGroup>
             </Col>
           </Row>
-          <Row>      
-            <table>
-              <thead>
-                <tr>
-                  {columns.map((cell) => (
-                    <td key={cell.name}>{cell.name}</td>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {getISOQuestion && getISOQuestion.map((element, i) => (
-                  <tr key={element.iso_code_id}>
-                    <td>{i + 1}</td>
-                    <td>{element.question}</td>
-                    <td>
-                      <div color="primary" className="anchor">
-                        <span onClick={() => deleteRecord(element.question_id)}>
-                          <Icon.Trash2 />
-                        </span>
-                      </div>
-                    </td>
+          <Row>
+            <Col md="12">
+              <Table striped>
+                <thead>
+                  <tr>
+                    {columns.map((cell) => (
+                      <th key={cell.name}>{cell.name}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {isoQuestions && isoQuestions.map((element, i) => (
+                    <tr key={element.iso_code_id}>
+                      <td>{i + 1}</td>
+                      <td>{element.question}</td>
+                      <td>
+                        <Button color="danger" size="sm" onClick={() => deleteRecord(element.question_id)}>
+                          <Icon.Trash2 size={16} />
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Col>
           </Row>      
         </FormGroup>
       </Form>
