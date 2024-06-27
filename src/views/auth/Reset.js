@@ -19,15 +19,16 @@ import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right
 //import img1 from '../../assets/images/users/user4.jpg';
 import api from '../../constants/api';
 
-const RecoverPassword = () => {
+const ResetPassword = () => {
   //const navigate = useNavigate();
 
   const initialValues = {
-    email: '',
+    password: '',
+    confirmPassword: ''
   };
 const sendotp=(value)=>{
   
-          api.post("/api/forgot", value)
+          api.post("/api/reset", value)
           .then(() => {
             
           })
@@ -36,7 +37,12 @@ const sendotp=(value)=>{
           });
 }
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email('Email is invalid').required('Email is required'),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm Password is required')
   });
   return (
     <div className="loginBox">
@@ -51,7 +57,7 @@ const sendotp=(value)=>{
                 <div className="text-center">
                   {/* <img src='' alt="avatar" className="rounded-circle" width="95" /> */}
                   <CardTitle tag="h4" className="mt-2">
-                   Forgot Password?
+                   Reset Password
                   </CardTitle>
                 </div>
                 <Formik
@@ -77,16 +83,35 @@ const sendotp=(value)=>{
                          />
                          <ErrorMessage name="name" component="div" className="invalid-feedback" />
                        </FormGroup> */}
-                      <FormGroup>
-                        <Label htmlFor="email">Email</Label>
+                        <FormGroup>
+                        <Label htmlFor="password">Password</Label>
                         <Field
-                          name="email"
-                          type="text"
+                          name="password"
+                          type="password"
                           className={`form-control${
-                            errors.email && touched.email ? ' is-invalid' : ''
+                            errors.password && touched.password ? ' is-invalid' : ''
                           }`}
                         />
-                        <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                        <ErrorMessage
+                          name="password"
+                          component="div"
+                          className="invalid-feedback"
+                        />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label htmlFor="confirmPassword">Confirm Password</Label>
+                        <Field
+                          name="confirmPassword"
+                          type="password"
+                          className={`form-control${
+                            errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : ''
+                          }`}
+                        />
+                        <ErrorMessage
+                          name="confirmPassword"
+                          component="div"
+                          className="invalid-feedback"
+                        />
                       </FormGroup>
                       <FormGroup>
                         <Button type="submit" color="info" block className="me-2">
@@ -105,4 +130,4 @@ const sendotp=(value)=>{
   );
 };
 
-export default RecoverPassword;
+export default ResetPassword;

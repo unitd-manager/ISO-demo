@@ -113,6 +113,7 @@ const Error = Loadable(lazy(() => import('../views/auth/Error')));
 const LoginFormik = Loadable(lazy(() => import('../views/auth/LoginFormik')));
 const Reports = Loadable(lazy(() => import('../views/cubosale/Reports')));
 const RegisterFormik = Loadable(lazy(() => import('../views/auth/RegisterFormik')));
+const ResetPassword = Loadable(lazy(() => import('../views/auth/Reset')));
 
 const RecoverPassword = Loadable(lazy(() => import('../views/auth/RecoverPassword')));
 const AddProjects = Loadable(lazy(() => import('../views/cubosale/AddProjects')));
@@ -248,11 +249,16 @@ const Routernew = () => {
             name="login"
             element={<LoginFormik />}
             ></Route>
-            forgotPwd
+            
             <Route
             path="/forgotPwd"
             name="forgotPwd"
             element={<RecoverPassword />}
+            ></Route>
+            <Route
+            path="/reset-password"
+            name="reset-password"
+            element={<ResetPassword />}
             ></Route>
           <Route
             path="/userdashboard"

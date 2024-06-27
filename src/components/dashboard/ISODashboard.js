@@ -23,11 +23,11 @@ const IsoDashboard = ({ userId }) => {
   return (
     <ComponentCard title='ISO Codes'>
     <div>
-      <h4>Your ISO Standards</h4>
+      <h6>Your ISO Standards</h6>
       <ul>
         {isoStandards.map(standard => (
           <li key={standard.id}>
-            <h4>{standard.name}</h4>
+            <h6>{standard.name}</h6>
             <p>{standard.description}</p>
           </li>
         ))}

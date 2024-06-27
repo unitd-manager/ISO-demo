@@ -26,12 +26,12 @@ const ActiveQuestionnaires = () => {
 
   return (
     <div>
-      <h4>Active Questionnaires</h4>
+      <h6>Active Questionnaires</h6>
       {activeQuestionnaires.length > 0 ? (
         <ul>
           {activeQuestionnaires.map(q => (
             <li key={q.id}>
-              <h4>{q.title}</h4>
+              <h6>{q.title}</h6>
               <p>{q.description}</p>
             </li>
           ))}

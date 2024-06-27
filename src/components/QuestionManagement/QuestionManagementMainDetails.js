@@ -41,19 +41,7 @@ export default function QuestionmoreDetails({
    <ComponentCard title="Question details" creationModificationDate={questionDetails}>
             <ToastContainer></ToastContainer>
             <Row>
-            <Col md="3">
-                <FormGroup>
-                  {/* Section title from section table */}
-                  <Label>Question</Label>
-                  <Input
-                    type="text"
-                    name="question"
-                    value={questionDetails && questionDetails.question}
-                    onChange={handleInputs}
-                  >
-                  </Input>
-                </FormGroup>
-              </Col>
+            
              
               <Col md="3">
                 <Label>Category</Label>
@@ -74,6 +62,19 @@ export default function QuestionmoreDetails({
                       );
                     })}
                 </Input>
+              </Col>
+              <Col md="6">
+                <FormGroup>
+                  {/* Section title from section table */}
+                  <Label>Question</Label>
+                  <Input
+                    type="textarea"
+                    name="question"
+                    value={questionDetails && questionDetails.question}
+                    onChange={handleInputs}
+                  >
+                  </Input>
+                </FormGroup>
               </Col>
           
 

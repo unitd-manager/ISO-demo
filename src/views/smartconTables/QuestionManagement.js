@@ -81,12 +81,12 @@ const QuestionManagement = () => {
       grow: 0,
       wrap: true,
     },
-    {
-      name: 'ISO Code',
-      selector: 'sort_order',
-      sortable: true,
-      grow: 0,
-    },
+    // {
+    //   name: 'ISO Code',
+    //   selector: 'sort_order',
+    //   sortable: true,
+    //   grow: 0,
+    // },
     {
       name: 'Question',
       selector: 'section_title',
@@ -138,7 +138,7 @@ const QuestionManagement = () => {
                     </Link>
                   </td>
                   <td>{element.question_id}</td>
-                  <td>{element.iso_code}</td>
+                  {/* <td>{element.iso_code}</td> */}
                   <td>{element.question}</td>
                   <td>{element.category_title}</td>
                 </tr>

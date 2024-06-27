@@ -39,7 +39,7 @@ function ViewFileComponentV2({ moduleId, roomName }) {
             Swal.fire('Deleted!', 'Media has been deleted.', 'success');
             //setViewLineModal(false)
 
-            window.location.reload();
+            //window.location.reload();
           })
           .catch(() => {
             message('Unable to Delete Media', 'info');
@@ -70,7 +70,7 @@ function ViewFileComponentV2({ moduleId, roomName }) {
                 <tr key={res.media_id}>
                   <td style={tableStyle}>
                       <a
-                        href={`http://43.228.126.245/united-ecomm-api/storage/uploads/${res.name}`}
+                        href={`https://isodemo.unitdtechnologies.com/storage/uploads/${res.name}`}
                         target="_blank"
                         rel="noreferrer"
                       >

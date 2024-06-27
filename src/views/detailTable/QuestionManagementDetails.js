@@ -66,17 +66,7 @@ const ContentDetails = () => {
       <ComponentCard>
         <Form>
           <FormGroup>
-            <Row>
-              <Col md="6">
-                <Label>Question</Label>
-                <Input
-                  type="text"
-                  onChange={handleInputs}
-                  value={questionDetails && questionDetails.question}
-                  name="question"
-                ></Input>
-              </Col>
-            </Row>
+            
 
             <Row>
               <Col md="6">
@@ -98,6 +88,18 @@ const ContentDetails = () => {
                       );
                     })}
                 </Input>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col md="6">
+                <Label>Question</Label>
+                <Input
+                  type="textarea"
+                  onChange={handleInputs}
+                  value={questionDetails && questionDetails.question}
+                  name="question"
+                ></Input>
               </Col>
             </Row>
 
