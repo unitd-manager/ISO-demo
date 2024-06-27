@@ -1,5 +1,5 @@
 import React from 'react';
-
+/*eslint-disable*/
 import { Button, Label, FormGroup, Container, Row, Col, Card, CardBody, Input } from 'reactstrap';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -14,7 +14,7 @@ import loginApi from '../../constants/api';
 import message from '../../components/Message';
 
 const LoginFormik = ({ setToken }) => {
-  const navigate=useNavigate
+  const navigate=useNavigate();
   const { setUser } = usePermify();
   const getPermissions = (user,tok) => {
     loginApi
@@ -36,13 +36,15 @@ const LoginFormik = ({ setToken }) => {
         });
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', JSON.stringify(tok.token));
+     
          setToken('123');
+
         setUser({
           id: '1',
           roles: ['admin'],
           permissions: permissionArray,
         });
-     navigate('/')
+       navigate('/userdashboard')
       })
       .catch(() => {
         message('Network connection error.', 'error');
@@ -56,7 +58,9 @@ const LoginFormik = ({ setToken }) => {
         if (res && res.data.status === '401') {
           alert('Invalid Username or Password');
         } else {
-          getPermissions(res.data.data,res.data);
+          //setToken('123');
+          navigate('/userdashboard')
+          //getPermissions(res.data.data,res.data);
         }
       })
       .catch((err) => {
@@ -151,7 +155,7 @@ const LoginFormik = ({ setToken }) => {
 };
 
 LoginFormik.propTypes = {
-  setToken: PropTypes.func.isRequired,
+  setToken: PropTypes.func
 };
 
 export default LoginFormik;

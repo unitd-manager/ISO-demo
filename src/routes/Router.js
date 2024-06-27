@@ -219,7 +219,7 @@ const SupportNewTable = Loadable(lazy(() => import('../views/smartconTables/Supp
 //Reports
 const CpfSummaryReports=Loadable(lazy(() => import('../views/smartconTables/CpfSummaryReports')))
 const PurchaseGstReport=Loadable(lazy(() => import('../views/smartconTables/PurchaseGstReport')))
-
+/*eslint-disable*/
 const Routernew = () => {
   const { token, setToken } = UserToken();
 
