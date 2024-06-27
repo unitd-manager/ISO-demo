@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Row, Col, Card, CardBody, Container } from 'reactstrap';
 import api from '../../constants/api';
 import MainChart from '../../views/charts/DonutChart';
+import { ELEVATION_1 } from '@blueprintjs/core/lib/esm/common/classes';
 
 
 const DonutDashboard = () => {
@@ -165,6 +166,12 @@ const DonutDashboard = () => {
     { label: 'Health Care', value: 92 },
     { label: 'Management', value: 60 }
   ];
+
+
+  const statusdata = [
+    { id:1,in_progress_task_count: 60, completed: 75,on_hold: 25, not_started_task: 88  }
+  ];
+
   const seriesDonut = projectStatsTitle.map((stat) => stat.task_title_count);
   const labelsDonut = projectStatsTitle.map((stat) => stat.title);
 
@@ -200,7 +207,7 @@ const DonutDashboard = () => {
                             <div>
                             <h5 className="status-heading">Status</h5>
                   <Row>
-                    {projectStats.map((project) => (
+                    {statusdata.map((project) => (
                       <Col sm="6" lg="2" key={project.id}>
                         <Card className="custom-card">
                           <CardBody>
@@ -218,7 +225,7 @@ const DonutDashboard = () => {
                       </Col>
                     ))}
 
-                    {projectStats.map((project) => (
+                    {statusdata.map((project) => (
                       <Col sm="6" lg="2" key={project.id}>
                         <Card className="custom-card1">
                           <CardBody>
@@ -232,7 +239,7 @@ const DonutDashboard = () => {
                         </Card>
                       </Col>
                     ))}
-                    {projectStats.map((project) => (
+                    {statusdata.map((project) => (
                       <Col sm="6" lg="2" key={project.id}>
                         <Card className="custom-card2">
                           <CardBody>
@@ -246,7 +253,7 @@ const DonutDashboard = () => {
                         </Card>
                       </Col>
                     ))}
-                    {projectStats.map((project) => (
+                    {statusdata.map((project) => (
                       <Col sm="12" lg="3" key={project.id}>
                         <Card className="custom-card3">
                           <CardBody>
