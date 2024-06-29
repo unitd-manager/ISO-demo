@@ -14,7 +14,7 @@ const Publish = ({ value, tablename, idColumn, idValue }) => {
   };
   const changePublishStatus = (publishValue) => {
     api
-      .post('/commonApi/updatePublish', {
+      .post('/questionmanagement/updatePublish', {
         tablename,
         idColumn,
         idValue,

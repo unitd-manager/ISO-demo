@@ -14,6 +14,7 @@ import message from '../../components/Message';
 import api from '../../constants/api';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import CommonTable from '../../components/CommonTable';
+import Publish from '../../components/Publish';
 
 
 
@@ -74,13 +75,13 @@ const QuestionManagement = () => {
       sortable: false,
     },
 
-    {
-      name: 'Question ID',
-      selector: 'title',
-      sortable: true,
-      grow: 0,
-      wrap: true,
-    },
+    // {
+    //   name: 'Question ID',
+    //   selector: 'title',
+    //   sortable: true,
+    //   grow: 0,
+    //   wrap: true,
+    // },
     // {
     //   name: 'ISO Code',
     //   selector: 'sort_order',
@@ -97,6 +98,13 @@ const QuestionManagement = () => {
     {
       name: 'Category',
       selector: 'category_title',
+      sortable: true,
+      grow: 0,
+      wrap: true,
+    },
+    {
+      name: 'Published',
+      selector: 'published',
       sortable: true,
       grow: 0,
       wrap: true,
@@ -137,10 +145,18 @@ const QuestionManagement = () => {
                       <Icon.Edit2 />
                     </Link>
                   </td>
-                  <td>{element.question_id}</td>
+                  {/* <td>{element.question_id}</td> */}
                   {/* <td>{element.iso_code}</td> */}
                   <td>{element.question}</td>
                   <td>{element.category_title}</td>
+                  <td>
+                      <Publish
+                        idColumn="question_id"
+                        tablename="question_management"
+                        idValue={element.question_id.toString()}
+                        value={element.published}
+                      ></Publish>
+                    </td>
                 </tr>
               );
             })}

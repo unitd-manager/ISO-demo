@@ -77,11 +77,11 @@ const StaffDetails = () => {
       <ToastContainer />
       <Row>
         <Col md="6" xs="12">
-          <ComponentCard title="key Details">
+          <ComponentCard title="Score Details">
         
             <FormGroup>
               <Row>
-              <Col md="3">
+              <Col md="12">
                 <FormGroup>
                 <Label>
                 Company Name</Label>
@@ -107,10 +107,10 @@ const StaffDetails = () => {
               
             <FormGroup>
               <Row>
-              <Col md="3">
+              <Col md="12">
                 <FormGroup>
                 <Label>
-                Iso Code</Label>
+                ISO Code</Label>
                   <Input
                     type="select"
                     onChange={handleInputs}

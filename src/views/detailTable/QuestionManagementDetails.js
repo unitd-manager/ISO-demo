@@ -63,13 +63,15 @@ const ContentDetails = () => {
     <div>
       <BreadCrumbs />
       <ToastContainer></ToastContainer>
-      <ComponentCard>
+      <Row>
+        <Col md="6">
+          <ComponentCard title="Question Details">
         <Form>
           <FormGroup>
             
 
             <Row>
-              <Col md="6">
+              <Col md="12">
                 <Label>Category</Label>
                 <Input
                   type="select"
@@ -92,7 +94,7 @@ const ContentDetails = () => {
             </Row>
 
             <Row>
-              <Col md="6">
+              <Col md="12">
                 <Label>Question</Label>
                 <Input
                   type="textarea"
@@ -127,7 +129,10 @@ const ContentDetails = () => {
             </Row>
           </FormGroup>
         </Form>
+    
       </ComponentCard>
+        </Col>
+      </Row>
     </div>
   );
 };
