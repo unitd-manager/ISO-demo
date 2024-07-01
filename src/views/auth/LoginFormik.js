@@ -44,7 +44,11 @@ const LoginFormik = ({ setToken }) => {
           roles: ['admin'],
           permissions: permissionArray,
         });
-       navigate('/userdashboard')
+       //navigate('/userdashboard')
+       setTimeout(()=>{
+        window.location.reload();
+       },200)
+       
       })
       .catch(() => {
         message('Network connection error.', 'error');
@@ -58,9 +62,9 @@ const LoginFormik = ({ setToken }) => {
         if (res && res.data.status === '401') {
           alert('Invalid Username or Password');
         } else {
-          //setToken('123');
-          navigate('/userdashboard')
-          //getPermissions(res.data.data,res.data);
+          setToken('123');
+         // navigate('/userdashboard')
+          getPermissions(res.data.data,res.data);
         }
       })
       .catch((err) => {
