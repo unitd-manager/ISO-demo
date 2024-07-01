@@ -230,18 +230,7 @@ const Routernew = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<FullLayout></FullLayout>}>
-      
-          {/* Tendar Modal */}
-          <Route
-            path="/editcostingsummary"
-            name="editcostingsummary"
-            element={<EditCostingSummaryModal />}
-          ></Route>
-          <Route path="/editquote" name="editquote" element={<EditQuoteModal />}></Route>
-          <Route path="/editlineitem" name="editlineitem" element={<EditLineItemModal />}></Route>
-          
-          <Route
+      <Route
             path="/signup"
             name="signup"
             element={<RegisterFormik />}
@@ -249,7 +238,7 @@ const Routernew = () => {
              <Route
             path="/login"
             name="login"
-            element={<LoginFormik />}
+            element={!token ? <LoginFormik/>:<Navigate to="/userdashboard"/>}
             ></Route>
             
             <Route
@@ -262,6 +251,18 @@ const Routernew = () => {
             name="reset-password"
             element={<ResetPassword />}
             ></Route>
+        <Route path="/" element={<FullLayout></FullLayout>}>
+      
+          {/* Tendar Modal */}
+          <Route
+            path="/editcostingsummary"
+            name="editcostingsummary"
+            element={<EditCostingSummaryModal />}
+          ></Route>
+          <Route path="/editquote" name="editquote" element={<EditQuoteModal />}></Route>
+          <Route path="/editlineitem" name="editlineitem" element={<EditLineItemModal />}></Route>
+          
+         
           <Route
             path="/userdashboard"
             name="Dashboard"
