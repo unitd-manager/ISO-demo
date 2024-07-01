@@ -9,13 +9,11 @@ export default function QuestionmoreDetails({
   questionDetails,
   handleInputs,
   questionType,
-  questionStatus,
   }) {
   QuestionmoreDetails.propTypes = {
     questionDetails: PropTypes.object,
     handleInputs: PropTypes.any,
     questionType: PropTypes.object,
-    questionStatus: PropTypes.object,
       };
 
       const [question, setQuestion] = useState(questionDetails?.question_type || '');
@@ -176,7 +174,7 @@ export default function QuestionmoreDetails({
               <Col md="3">
                 <FormGroup>
                   {/* Section title from section table */}
-                  <Label>Status</Label>
+                  {/* <Label>Status</Label>
                   <Input
                     type="select"
                     name="status"
@@ -192,7 +190,26 @@ export default function QuestionmoreDetails({
                           </option>
                         );
                       })}
-                  </Input>
+                  </Input> */}
+                  <Label>Published</Label>
+                  <br></br>
+                  <Label>Yes</Label>
+                  <Input
+                    name="published"
+                    value="1"
+                    type="radio"
+                    defaultChecked={questionDetails && questionDetails.published === 1 && true}
+                    onChange={handleInputs}
+                  />
+                  <Label>No</Label>
+                  <Input
+                    name="published"
+                    value="0"
+                    type="radio"
+                    defaultChecked={questionDetails && questionDetails.published === 0 && true}
+                    onChange={handleInputs}
+                  />
+
                 </FormGroup>
               </Col>
 
