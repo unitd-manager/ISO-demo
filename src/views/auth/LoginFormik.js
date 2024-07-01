@@ -37,7 +37,7 @@ const LoginFormik = ({ setToken }) => {
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', JSON.stringify(tok.token));
      
-         setToken('123');
+         //setToken('123');
 
         setUser({
           id: '1',
@@ -62,7 +62,7 @@ const LoginFormik = ({ setToken }) => {
         if (res && res.data.status === '401') {
           alert('Invalid Username or Password');
         } else {
-          setToken('123');
+          //setToken('123');
          // navigate('/userdashboard')
           getPermissions(res.data.data,res.data);
         }
