@@ -59,9 +59,7 @@ const ContentUpdate = () => {
   const editContentData = () => {
     console.log(contentDetails);
     if (
-      contentDetails.content_title !== '' &&
-      contentDetails.sub_category_id !== '' &&
-      contentDetails.published !== ''
+      contentDetails.title !== ''
     )
   
     {
@@ -173,7 +171,7 @@ const ContentUpdate = () => {
               </Col>
               <Col md="3">
                 <FormGroup>
-                  <Label> Title </Label>
+                  <Label> Title <span className='required'>*</span></Label>
                   <Input
                     type="text"
                     onChange={handleInputs}
