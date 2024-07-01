@@ -84,7 +84,7 @@ export default function KeyStaffDetails({
             </Col>
             <Col md="3">
               <FormGroup>
-                <Label>Company</Label>
+                <Label>Company<span className='required'>*</span></Label>
                 <Input
                   type="select"
                   name="company_id"

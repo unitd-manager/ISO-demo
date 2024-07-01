@@ -9,6 +9,7 @@ export default function QuestionmoreDetails({
   questionDetails,
   handleInputs,
   questionType,
+  
   }) {
   QuestionmoreDetails.propTypes = {
     questionDetails: PropTypes.object,

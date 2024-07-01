@@ -58,6 +58,7 @@ const ContentDetails = () => {
         insertContentData('');
       });
   };
+  
   return (
     <div>
       <BreadCrumbs />

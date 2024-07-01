@@ -23,6 +23,7 @@ const ContentDetails = () => {
   const handleInputs = (e) => {
     setQuestionDetails({ ...questionDetails, [e.target.name]: e.target.value });
   };
+  
   //getting data from category
   //   const getCategory = () => {
   //     api.get('/questionmanagement/getCategory').then((res) => {

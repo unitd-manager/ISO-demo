@@ -61,7 +61,6 @@ const ContentUpdate = () => {
     if (
       contentDetails.title !== ''
     )
-  
     {
       contentDetails.modification_date = creationdatetime;
       contentDetails.modified_by = loggedInuser.first_name;

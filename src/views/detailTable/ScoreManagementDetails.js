@@ -54,6 +54,7 @@ const StaffDetails = () => {
   const handleInputs = (e) => {
     setStaffDetails({ ...staffdetails, [e.target.name]: e.target.value });
   };
+  
 
   //Api call for Insert Staff Data
   const insertStaffData = () => {
