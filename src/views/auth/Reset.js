@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import {
   Button,
   Label,
@@ -26,7 +26,7 @@ const ResetPassword = () => {
   //const navigate = useNavigate();
   const [token, setToken] = useState(null);
   const location = useLocation();
-
+const navigate=useNavigate();
   const initialValues = {
     password: '',
     confirmPassword: ''
@@ -37,6 +37,9 @@ const sendotp=(value)=>{
           api.post("/api/reset", value)
           .then(() => {
             message('Password has been Changed successfully', 'success');
+setTimeout(()=>{
+  navigate("/login")
+},200);
           })
           .catch(() => {
             message(' Unable to Change the Password', 'error');
@@ -50,12 +53,15 @@ const sendotp=(value)=>{
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
       .required('Confirm Password is required')
   });
+  
   console.log('token',token);
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const tokens = searchParams.get('token');
+    const stringWithoutQuotes = tokens.replace(/"/g, '');
     console.log('tokens',tokens);
-    setToken(tokens);
+    console.log('stringWithoutQuotes',stringWithoutQuotes);
+    setToken(stringWithoutQuotes);
   }, [location]);
   return (
     <div className="loginBox">

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes,Navigate } from 'react-router-dom';
 
 import React, { lazy } from 'react';
 import Loadable from '../layouts/loader/Loadable';
@@ -223,23 +223,14 @@ const PurchaseGstReport=Loadable(lazy(() => import('../views/smartconTables/Purc
 const Routernew = () => {
   const { token, setToken } = UserToken();
 
-  if (!token) {
-    return <LoginFormik setToken={setToken} />;
-  }
+  // if (!token) {
+  //   return <LoginFormik setToken={setToken} />;
+    
+  // }
   return (
     <div>
       <Routes>
-        <Route path="/" element={<FullLayout></FullLayout>}>
-          {/* Tendar Modal */}
-          <Route
-            path="/editcostingsummary"
-            name="editcostingsummary"
-            element={<EditCostingSummaryModal />}
-          ></Route>
-          <Route path="/editquote" name="editquote" element={<EditQuoteModal />}></Route>
-          <Route path="/editlineitem" name="editlineitem" element={<EditLineItemModal />}></Route>
-          
-          <Route
+      <Route
             path="/signup"
             name="signup"
             element={<RegisterFormik />}
@@ -247,7 +238,7 @@ const Routernew = () => {
              <Route
             path="/login"
             name="login"
-            element={<LoginFormik />}
+            element={!token ? <LoginFormik/>:<Navigate to="/userdashboard"/>}
             ></Route>
             
             <Route
@@ -260,226 +251,238 @@ const Routernew = () => {
             name="reset-password"
             element={<ResetPassword />}
             ></Route>
+        <Route path="/" element={<FullLayout></FullLayout>}>
+      
+          {/* Tendar Modal */}
+          <Route
+            path="/editcostingsummary"
+            name="editcostingsummary"
+            element={<EditCostingSummaryModal />}
+          ></Route>
+          <Route path="/editquote" name="editquote" element={<EditQuoteModal />}></Route>
+          <Route path="/editlineitem" name="editlineitem" element={<EditLineItemModal />}></Route>
+          
+         
           <Route
             path="/userdashboard"
             name="Dashboard"
-            element={<ProjectDashboard />}
+            element={token ? <ProjectDashboard /> : <Navigate to="/login" />}
             ></Route>
           <Route
             path="/Enquiry"
             name="enquirydata"
-            element={<EnquiryTable />}
+             element={token ? <EnquiryTable /> : <Navigate to="/login" />}
             ></Route>
                 <Route
             path="/EnquiryDetails"
             name="enquirydata"
-            element={<EnquiryDetailsTable />}
+             element={token ? <EnquiryDetailsTable /> : <Navigate to="/login" />}
             ></Route>
       {/* Table Edit's */}
        
-          <Route path="/ProductEdit/:id" name="productdata" element={<ProductEdit />}></Route>
-          <Route path="/OrdersEdit/:id" name="orderdata" element={<OrdersEdit />}></Route>
-          <Route path="/ContentEdit/:id" name="contentdata" element={<ContentEdit />}></Route>
-          <Route path="/ISOcodeEdit/:id" name="contentdata" element={<ISOcodeEdit />}></Route>
-          <Route path="/CustomerEdit/:id" name="customerdata" element={<CustomerEdit />}></Route>
-          <Route path="/BlogEdit/:id" name="blogdata" element={<BlogEdit />}></Route>
-          <Route path="/InventoryEdit/:id" name="inventorydata" element={<InventoryEdit />}></Route>
-                   <Route path="/SupplierEdit/:id" name="supplierdata" element={<SupplierEdit />}></Route>
-          <Route path="/sectionEdit/:id" name="sectiondata" element={<SectionEdit />}></Route>
-          <Route path="/QuestionManagementEdit/:id" name="contentdata" element={<QuestionManagementEdit />}></Route>
+          <Route path="/ProductEdit/:id" name="productdata"  element={token ? <ProductEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/OrdersEdit/:id" name="orderdata"  element={token ? <OrdersEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/ContentEdit/:id" name="contentdata"  element={token ? <ContentEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/ISOcodeEdit/:id" name="contentdata"  element={token ? <ISOcodeEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/CustomerEdit/:id" name="customerdata"  element={token ? <CustomerEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/BlogEdit/:id" name="blogdata"  element={token ? <BlogEdit /> : <Navigate to="/login" />} ></Route>
+          <Route path="/InventoryEdit/:id" name="inventorydata"  element={token ? <InventoryEdit /> : <Navigate to="/login" />}></Route>
+                   <Route path="/SupplierEdit/:id" name="supplierdata"  element={token ? <SupplierEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/sectionEdit/:id" name="sectiondata"  element={token ? <SectionEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/QuestionManagementEdit/:id" name="contentdata"  element={token ? <QuestionManagementEdit /> : <Navigate to="/login" />} ></Route>
           
           
-          <Route path="/Login/:id" name="logindata" element={<Login />}></Route>
-          <Route path="/ValueListEdit/:id" name="valuelistdata" element={<ValueListEdit />}></Route>
+          <Route path="/Login/:id" name="logindata"  element={token ? <Login /> : <Navigate to="/login" />}></Route>
+          <Route path="/ValueListEdit/:id" name="valuelistdata"  element={token ? <ValueListEdit /> : <Navigate to="/login" />}></Route>
           <Route
             path="/SubCategoryEdit/:id"
             name="subcategorydata"
-            element={<SubCategoryEdit />}
+             element={token ? <SubCategoryEdit /> : <Navigate to="/login" />}
           ></Route>
-          <Route path="/CategoryEdit/:id" name="categorydata" element={<CategoryEdit />}></Route>
-          <Route path="/StaffEdit/:id" name="staffdata" element={<StaffEdit />}></Route>
-          <Route path="/ScoreManagementEdit/:id" name="scoreManagementdata" element={<ScoreManagementEdit />}></Route>
+          <Route path="/CategoryEdit/:id" name="categorydata" element={token ? <CategoryEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/StaffEdit/:id" name="staffdata"  element={token ? <StaffEdit /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ScoreManagementEdit/:id" name="scoreManagementdata"  element={token ? <ScoreManagementEdit /> : <Navigate to="/login" />}></Route>
 
-          <Route path="/SupportEdit/:id" name="supportdata" element={<SupportEdit />}></Route>
-          <Route path="/SettingEdit/:id" name="settingdata" element={<SettingEdit />}></Route>
-          <Route path="/UserGroupEdit/:id" name="usergroupdata" element={<UserGroupEdit />}></Route>
-          <Route path="/PurchaseOrder" name="purchaseorderdata" element={<PurchaseOrderTable />}></Route>
+          <Route path="/SupportEdit/:id" name="supportdata"  element={token ? <SupportEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/SettingEdit/:id" name="settingdata"  element={token ? <SettingEdit /> : <Navigate to="/login" />} ></Route>
+          <Route path="/UserGroupEdit/:id" name="usergroupdata"  element={token ? <UserGroupEdit /> : <Navigate to="/login" />} ></Route>
+          <Route path="/PurchaseOrder" name="purchaseorderdata"  element={token ? <PurchaseOrderTable /> : <Navigate to="/login" />} ></Route>
           <Route
             path="/EnquiryEdit/:id"
             name="enquiryeditdata"
-            element={<EnquiryEdit />}
+             element={token ? <EnquiryEdit /> : <Navigate to="/login" />}
           ></Route>
 
           {/* Supplier Modal */}
           
-          <Route path="/pdf/:id" name="pdfData" element={<PdfData />}></Route>
-          <Route path="/pdfnext" name="pdfData" element={<PdfNext />}></Route>
-          <Route path="/TicketsComponent" name="pdfData" element={<TicketsComponent />}></Route>
-           <Route path="/" element={<Classic />} />
-          <Route path="/dashboards/crypto" name="Classic" element={<Crypto />}></Route>
-          <Route path="/dashboards/ecommerce" name="ecommerce" element={<Ecommerce />}></Route>
-          <Route path="/dashboards/general" name="general" element={<General />}></Route>
-          <Route path="/dashboards/extra" name="extra" element={<Extra />}></Route>
-          <Route path="/about" name="about" element={<About />}></Route>
-          <Route path="/apps/notes" name="notes" element={<Notes />}></Route>
-          <Route path="/apps/chat" name="chat" element={<Chat />}></Route>
-          <Route path="/apps/contacts" name="contacts" element={<Contacts />}></Route>
-          <Route path="/apps/calendar" name="calendar" element={<Calendar />}></Route>
-          <Route path="/apps/email" name="email" element={<Email />}></Route>
-          <Route path="/ecom/shop" name="email" element={<Shop />}></Route>
-          <Route path="/ecom/shopdetail" name="email" element={<ShopDetail />}></Route>
-          <Route path="/tickt/ticket-list" name="ticket list" element={<TicketList />}></Route>
+          <Route path="/pdf/:id" name="pdfData"  element={token ? <PdfData /> : <Navigate to="/login" />} ></Route>
+          <Route path="/pdfnext" name="pdfData"  element={token ? <PdfNext /> : <Navigate to="/login" />} ></Route>
+          <Route path="/TicketsComponent" name="pdfData"  element={token ? <TicketsComponent /> : <Navigate to="/login" />} ></Route>
+           <Route path="/"  element={token ? <Classic /> : <Navigate to="/login" />} />
+          <Route path="/dashboards/crypto" name="Classic"  element={token ? <Crypto /> : <Navigate to="/login" />}></Route>
+          <Route path="/dashboards/ecommerce" name="ecommerce"  element={token ? <Ecommerce /> : <Navigate to="/login" />}></Route>
+          <Route path="/dashboards/general" name="general"  element={token ? <General /> : <Navigate to="/login" />}></Route>
+          <Route path="/dashboards/extra" name="extra"  element={token ? <Extra /> : <Navigate to="/login" />}></Route>
+          <Route path="/about" name="about"  element={token ? <About /> : <Navigate to="/login" />}></Route>
+          <Route path="/apps/notes" name="notes"  element={token ? <Notes /> : <Navigate to="/login" />}></Route>
+          <Route path="/apps/chat" name="chat"  element={token ? <Chat /> : <Navigate to="/login" />}></Route>
+          <Route path="/apps/contacts" name="contacts"  element={token ? <Contacts /> : <Navigate to="/login" />}></Route>
+          <Route path="/apps/calendar" name="calendar"  element={token ? <Calendar /> : <Navigate to="/login" />}></Route>
+          <Route path="/apps/email" name="email"  element={token ? <Email /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ecom/shop" name="email"  element={token ? <Shop /> : <Navigate to="/login" />}></Route>
+          <Route path="/ecom/shopdetail" name="email"  element={token ? <ShopDetail /> : <Navigate to="/login" />}></Route>
+          <Route path="/tickt/ticket-list" name="ticket list"  element={token ? <TicketList /> : <Navigate to="/login" />} ></Route>
        
           <Route
             path="/tickt/ticket-detail"
             name="ticket detail"
-            element={<TicketDetail />}
+             element={token ? <TicketDetail /> : <Navigate to="/login" />}
           ></Route>
-          <Route path="/apps/treeview" name="email" element={<Treeview />}></Route>
-          <Route path="/ui/alerts" name="alerts" element={<Alerts />}></Route>
-          <Route path="/ui/badges" name="badges" element={<Badges />}></Route>
-          <Route path="/ui/buttons" name="buttons" element={<Buttons />}></Route>
-          <Route path="/ui/cards" name="cards" element={<Cards />}></Route>
-          <Route path="/ui/grid" name="grid" element={<Grid />}></Route>
-          <Route path="/ui/table" name="table" element={<Tables />}></Route>
-          <Route path="/ui/forms" name="forms" element={<Forms />}></Route>
-          <Route path="/ui/breadcrumbs" name="breadcrumbs" element={<Breadcrumbs />}></Route>
-          <Route path="/ui/dropdown" name="dropdown" element={<Dropdowns />}></Route>
-          <Route path="/ui/button-group" name="button group" element={<BtnGroup />}></Route>
-          <Route path="/ui/collapse" name="collapse" element={<Collapse />}></Route>
-          <Route path="/ui/list-group" name="list-group" element={<ListGroup />}></Route>
-          <Route path="/ui/modal" name="modal" element={<Modal />}></Route>
-          <Route path="/ui/navbar" name="navbar" element={<Navbar />}></Route>
-          <Route path="/ui/nav" name="nav" element={<Nav />}></Route>
-          <Route path="/ui/pagination" name="pagination" element={<Pagination />}></Route>
-          <Route path="/ui/popover" name="popover" element={<Popover />}></Route>
-          <Route path="/ui/progress" name="progress" element={<Progress />}></Route>
-          <Route path="/ui/spinner" name="spinner" element={<Spinner />}></Route>
-          <Route path="/ui/tabs" name="tabs" element={<Tabs />}></Route>
-          <Route path="/ui/toasts" name="toasts" element={<Toasts />}></Route>
-          <Route path="/ui/tooltip" name="tooltip" element={<Tooltip />}></Route>
-          <Route path="/form-layout/form-basic" name="form-basic" element={<FormBasic />}></Route>
-          <Route path="/form-layout/form-grid" name="form-grid" element={<FormGrid />}></Route>
-          <Route path="/form-layout/form-group" name="form-group" element={<FormGroup />}></Route>
-          <Route path="/form-layout/form-input" name="form-input" element={<FormInput />}></Route>
-          <Route path="/form-pickers/datepicker" name="datepicker" element={<Datepicker />} />
-          <Route path="/form-pickers/tag-select" name="tag-select" element={<TagSelect />}></Route>
-          <Route path="/form-validation" name="form-validation" element={<FormValidate />}></Route>
-          <Route path="/form-steps" name="form-steps" element={<FormSteps />}></Route>
-          <Route path="/form-editor" name="form-editor" element={<FormEditor />}></Route>
+          <Route path="/apps/treeview" name="email"  element={token ? <Treeview /> : <Navigate to="/login" />}></Route>
+          <Route path="/ui/alerts" name="alerts"  element={token ? <Alerts /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/badges" name="badges"  element={token ? <Badges /> : <Navigate to="/login" />}></Route>
+          <Route path="/ui/buttons" name="buttons"  element={token ? <Buttons /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/cards" name="cards"  element={token ? <Cards /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/grid" name="grid"  element={token ? <Grid /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/table" name="table"  element={token ? <Tables /> : <Navigate to="/login" />}></Route>
+          <Route path="/ui/forms" name="forms"  element={token ? <Forms /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/breadcrumbs" name="breadcrumbs"  element={token ? <Breadcrumbs /> : <Navigate to="/login" />}></Route>
+          <Route path="/ui/dropdown" name="dropdown"  element={token ? <Dropdowns /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/button-group" name="button group"  element={token ? <BtnGroup /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/collapse" name="collapse"  element={token ? <Collapse /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/list-group" name="list-group"  element={token ? <ListGroup /> : <Navigate to="/login" />}></Route>
+          <Route path="/ui/modal" name="modal"  element={token ? <Modal /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/navbar" name="navbar"  element={token ? <Navbar /> : <Navigate to="/login" />}></Route>
+          <Route path="/ui/nav" name="nav"  element={token ? <Nav /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/pagination" name="pagination"  element={token ? <Pagination /> : <Navigate to="/login" />}></Route>
+          <Route path="/ui/popover" name="popover"  element={token ? <Popover /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/progress" name="progress"  element={token ? <Progress /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/spinner" name="spinner"  element={token ? <Spinner /> : <Navigate to="/login" />}></Route>
+          <Route path="/ui/tabs" name="tabs"  element={token ? <Tabs /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/toasts" name="toasts"  element={token ? <Toasts /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ui/tooltip" name="tooltip"  element={token ? <Tooltip /> : <Navigate to="/login" />} ></Route>
+          <Route path="/form-layout/form-basic" name="form-basic"  element={token ? <FormBasic /> : <Navigate to="/login" />} ></Route>
+          <Route path="/form-layout/form-grid" name="form-grid"  element={token ? <FormGrid /> : <Navigate to="/login" />} ></Route>
+          <Route path="/form-layout/form-group" name="form-group"  element={token ? <FormGroup /> : <Navigate to="/login" />} ></Route>
+          <Route path="/form-layout/form-input" name="form-input"  element={token ? <FormInput /> : <Navigate to="/login" />} ></Route>
+          <Route path="/form-pickers/datepicker" name="datepicker"  element={token ? <Datepicker /> : <Navigate to="/login" />} />
+          <Route path="/form-pickers/tag-select" name="tag-select"  element={token ? <TagSelect /> : <Navigate to="/login" />} ></Route>
+          <Route path="/form-validation" name="form-validation"  element={token ? <FormValidate /> : <Navigate to="/login" />} ></Route>
+          <Route path="/form-steps" name="form-steps"  element={token ? <FormSteps /> : <Navigate to="/login" />} ></Route>
+          <Route path="/form-editor" name="form-editor"  element={token ? <FormEditor /> : <Navigate to="/login" />} ></Route>
 
-          <Route path="/tables/basic-table" name="basic-table" element={<Basictable />}></Route>
-          <Route path="/tables/react-table" name="react-table" element={<CustomReactTable />} />
-          <Route path="/tables/data-table" name="data-table" element={<ReactBootstrapTable />} />
-          <Route path="/charts/apex" name="apex" element={<ApexCharts />}></Route>
-          <Route path="/charts/chartjs" name="chartjs" element={<ChartJs />}></Route>
-          <Route path="/sample-pages/profile" name="profile" element={<Profile />}></Route>
-          <Route path="/sample-pages/helper-class" name="helper-class" element={<HelperClass />} />
-          <Route path="/sample-pages/starterkit" name="starterkit" element={<StarterKit />} />
-          <Route path="/sample-pages/gallery" name="gallery" element={<Gallery />}></Route>
+          <Route path="/tables/basic-table" name="basic-table"  element={token ? <Basictable /> : <Navigate to="/login" />}></Route>
+          <Route path="/tables/react-table" name="react-table"  element={token ? <CustomReactTable /> : <Navigate to="/login" />} />
+          <Route path="/tables/data-table" name="data-table"  element={token ? <ReactBootstrapTable /> : <Navigate to="/login" />}  />
+          <Route path="/charts/apex" name="apex"  element={token ? <ApexCharts /> : <Navigate to="/login" />} ></Route>
+          <Route path="/charts/chartjs" name="chartjs"  element={token ? <ChartJs /> : <Navigate to="/login" />}></Route>
+          <Route path="/sample-pages/profile" name="profile"  element={token ? <Profile /> : <Navigate to="/login" />}></Route>
+          <Route path="/sample-pages/helper-class" name="helper-class"  element={token ? <HelperClass /> : <Navigate to="/login" />} />
+          <Route path="/sample-pages/starterkit" name="starterkit"  element={token ? <StarterKit /> : <Navigate to="/login" />} />
+          <Route path="/sample-pages/gallery" name="gallery"  element={token ? <Gallery /> : <Navigate to="/login" />}></Route>
           <Route
             path="/sample-pages/search-result"
             name="search-result"
-            element={<SearchResult />}
+             element={token ? <SearchResult /> : <Navigate to="/login" />}
           />
-          <Route path="/icons/bootstrap" name="bootstrap" element={<Bootstrap />}></Route>
-          <Route path="/icons/feather" name="feather" element={<Feather />}></Route>
-          <Route path="/map/vector" name="vector" element={<CustomVectorMap />}></Route>
-          <Route path="/widget" name="widget" element={<Widget />}></Route>
-          <Route path="/casl" name="casl" element={<CASL />}></Route>
-          <Route path="/auth/404" name="404" element={<Error />}></Route>
-          <Route path="/projects/addproject" name="addproject" element={<AddProjects />}></Route>
+          <Route path="/icons/bootstrap" name="bootstrap"  element={token ? <Bootstrap /> : <Navigate to="/login" />}></Route>
+          <Route path="/icons/feather" name="feather"  element={token ? <Feather /> : <Navigate to="/login" />} ></Route>
+          <Route path="/map/vector" name="vector"  element={token ? <CustomVectorMap /> : <Navigate to="/login" />} ></Route>
+          <Route path="/widget" name="widget"  element={token ? <Widget /> : <Navigate to="/login" />} ></Route>
+          <Route path="/casl" name="casl"  element={token ? <CASL /> : <Navigate to="/login" />} ></Route>
+          <Route path="/auth/404" name="404"  element={token ? <Error /> : <Navigate to="/login" />} ></Route>
+          <Route path="/projects/addproject" name="addproject"  element={token ? <AddProjects /> : <Navigate to="/login" />} ></Route>
           <Route
             path="/projects/editproject/:id"
             name="editproject"
-            element={<EditProject />}
+             element={token ? <EditProject /> : <Navigate to="/login" />}
           ></Route>
-          <Route path="/projects/projectreport" name="projectreport" element={<Reports />}></Route>
-          <Route path="/OverAllSalesSummaryReport" name="overallsummarydata" element={<OverallSalesReportTable />}></Route>
-          <Route path="/InvoiceByYear" name="invoicebyeardata" element={<InvoiceByYearTable />}></Route>
+          <Route path="/projects/projectreport" name="projectreport"  element={token ? <Reports /> : <Navigate to="/login" />} ></Route>
+          <Route path="/OverAllSalesSummaryReport" name="overallsummarydata"  element={token ? <OverallSalesReportTable /> : <Navigate to="/login" />}></Route>
+          <Route path="/InvoiceByYear" name="invoicebyeardata"  element={token ? <InvoiceByYearTable /> : <Navigate to="/login" />} ></Route>
           {/* Tender */}
-          <Route path="/BlogDetails" name="blogDetaildata" element={<BlogDetailsTable />}></Route>
-          <Route path="/SupplierDetails" name="supplierDetaildata" element={<SupplierDetailsTable />}></Route>
-          <Route path="/Task" name="taskdata" element={<TaskTable />}></Route>
-          <Route path="/Staff" name="staffdata" element={<StaffTable />}></Route>
-          <Route path="/ScoreManagement" name="scoreManagementdata" element={<ScoreManagementTable />}></Route>
+          <Route path="/BlogDetails" name="blogDetaildata"  element={token ? <BlogDetailsTable /> : <Navigate to="/login" />}></Route>
+          <Route path="/SupplierDetails" name="supplierDetaildata"  element={token ? <SupplierDetailsTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/Task" name="taskdata"  element={token ? <TaskTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/Staff" name="staffdata"  element={token ? <StaffTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ScoreManagement" name="scoreManagementdata"  element={token ? <ScoreManagementTable /> : <Navigate to="/login" />} ></Route>
 
-          <Route path="/ProductDetails" name="productDetaildata" element={<ProductDetailsTable />}></Route>
-          <Route path="/StaffDetails" name="staffDetaildata" element={<StaffDetails />}></Route>
-          <Route path="/ScoreManagementDetails" name="scoreManagementDetaildata" element={<ScoreManagementDetails />}></Route>
+          <Route path="/ProductDetails" name="productDetaildata"  element={token ? <ProductDetailsTable /> : <Navigate to="/login" />}></Route>
+          <Route path="/StaffDetails" name="staffDetaildata"  element={token ? <StaffDetails /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ScoreManagementDetails" name="scoreManagementDetaildata"  element={token ? <ScoreManagementDetails /> : <Navigate to="/login" />} ></Route>
 
-          <Route path="/Product" name="productdata" element={<ProductTable />}></Route>
-          <Route path="/Orders" name="ordersdata" element={<FinanceTable />}></Route>
+          <Route path="/Product" name="productdata"  element={token ? <ProductTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/Orders" name="ordersdata"  element={token ? <FinanceTable /> : <Navigate to="/login" />}> </Route>
           <Route
             path="/PurchaseOrderEdit/:id"
             name="purchaseorderdata"
-            element={<PurchaseOrderEdit />}
+             element={token ? <PurchaseOrderEdit /> : <Navigate to="/login" />}
           ></Route>
-          <Route path="/Blog" name="blogdata" element={<Blog />}></Route>
-          <Route path="/Inventory" name="inventorydata" element={<Inventory />}></Route>
-          <Route path="/SubCategory" name="subcategorydata" element={<SubCategoryTable />}></Route>
-          <Route path="/ProjectReport" name="projectdata" element={<ProjectReportTable />}></Route>
+          <Route path="/Blog" name="blogdata"  element={token ? <Blog /> : <Navigate to="/login" />}></Route>
+          <Route path="/Inventory" name="inventorydata"  element={token ? <Inventory /> : <Navigate to="/login" />}></Route>
+          <Route path="/SubCategory" name="subcategorydata"  element={token ? <SubCategoryTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/ProjectReport" name="projectdata"  element={token ? <ProjectReportTable /> : <Navigate to="/login" />} ></Route>
           <Route
             path="/SubCategoryDetails"
             name="subcategorydetailsdata"
-            element={<SubCategoryDetailsTable />}
+             element={token ? <SubCategoryDetailsTable /> : <Navigate to="/login" />}
           ></Route>
 
-          <Route path="/Valuelist" name="valuelistdata" element={<ValuelistTable />}></Route>
+          <Route path="/Valuelist" name="valuelistdata"  element={token ? <ValuelistTable /> : <Navigate to="/login" />}></Route>
           <Route
             path="/ValuelistDetails"
             name="valuelistdetailsdata"
-            element={<ValuelistDetailsTable />}
+             element={token ? <ValuelistDetailsTable /> : <Navigate to="/login" />} 
           ></Route>
              <Route
             path="/PurchaseOrderDetail"
             name="purchaseorderdetaildata"
-            element={<PurchaseOrderDetailTable />}
+             element={token ? <PurchaseOrderDetailTable /> : <Navigate to="/login" />}
           ></Route>
-          <Route path="/Section" name="sectiondata" element={<Section />}></Route>
-          <Route path="/SectionDetails" name="sectiondetaildata" element={<SectionDetails />}></Route>
-          <Route path="/Setting" name="settingdata" element={<SettingTable />}></Route>
-          <Route path="/SettingDetails" name="settingdetaildata" element={<SettingDetails />}></Route>
-          <Route path="/Category" name="categorydata" element={<CategoryTable />}></Route>
-          <Route path="/CategoryDetails" name="categorydetailsdata" element={<CategoryDetails />}></Route>
-          <Route path="/UserGroup" name="usergroupdata" element={<UserGroupTable />}></Route>
-          <Route path="/UserGroupDetails" name="usergroupdetailsdata" element={<UserGroupDetails />}></Route>
+          <Route path="/Section" name="sectiondata"  element={token ? <Section /> : <Navigate to="/login" />}></Route>
+          <Route path="/SectionDetails" name="sectiondetaildata"  element={token ? <SectionDetails /> : <Navigate to="/login" />}></Route>
+          <Route path="/Setting" name="settingdata"  element={token ? <SettingTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/SettingDetails" name="settingdetaildata"  element={token ? <SettingDetails /> : <Navigate to="/login" />} ></Route>
+          <Route path="/Category" name="categorydata"  element={token ? <CategoryTable /> : <Navigate to="/login" />}></Route>
+          <Route path="/CategoryDetails" name="categorydetailsdata"  element={token ? <CategoryDetails /> : <Navigate to="/login" />}></Route>
+          <Route path="/UserGroup" name="usergroupdata"  element={token ? <UserGroupTable /> : <Navigate to="/login" />}></Route>
+          <Route path="/UserGroupDetails" name="usergroupdetailsdata"  element={token ? <UserGroupDetails /> : <Navigate to="/login" />}></Route>
         
-          <Route path="/Content" name="contentdata" element={<Content />}></Route>
-          <Route path="/ISOCodes" name="contentdata" element={<ISOcodesManagement />}></Route>
-          <Route path="/Customer" name="customerdata" element={<Customer />}></Route>
+          <Route path="/Content" name="contentdata"  element={token ? <Content /> : <Navigate to="/login" />}></Route>
+          <Route path="/ISOCodes" name="contentdata"  element={token ? <ISOcodesManagement /> : <Navigate to="/login" />}></Route>
+          <Route path="/Customer" name="customerdata"  element={token ? <Customer /> : <Navigate to="/login" />} ></Route>
           <Route
             path="/ContentDetails"
             name="contentdetailsdata"
-            element={<ContentDetailsTable />}
+             element={token ? <ContentDetailsTable /> : <Navigate to="/login" />} 
           ></Route>
           <Route
             path="/ISOcodeDetail"
             name="detailsdata"
-            element={<ISOcodeDetail />}
+             element={token ? <ISOcodeDetail /> : <Navigate to="/login" />}
           ></Route>
            <Route
             path="/CustomerDetails"
             name="customerdetailsdata"
-            element={<CustomerDetailsTable />}
+             element={token ? <CustomerDetailsTable /> : <Navigate to="/login" />}
           ></Route>
-          <Route path="/test" name="testdata" element={<TestTable />}></Route>
-          <Route path="/Support" name="supportdata" element={<Support />}></Route>
-          <Route path="/SupportNew" name="supportnewdata" element={<SupportNewTable />}></Route>
-          <Route path="/SupportDetails" name="supportdetailsdata" element={<SupportDetails />}></Route>
+          <Route path="/test" name="testdata"  element={token ? <TestTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/Support" name="supportdata"  element={token ? <Support /> : <Navigate to="/login" />} ></Route>
+          <Route path="/SupportNew" name="supportnewdata"  element={token ? <SupportNewTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/SupportDetails" name="supportdetailsdata"  element={token ? <SupportDetails /> : <Navigate to="/login" />} ></Route>
         
-          <Route path="/Employeetrainingreports" name="employeetrainingreportdata" element={<EmployeetrainingreportsTable />}></Route>
-          <Route path="/StatementofAccountsReport" name="statementofAccountsreportdata" element={<StatementofAccountsReport />}></Route>
-          <Route path="/AgingReports" name="agingReportdata" element={<AgingReportsTable />}></Route>
-          <Route path="/CpfSummaryreports" name="cpfsummaryreportdata" element={<CpfSummaryReports />}></Route>
-          <Route path="/InvoiceByMonth" name="invoicemonthdata" element={<InvoiceByMonth />}></Route>
-          <Route path="/EmployeeSalaryReport" name="employeesalarydata" element={<EmployeeSalaryReport />}></Route>
-          <Route path="/PayslipGeneratedReports" name="payslipdata" element={<PayslipGeneratedReports />}></Route>
-          <Route path="/IR8AReport" name="ir8areportdata" element={<IR8AReport />}></Route>
-          <Route path="/PurchaseGstReport" name="purchasegstreportdata" element={<PurchaseGstReport />}></Route>
-          <Route path="/Supplier" name="supplierdata" element={<SupplierTable />}></Route>
-          <Route path="/QuestionManagement" name="questionmanagementdata" element={<QuestionManagement />}></Route>
-          <Route path="/QuestionManagementDetails" name="questionmanagementdata" element={<QuestionManagementDetails />}></Route>
+          <Route path="/Employeetrainingreports" name="employeetrainingreportdata"  element={token ? <EmployeetrainingreportsTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/StatementofAccountsReport" name="statementofAccountsreportdata"  element={token ? <StatementofAccountsReport /> : <Navigate to="/login" />} ></Route>
+          <Route path="/AgingReports" name="agingReportdata"  element={token ? <AgingReportsTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/CpfSummaryreports" name="cpfsummaryreportdata"  element={token ? <CpfSummaryReports /> : <Navigate to="/login" />}></Route>
+          <Route path="/InvoiceByMonth" name="invoicemonthdata"  element={token ? <InvoiceByMonth /> : <Navigate to="/login" />} ></Route>
+          <Route path="/EmployeeSalaryReport" name="employeesalarydata"  element={token ? <EmployeeSalaryReport /> : <Navigate to="/login" />}></Route>
+          <Route path="/PayslipGeneratedReports" name="payslipdata"  element={token ? <PayslipGeneratedReports /> : <Navigate to="/login" />} ></Route>
+          <Route path="/IR8AReport" name="ir8areportdata"  element={token ? <IR8AReport /> : <Navigate to="/login" />} ></Route>
+          <Route path="/PurchaseGstReport" name="purchasegstreportdata"  element={token ? <PurchaseGstReport /> : <Navigate to="/login" />} ></Route>
+          <Route path="/Supplier" name="supplierdata"  element={token ? <SupplierTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/QuestionManagement" name="questionmanagementdata"  element={token ? <QuestionManagement /> : <Navigate to="/login" />} ></Route>
+          <Route path="/QuestionManagementDetails" name="questionmanagementdata"  element={token ? <QuestionManagementDetails /> : <Navigate to="/login" />} ></Route>
         </Route>
 
         
