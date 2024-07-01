@@ -28,7 +28,12 @@ const Header = () => {
   const isDarkMode = useSelector((state) => state.customizer.isDark);
   const topbarColor = useSelector((state) => state.customizer.topbarBg);
   const dispatch = useDispatch();
-
+  const logout=()=>{
+    localStorage.clear()
+    setTimeout(()=>{
+      window.location.reload()
+    },200)
+  }
   return (
     <Navbar
       color={topbarColor}
@@ -146,7 +151,7 @@ const Header = () => {
           <DropdownMenu className="ddWidth">
             <ProfileDD />
             <div className="p-2 px-3">
-              <Button color="danger" size="sm">
+              <Button color="danger" onClick={logout} size="sm">
                 Logout
               </Button>
             </div>
