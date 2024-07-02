@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   Form,
@@ -28,13 +28,15 @@ import StaffButton from '../../components/ScoreManage/StaffButton';
 import creationdatetime from '../../constants/creationdatetime';
 import Tab from '../../components/ScoreManage/Tab';
 import './StaffEdit.css'; // Custom CSS for further styling
+import AppContext from '../../context/AppContext';
 
 import BarChart from './BarChart';
 import CategoryChart from '../../components/ScoreManage/CategoryChartss'; 
 
 const StaffEdit = () => {
   // All state variables
-  const [staffeditdetails, setStaffEditDetails] = useState('');
+  const [staffeditdetails, setStaffEditDetails] = useState({company_id: '',
+    iso_code_id: ''});
   const [scoreHistory, setScoreHistory] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -45,6 +47,7 @@ const StaffEdit = () => {
   // Navigation and Parameter Constants
   const { id } = useParams();
   const navigate = useNavigate();
+  const { loggedInuser } = useContext(AppContext);
 
   const tabs = [
     { id: '1', name: 'Score History' },
@@ -124,7 +127,12 @@ const StaffEdit = () => {
 
   // Api call for Editing Staff Details
   const editStaffData = () => {
+    if (
+      staffeditdetails.company_id !== '' && staffeditdetails.iso_code_id !== ''
+    )
+    {
     staffeditdetails.modification_date = creationdatetime;
+    staffeditdetails.modified_by = loggedInuser.first_name;
 
     api
       .post('/score/editScore', staffeditdetails)
@@ -135,7 +143,13 @@ const StaffEdit = () => {
       .catch(() => {
         message('Unable to edit record.', 'error');
       });
+    }else {
+      message('Please fill all required fields', 'warning');
+    }
   };
+  console.log('iso',staffeditdetails.iso_code_id);
+  console.log('company',staffeditdetails.company_id);
+
 
   // Api call for getting Score History Data
   const fetchScoreHistory = () => {
@@ -390,5 +404,6 @@ const StaffEdit = () => {
     </>
   );
 };
+
 
 export default StaffEdit;

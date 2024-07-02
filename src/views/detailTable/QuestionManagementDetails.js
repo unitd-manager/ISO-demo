@@ -15,11 +15,15 @@ const ContentDetails = () => {
   const [category, setCategory] = useState();
   const { loggedInuser } = useContext(AppContext);
   const navigate = useNavigate();
-  const [questionDetails, setQuestionDetails] = useState([]);
+  const [questionDetails, setQuestionDetails] = useState({
+    category_id: '',
+    question: ''
+  });
   //setting data in questionDetails
   const handleInputs = (e) => {
     setQuestionDetails({ ...questionDetails, [e.target.name]: e.target.value });
   };
+  
   //getting data from category
   //   const getCategory = () => {
   //     api.get('/questionmanagement/getCategory').then((res) => {
@@ -35,7 +39,8 @@ const ContentDetails = () => {
   };
   //Insert Content Data
   const insertQuestion = () => {
-    if (questionDetails.title !== '') {
+    if (questionDetails.category_id !== '' && 
+      questionDetails.question !== '' ) {
       questionDetails.creation_date = creationdatetime;
       questionDetails.created_by = loggedInuser.first_name;
       api
@@ -51,7 +56,7 @@ const ContentDetails = () => {
           message('Network connection error.', 'error');
         });
     } else {
-      message('Please fill all required fields.', 'error');
+      message('Please fill all required fields.', 'warning');
     }
   };
   useEffect(() => {
@@ -72,14 +77,14 @@ const ContentDetails = () => {
 
             <Row>
               <Col md="12">
-                <Label>Category</Label>
+                <Label>Category<span className='required'>*</span></Label>
                 <Input
                   type="select"
                   onChange={handleInputs}
                   value={questionDetails && questionDetails.category_id}
                   name="category_id"
                 >
-                  <option value="selected">Please Select</option>
+                  <option value=''>Please Select</option>
                   {category &&
                     category.map((e) => {
                       return (
@@ -95,7 +100,7 @@ const ContentDetails = () => {
 
             <Row>
               <Col md="12">
-                <Label>Question</Label>
+                <Label>Question <span className='required'>*</span></Label>
                 <Input
                   type="textarea"
                   onChange={handleInputs}

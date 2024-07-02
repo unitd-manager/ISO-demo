@@ -59,11 +59,8 @@ const ContentUpdate = () => {
   const editContentData = () => {
     console.log(contentDetails);
     if (
-      contentDetails.content_title !== '' &&
-      contentDetails.sub_category_id !== '' &&
-      contentDetails.published !== ''
+      contentDetails.title !== ''
     )
-  
     {
       contentDetails.modification_date = creationdatetime;
       contentDetails.modified_by = loggedInuser.first_name;
@@ -173,7 +170,7 @@ const ContentUpdate = () => {
               </Col>
               <Col md="3">
                 <FormGroup>
-                  <Label> Title </Label>
+                  <Label> Title <span className='required'>*</span></Label>
                   <Input
                     type="text"
                     onChange={handleInputs}
