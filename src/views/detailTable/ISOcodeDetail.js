@@ -64,7 +64,7 @@ const ContentDetails = () => {
       <ToastContainer></ToastContainer>
       <Row>
         <Col md="6">
-          <ComponentCard title="Key Details">
+          <ComponentCard title="ISO Details">
             <Form>
               <FormGroup>
                 <Row>
