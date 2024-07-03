@@ -14,6 +14,7 @@ import creationdatetime from '../../constants/creationdatetime';
 const ContentUpdate = () => {
   // All state variables
   const [contentDetails, setContentDetails] = useState();
+  const [allcountries, setAllCountries] = useState();
 
   // Navigation and Parameter Constants
   const { id } = useParams();
@@ -24,7 +25,16 @@ const ContentUpdate = () => {
     setContentDetails({ ...contentDetails, [e.target.name]: e.target.value });
   };
   //setting data in Description Modal contentDetails
-
+  const getAllCountries = () => {
+    api
+      .get('/contact/getCountry')
+      .then((res) => {
+        setAllCountries(res.data.data);
+      })
+      .catch(() => {
+        //message('Country Data Not Found', 'info');
+      });
+  };
 
   // Get content data By content id
   const getContentById = () => {
@@ -58,6 +68,7 @@ const ContentUpdate = () => {
 
   useEffect(() => {
     getContentById();
+    getAllCountries();
   }, [id]);
 
   return (
@@ -178,16 +189,27 @@ const ContentUpdate = () => {
                 </FormGroup>
               </Col>
               <Col md="3">
-                <FormGroup>
-                <Label>Country</Label>
-                  <Input
-                    type="text"
-                    onChange={handleInputs}
-                    value={contentDetails && contentDetails.address_country}
-                    name="address_country"
-                  />
-                </FormGroup>
-              </Col>        
+              <FormGroup>
+              <Label>Country</Label>
+              <Input
+                type="select"
+                name="address_country"
+                onChange={handleInputs}
+                value={contentDetails && contentDetails.address_country}
+              >
+                <option defaultValue="selected" value="">
+                  Please Select
+                </option>
+                {allcountries &&
+                  allcountries.map((country) => (
+                    <option key={country.country_code} value={country.country_code}>
+                      {country.name}
+                    </option>
+                  ))}
+              </Input>
+            </FormGroup>
+          </Col>
+                 
             </Row>
           </ComponentCard>
           </FormGroup>
