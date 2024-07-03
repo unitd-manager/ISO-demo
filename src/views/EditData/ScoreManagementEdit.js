@@ -48,8 +48,7 @@ const StaffEdit = () => {
 
   const tabs = [
     { id: '1', name: 'Score History' },
-    { id: '2', name: 'Score Summary' },
-    { id: '3', name: 'Category Wise Chart' },
+    { id: '2', name: 'Analytics' },
   ];
   const [activeTab, setActiveTab] = useState('1');
 
@@ -379,10 +378,9 @@ const StaffEdit = () => {
                   totalQuestion={questions.length}
                   correctCount={scoreHistory.filter(item => correctAnswers[item.question_id] === item.answer).length}
                 />
-              </TabPane>
-              <TabPane tabId="3">
                 <CategoryChart categories={categories} />
               </TabPane>
+             
             </TabContent>
           </ComponentCard>
         </FormGroup>
