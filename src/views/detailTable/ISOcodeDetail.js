@@ -37,7 +37,7 @@ const ContentDetails = () => {
           const insertedDataId = res.data.data.insertId;
           message('Content inserted successfully.', 'success');
           setTimeout(() => {
-            navigate(`/ISOcodeEdit/${insertedDataId}`);
+            navigate(`/ISOcodeEdit/${insertedDataId}?tab=1`);
           }, 300);
         })
         .catch(() => {
@@ -64,7 +64,7 @@ const ContentDetails = () => {
       <ToastContainer></ToastContainer>
       <Row>
         <Col md="6">
-          <ComponentCard title="Key Details">
+          <ComponentCard title="ISO Details">
             <Form>
               <FormGroup>
                 <Row>

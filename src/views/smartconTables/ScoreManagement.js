@@ -121,7 +121,7 @@ const Staff = () => {
                   <tr key={element.score_management_id}>
                     <td>{index + 1}</td>
                     <td>
-                      <Link to={`/ScoreManagementEdit/${element.score_management_id}`}>
+                      <Link to={`/ScoreManagementEdit/${element.score_management_id}?tab=1`}>
                         <Icon.Edit2 />
                       </Link>
                     </td>

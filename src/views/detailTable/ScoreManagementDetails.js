@@ -62,7 +62,7 @@ const StaffDetails = () => {
           const insertedDataId = res.data.data.insertId;
           message('Score Details inserted successfully.', 'success');
           setTimeout(() => {
-            navigate(`/ScoreManagementEdit/${insertedDataId}`);
+            navigate(`/ScoreManagementEdit/${insertedDataId}?tab=1`);
           }, 300);
         })
         .catch(() => {

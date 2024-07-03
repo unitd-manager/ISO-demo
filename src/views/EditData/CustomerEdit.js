@@ -14,6 +14,7 @@ import creationdatetime from '../../constants/creationdatetime';
 const ContentUpdate = () => {
   // All state variables
   const [contentDetails, setContentDetails] = useState();
+  const [allcountries, setAllCountries] = useState();
 
   // Navigation and Parameter Constants
   const { id } = useParams();
@@ -24,12 +25,21 @@ const ContentUpdate = () => {
     setContentDetails({ ...contentDetails, [e.target.name]: e.target.value });
   };
   //setting data in Description Modal contentDetails
-
+  const getAllCountries = () => {
+    api
+      .get('/contact/getCountry')
+      .then((res) => {
+        setAllCountries(res.data.data);
+      })
+      .catch(() => {
+        //message('Country Data Not Found', 'info');
+      });
+  };
 
   // Get content data By content id
   const getContentById = () => {
     api
-      .post('/contact/getContactsById', { contact_id: id })
+      .post('/contact/getCompanyByCompanyId', { company_id: id })
       .then((res) => {
         setContentDetails(res.data.data[0]);
       })
@@ -41,22 +51,16 @@ const ContentUpdate = () => {
   const editContentData = () => {
     contentDetails.modification_date = creationdatetime;
     console.log(contentDetails);
-    if (
-      contentDetails.content_title !== '' &&
-      contentDetails.sub_category_id !== '' &&
-      contentDetails.published !== ''
-    ) {
+    
       api
-        .post('/contact/editContact', contentDetails)
+        .post('/contact/editCompany', contentDetails)
         .then(() => {
           message('Record edited successfully', 'success');
         })
         .catch(() => {
           message('Unable to edit record.', 'error');
         });
-    } else {
-      message('Please fill all required fields', 'warning');
-    }
+    
   };
 
   // getting data from Category
@@ -64,6 +68,7 @@ const ContentUpdate = () => {
 
   useEffect(() => {
     getContentById();
+    getAllCountries();
   }, [id]);
 
   return (
@@ -115,12 +120,13 @@ const ContentUpdate = () => {
             <Row>
               <Col md="3">
                 <FormGroup>
-                  <Label> Contact Id </Label>
+                  <Label> Customer Id </Label>
                   <Input
                     type="text"
                     onChange={handleInputs}
-                    value={contentDetails && contentDetails.contact_id}
-                    name="contact_id"
+                    value={contentDetails && contentDetails.company_code}
+                    name="company_code"
+                    disabled
                   />
                 </FormGroup>
               </Col>
@@ -130,8 +136,8 @@ const ContentUpdate = () => {
                   <Input
                     type="text"
                     onChange={handleInputs}
-                    value={contentDetails && contentDetails.first_name}
-                    name="first_name"
+                    value={contentDetails && contentDetails.company_name}
+                    name="company_name"
                   />
                 </FormGroup>
               </Col>
@@ -142,8 +148,8 @@ const ContentUpdate = () => {
                   <Input
                     type="text"
                     onChange={handleInputs}
-                    value={contentDetails && contentDetails.mobile}
-                    name="mobile"
+                    value={contentDetails && contentDetails.phone}
+                    name="phone"
                   />
                 </FormGroup>
               </Col>
@@ -162,27 +168,48 @@ const ContentUpdate = () => {
               <Col md="3">
                 <FormGroup>
                   {/* Category title from Category table */}
-                  <Label>Password</Label>
+                  <Label>Street</Label>
                   <Input
                     type="text"
                     onChange={handleInputs}
-                    value={contentDetails && contentDetails.pass_word}
-                    name="pass_word"
+                    value={contentDetails && contentDetails.address_street}
+                    name="address_street"
                   />
                 </FormGroup>
               </Col>
               <Col md="3">
                 <FormGroup>
-                <Label>Address</Label>
+                <Label>State</Label>
                   <Input
                     type="text"
                     onChange={handleInputs}
-                    value={contentDetails && contentDetails.address1}
-                    name="address1"
+                    value={contentDetails && contentDetails.address_state}
+                    name="address_state"
                   />
                 </FormGroup>
               </Col>
-             
+              <Col md="3">
+              <FormGroup>
+              <Label>Country</Label>
+              <Input
+                type="select"
+                name="address_country"
+                onChange={handleInputs}
+                value={contentDetails && contentDetails.address_country}
+              >
+                <option defaultValue="selected" value="">
+                  Please Select
+                </option>
+                {allcountries &&
+                  allcountries.map((country) => (
+                    <option key={country.country_code} value={country.country_code}>
+                      {country.name}
+                    </option>
+                  ))}
+              </Input>
+            </FormGroup>
+          </Col>
+                 
             </Row>
           </ComponentCard>
           </FormGroup>

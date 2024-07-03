@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
@@ -8,10 +8,10 @@ import ComponentCard from '../../components/ComponentCard';
 import message from '../../components/Message';
 import api from '../../constants/api';
 import creationdatetime from '../../constants/creationdatetime';
+import AppContext from '../../context/AppContext';
 
 const CustomerDetails = () => {
   //All const variables
-  const [content, setContent] = useState();
   const navigate = useNavigate();
   const [contentDetails, setContentDetails] = useState({
     title: '',
@@ -23,19 +23,18 @@ const CustomerDetails = () => {
   const handleInputs = (e) => {
     setContentDetails({ ...contentDetails, [e.target.name]: e.target.value });
   };
-  //getting data from customer
-  const getContent = () => {
-    api.get('/contact/getContact').then((res) => {
-      setContent(res.data.data);
-      console.log(content);
-    });
-  };
+ 
+  const { loggedInuser } = useContext(AppContext);
+
   //Insert Custmer Data
-  const insertCustomerData = () => {
-    if (contentDetails.first_name !== '') {
+  const insertCustomerData = (code) => {
+    if (contentDetails.company_name !== '') {
       contentDetails.creation_date = creationdatetime;
+      contentDetails.created_by = loggedInuser.first_name;
+      contentDetails.company_code = code;
+
       api
-        .post('/contact/insertContact', contentDetails)
+        .post('/contact/insertCompany', contentDetails)
         .then((res) => {
           const insertedDataId = res.data.data.insertId;
           message('Customer inserted successfully.', 'success');
@@ -50,10 +49,17 @@ const CustomerDetails = () => {
       message('Please fill all required fields.', 'error');
     }
   };
-  useEffect(() => {
-    getContent();
-  }, []);
-
+ 
+  const generateCode = () => {
+    api
+      .post('/isocode/getCodeValue', { type: 'customercode' })
+      .then((res) => {
+        insertCustomerData(res.data.data);
+      })
+      .catch(() => {
+        insertCustomerData('');
+      });
+  };
   return (
     <div>
       <BreadCrumbs />
@@ -69,8 +75,8 @@ const CustomerDetails = () => {
                     <Input
                       type="text"
                       onChange={handleInputs}
-                      value={contentDetails && contentDetails.first_name}
-                      name="first_name"
+                      value={contentDetails && contentDetails.company_name}
+                      name="company_name"
                     />
                   </Col>
                 </Row>
@@ -82,10 +88,8 @@ const CustomerDetails = () => {
                       className="shadow-none"
                       color="primary"
                       onClick={() => {
-                        insertCustomerData();
-                        setTimeout(() => {
-                          navigate('/CustomerEdit');
-                        }, 800);
+                        generateCode();
+                   
                       }}
                     >
                       Save
