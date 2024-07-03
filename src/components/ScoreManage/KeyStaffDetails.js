@@ -36,7 +36,7 @@ export default function KeyStaffDetails({
     <Form>
       <FormGroup>
       <ComponentCard
-            title="Staff Details"
+            title="Score Details"
             creationModificationDate={staffeditdetails}
           
           > 
