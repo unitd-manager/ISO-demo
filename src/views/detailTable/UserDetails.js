@@ -39,7 +39,7 @@ const StaffDetails = () => {
           const insertedDataId = res.data.data.insertId;
           message('Staff Details inserted successfully.', 'success');
           setTimeout(() => {
-            navigate(`/StaffEdit/${insertedDataId}`);
+            navigate(`/UserEdit/${insertedDataId}`);
           }, 300);
         })
         .catch(() => {
@@ -100,7 +100,7 @@ const StaffDetails = () => {
                     className="btn btn-dark shadow-none"
                     onClick={(e) => {
                       if (window.confirm('Are you sure you want to cancel? ')) {
-                        navigate('/Staff');
+                        navigate('/User');
                       } else {
                         e.preventDefault();
                       }

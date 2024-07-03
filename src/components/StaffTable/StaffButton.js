@@ -29,7 +29,7 @@ export default function StaffButton({
                 onClick={() => {
                   editStaffData();
                   setTimeout(() => {
-                    navigate('/Staff');
+                    navigate('/User');
                   }, 1100);
                 }}
               >
