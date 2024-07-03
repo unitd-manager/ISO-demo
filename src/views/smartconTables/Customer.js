@@ -4,7 +4,6 @@ import { Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-dt/js/dataTables.dataTables';
 import 'datatables.net-dt/css/jquery.dataTables.min.css';
-import moment from 'moment';
 import $ from 'jquery';
 import 'datatables.net-buttons/js/buttons.colVis';
 import 'datatables.net-buttons/js/buttons.flash';
@@ -25,7 +24,7 @@ const Customer = () => {
   //getting data from content
   const getCustomer = () => {
     api
-      .get('/contact/getContact')
+      .get('/contact/getCompany')
       .then((res) => {
         setCustomer(res.data.data);
       })
@@ -75,15 +74,15 @@ const Customer = () => {
       sortable: false,
     },
     {
-      name: 'ID',
-      selector: 'contact_id ',
+      name: 'Code',
+      selector: 'customer_code ',
       sortable: true,
       width: 'auto',
       grow: 3,
     },
     {
-      name: 'Name',
-      selector: 'first_name',
+      name: 'Company Name',
+      selector: 'company_name',
       sortable: true,
       grow: 0,
       wrap: true,
@@ -94,16 +93,10 @@ const Customer = () => {
       sortable: true,
       grow: 0,
     },
+   
     {
-      name: 'Password',
-      selector: 'pass_word',
-      sortable: true,
-      width: 'auto',
-      grow: 3,
-    },
-    {
-      name: 'Mobile',
-      selector: 'mobile',
+      name: 'Contact No',
+      selector: 'phone',
       sortable: true,
       grow: 0,
       wrap: true,
@@ -147,16 +140,15 @@ const Customer = () => {
                   <td>{index + 1}</td>
                   <td>
                     {' '}
-                    <Link to={`/CustomerEdit/${element.contact_id}`}>
+                    <Link to={`/CustomerEdit/${element.company_id}`}>
                       <Icon.Edit2 />
                     </Link>
                   </td>
-                  <td>{element.contact_id}</td>
-                  <td>{element.first_name}</td>
+                  <td>{element.company_code}</td>
+                  <td>{element.company_name}</td>
                   <td>{element.email}</td>
-                  <td>{element.pass_word}</td>
-                  <td>{element.mobile}</td>
-                  <td>{moment(element.creation_date).format('YYYY-MM-DD')}</td>
+                  <td>{element.phone}</td>
+                  <td>{element.creation_date}</td>
                 
                 </tr>
               );
