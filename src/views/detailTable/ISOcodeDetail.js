@@ -44,7 +44,7 @@ const ContentDetails = () => {
           message('Network connection error.', 'error');
         });
     } else {
-      message('Please fill all required fields.', 'warning');
+      message('Please fill all required fields.', 'error');
     }
   };
 
@@ -58,7 +58,6 @@ const ContentDetails = () => {
         insertContentData('');
       });
   };
-  
   return (
     <div>
       <BreadCrumbs />
@@ -70,7 +69,7 @@ const ContentDetails = () => {
               <FormGroup>
                 <Row>
                   <Col md="12">
-                    <Label>Title<span className='required'>*</span></Label>
+                    <Label>Title</Label>
                     <Input
                       type="text"
                       onChange={handleInputs}

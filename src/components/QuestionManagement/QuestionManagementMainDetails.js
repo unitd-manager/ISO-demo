@@ -9,7 +9,6 @@ export default function QuestionmoreDetails({
   questionDetails,
   handleInputs,
   questionType,
-  
   }) {
   QuestionmoreDetails.propTypes = {
     questionDetails: PropTypes.object,
@@ -43,14 +42,14 @@ export default function QuestionmoreDetails({
             
              
               <Col md="3">
-                <Label>Category <span className='required'>*</span> </Label>
+                <Label>Category</Label>
                 <Input
                   type="select"
                   onChange={handleInputs}
                   value={questionDetails && questionDetails.category_id}
                   name="category_id"
                 >
-                  <option value=''>Please Select</option>
+                  <option value="selected">Please Select</option>
                   {category &&
                     category.map((e) => {
                       return (
@@ -65,7 +64,7 @@ export default function QuestionmoreDetails({
               <Col md="6">
                 <FormGroup>
                   {/* Section title from section table */}
-                  <Label>Question <span className='required'>*</span> </Label>
+                  <Label>Question</Label>
                   <Input
                     type="textarea"
                     name="question"

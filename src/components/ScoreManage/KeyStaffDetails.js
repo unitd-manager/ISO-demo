@@ -36,7 +36,7 @@ export default function KeyStaffDetails({
     <Form>
       <FormGroup>
       <ComponentCard
-            title="Staff Details"
+            title="Score Details"
             creationModificationDate={staffeditdetails}
           
           > 
@@ -84,7 +84,7 @@ export default function KeyStaffDetails({
             </Col>
             <Col md="3">
               <FormGroup>
-                <Label>Company<span className='required'>*</span></Label>
+                <Label>Company</Label>
                 <Input
                   type="select"
                   name="company_id"

@@ -14,11 +14,9 @@ import QuestionManagementMainDetails from '../../components/QuestionManagement/Q
 import creationdatetime from '../../constants/creationdatetime';
 import AppContext from '../../context/AppContext';
 
-
 const QuestionManagementEdit = () => {
   // All state variables
-  const [questionDetails, setQuestionDetails] = useState( {category_id: '',
-    question: ''});
+  const [questionDetails, setQuestionDetails] = useState();
   const [attachmentModal, setAttachmentModal] = useState(false);
   const [questionType, setQuestionType] = useState();
   const [questionStatus, setQuestionStatus] = useState();
@@ -48,9 +46,11 @@ const QuestionManagementEdit = () => {
   };
   //Edit Content
   const editQuestionData = () => {
+    console.log(questionDetails);
     if (
-      questionDetails.category_id !== '' &&
-      questionDetails.question !== ''
+      questionDetails.content_title !== '' &&
+      questionDetails.sub_category_id !== '' &&
+      questionDetails.published !== ''
     ) {
       questionDetails.modification_date = creationdatetime;
       questionDetails.modified_by = loggedInuser.first_name;

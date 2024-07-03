@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, FormGroup, Label, Button, Input } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -7,14 +7,12 @@ import ComponentCard from '../../components/ComponentCard';
 import api from '../../constants/api';
 import message from '../../components/Message';
 import creationdatetime from '../../constants/creationdatetime';
-import AppContext from '../../context/AppContext';
 
 const StaffDetails = () => {
   // All state variables
 
-  const [staffdetails, setStaffDetails] = useState({company_id:'', iso_code_id:'',});
+  const [staffdetails, setStaffDetails] = useState({company_id:'',});
   const [customername, setCustomerName] = useState([]);
-  const { loggedInuser } = useContext(AppContext);
 
   const getCustomerName = () => {
     api
@@ -54,13 +52,10 @@ const StaffDetails = () => {
   const handleInputs = (e) => {
     setStaffDetails({ ...staffdetails, [e.target.name]: e.target.value });
   };
-  
 
   //Api call for Insert Staff Data
   const insertStaffData = () => {
-    if (staffdetails.company_id !== '' && staffdetails.iso_code_id !== '') {
     staffdetails.creation_date = creationdatetime;
-    staffdetails.created_by = loggedInuser.first_name;
       api
         .post('/score/insertScore', staffdetails)
         .then((res) => {
@@ -72,10 +67,9 @@ const StaffDetails = () => {
         })
         .catch(() => {
           message('Unable to edit record.', 'error');
-        });} else {
-          message('Please fill all required fields.', 'warning');
-        }
-      };
+        });
+   
+  };
 
   return (
     <div>
@@ -90,7 +84,7 @@ const StaffDetails = () => {
               <Col md="12">
                 <FormGroup>
                 <Label>
-                Company Name <span className='required'>*</span> </Label>
+                Company Name</Label>
                   <Input
                     type="select"
                     onChange={handleInputs}
@@ -116,13 +110,13 @@ const StaffDetails = () => {
               <Col md="12">
                 <FormGroup>
                 <Label>
-                ISO Code <span className='required'>*</span></Label>
+                ISO Code</Label>
                   <Input
                     type="select"
                     onChange={handleInputs}
                     name="iso_code_id"
                   >
-                    <option>Please Select</option>
+                    <option defaultValue="selected">Please Select</option>
                     {isoname &&
                       isoname.map((e) => {
                         return (
@@ -154,7 +148,7 @@ const StaffDetails = () => {
                     className="btn btn-dark shadow-none"
                     onClick={(e) => {
                       if (window.confirm('Are you sure you want to cancel? ')) {
-                        navigate('/ScoreManagement');
+                        navigate('/ScoreMnagement');
                       } else {
                         e.preventDefault();
                       }

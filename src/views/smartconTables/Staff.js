@@ -130,7 +130,7 @@ const Staff = () => {
 
         <CommonTable
           loading={loading}
-          title="Users"
+          title="Staff List"
           Button={
             <Link to="/StaffDetails">
               <Button color="primary" className="shadow-none">

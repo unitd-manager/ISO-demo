@@ -28,6 +28,8 @@ const CategoryChart = ({ categories }) => {
 
   return (
     <div>
+            <h1>Category Wise Chart</h1>
+
       <Doughnut data={data} options={options} />
     </div>
   );
