@@ -125,7 +125,7 @@ const ISOCodes = () => {
                   <td>{index + 1}</td>
                   <td>
                     {' '}
-                    <Link to={`/ISOcodeEdit/${element.iso_code_id}`}>
+                    <Link to={`/ISOcodeEdit/${element.iso_code_id}?tab=1`}>
                       <Icon.Edit2 />
                     </Link>
                   </td>

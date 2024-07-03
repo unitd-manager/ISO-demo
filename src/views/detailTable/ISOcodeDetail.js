@@ -37,14 +37,14 @@ const ContentDetails = () => {
           const insertedDataId = res.data.data.insertId;
           message('Content inserted successfully.', 'success');
           setTimeout(() => {
-            navigate(`/ISOcodeEdit/${insertedDataId}`);
+            navigate(`/ISOcodeEdit/${insertedDataId}?tab=1`);
           }, 300);
         })
         .catch(() => {
           message('Network connection error.', 'error');
         });
     } else {
-      message('Please fill all required fields.', 'warning');
+      message('Please fill all required fields.', 'error');
     }
   };
 
@@ -58,19 +58,18 @@ const ContentDetails = () => {
         insertContentData('');
       });
   };
-  
   return (
     <div>
       <BreadCrumbs />
       <ToastContainer></ToastContainer>
       <Row>
         <Col md="6">
-          <ComponentCard title="Key Details">
+          <ComponentCard title="ISO Details">
             <Form>
               <FormGroup>
                 <Row>
                   <Col md="12">
-                    <Label>Title<span className='required'>*</span></Label>
+                    <Label>Title</Label>
                     <Input
                       type="text"
                       onChange={handleInputs}

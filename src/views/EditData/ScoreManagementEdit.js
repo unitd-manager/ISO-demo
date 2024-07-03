@@ -1,7 +1,8 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   Form,
+  Row, Col,
   FormGroup,
   Button,
   TabPane,
@@ -23,36 +24,42 @@ import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import ComponentCard from '../../components/ComponentCard';
 import message from '../../components/Message';
 import api from '../../constants/api';
+import ViewFileComponentV2 from '../../components/ProjectModal/ViewFileComponentV2';
+import AttachmentModalV2 from '../../components/Tender/AttachmentModalV2';
 import KeyStaffDetails from '../../components/ScoreManage/KeyStaffDetails';
 import StaffButton from '../../components/ScoreManage/StaffButton';
 import creationdatetime from '../../constants/creationdatetime';
 import Tab from '../../components/ScoreManage/Tab';
 import './StaffEdit.css'; // Custom CSS for further styling
-import AppContext from '../../context/AppContext';
 
 import BarChart from './BarChart';
-import CategoryChart from '../../components/ScoreManage/CategoryChartss'; 
+import CategoryChart from '../../components/ScoreManage/CategoryChartss';
 
 const StaffEdit = () => {
-  // All state variables
-  const [staffeditdetails, setStaffEditDetails] = useState({company_id: '',
-    iso_code_id: ''});
+  const [staffeditdetails, setStaffEditDetails] = useState('');
   const [scoreHistory, setScoreHistory] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [correctAnswers, setCorrectAnswers] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const questionsPerPage = 5;
-
-  // Navigation and Parameter Constants
+  const [attachmentModal, setAttachmentModal] = useState(false);
+  const [currentQuestionId, setCurrentQuestionId] = useState(null); // New state for current question id
+  const [attachmentData, setDataForAttachment] = useState({
+    modelType: '',
+  });
+  const dataForAttachment = () => {
+    setDataForAttachment({
+      modelType: 'attachment',
+    });
+    console.log('inside DataForAttachment');
+  };
   const { id } = useParams();
   const navigate = useNavigate();
-  const { loggedInuser } = useContext(AppContext);
 
   const tabs = [
     { id: '1', name: 'Score History' },
-    { id: '2', name: 'Score Summary' },
-    { id: '3', name: 'Category Wise Chart' },
+    { id: '2', name: 'Analytics' },
   ];
   const [activeTab, setActiveTab] = useState('1');
 
@@ -60,12 +67,10 @@ const StaffEdit = () => {
     setActiveTab(tab);
   };
 
-  // Fetch Questions and Options
   const fetchQuestions = () => {
     api
       .get('/score/getQuestions', { params: { iso_code_id: staffeditdetails && staffeditdetails.iso_code_id }})
       .then((res) => {
-        // Transform the data to combine options into an array and store correct answers
         const transformedQuestions = res.data.data.map((question) => ({
           ...question,
           options: [question.option_1, question.option_2, question.option_3, question.option_4].filter(Boolean)
@@ -82,7 +87,6 @@ const StaffEdit = () => {
       });
   };
 
-  // Fetch Previous Answers
   const fetchPreviousAnswers = () => {
     api
       .post('/score/getScoreHistory', { score_management_id: id })
@@ -98,12 +102,10 @@ const StaffEdit = () => {
       });
   };
 
-  // Setting Data in Staff Details
   const handleInputs = (e) => {
     setStaffEditDetails({ ...staffeditdetails, [e.target.name]: e.target.value });
   };
 
-  // Route Change
   const applyChanges = () => { };
   const saveChanges = () => {
     navigate('/ScoreManagement');
@@ -113,7 +115,6 @@ const StaffEdit = () => {
     navigate('/ScoreManagement');
   };
 
-  // Api call for getting Staff Data By ID
   const editStaffById = () => {
     api
       .post('/score/getScoreManageById', { score_management_id: id })
@@ -125,14 +126,8 @@ const StaffEdit = () => {
       });
   };
 
-  // Api call for Editing Staff Details
   const editStaffData = () => {
-    if (
-      staffeditdetails.company_id !== '' && staffeditdetails.iso_code_id !== ''
-    )
-    {
     staffeditdetails.modification_date = creationdatetime;
-    staffeditdetails.modified_by = loggedInuser.first_name;
 
     api
       .post('/score/editScore', staffeditdetails)
@@ -143,15 +138,8 @@ const StaffEdit = () => {
       .catch(() => {
         message('Unable to edit record.', 'error');
       });
-    }else {
-      message('Please fill all required fields', 'warning');
-    }
   };
-  console.log('iso',staffeditdetails.iso_code_id);
-  console.log('company',staffeditdetails.company_id);
 
-
-  // Api call for getting Score History Data
   const fetchScoreHistory = () => {
     api
       .post('/score/getScoreHistory', { score_management_id: id })
@@ -170,7 +158,6 @@ const StaffEdit = () => {
     fetchPreviousAnswers();
   }, [id, staffeditdetails && staffeditdetails.iso_code_id]);
 
-  // Handle Checkbox Changes
   const handleCheckboxChange = (questionId, option) => {
     setSelectedAnswers((prevAnswers) => ({
       ...prevAnswers,
@@ -178,7 +165,6 @@ const StaffEdit = () => {
     }));
   };
 
-  // Handle Text Input Changes for Objective Questions
   const handleTextInputChange = (questionId, value) => {
     setSelectedAnswers((prevAnswers) => ({
       ...prevAnswers,
@@ -186,7 +172,6 @@ const StaffEdit = () => {
     }));
   };
 
-  // Handle Form Submission
   const handleSubmitAnswers = () => {
     const answersToUpdate = [];
     const answersToAdd = [];
@@ -225,7 +210,6 @@ const StaffEdit = () => {
       .then(() => {
         message('Answers submitted successfully', 'success');
 
-        // Count answered, unanswered, and correct questions
         const answeredCount = Object.keys(selectedAnswers).length;
         const unansweredCount = questions.length - answeredCount;
         const correctCount = Object.entries(selectedAnswers).reduce((acc, [questionId, answer]) => {
@@ -235,7 +219,6 @@ const StaffEdit = () => {
           return acc;
         }, 0);
 
-        // Update the main table with these counts
         return api.post('/score/updateAnswerCounts', {
           score_management_id: id,
           iso_code_id: staffeditdetails && staffeditdetails.iso_code_id,
@@ -253,7 +236,6 @@ const StaffEdit = () => {
       });
   };
 
-  // Pagination Helpers
   const indexOfLastQuestion = currentPage * questionsPerPage;
   const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
   const currentQuestions = questions.slice(indexOfFirstQuestion, indexOfLastQuestion);
@@ -347,7 +329,7 @@ const StaffEdit = () => {
                               </Label>
                             </FormGroup>
                           </div>
-                        )} 
+                        )}
                         {question.question_type === 'Objective' && (
                           <FormGroup>
                             <Input
@@ -355,6 +337,40 @@ const StaffEdit = () => {
                               value={selectedAnswers[question.question_id] || ''}
                               onChange={(e) => handleTextInputChange(question.question_id, e.target.value)}
                             />
+                          </FormGroup>
+                        )}
+                        {question.question_type === 'File Upload' && (
+                          <FormGroup>
+                            <ComponentCard title="Attachments">
+                              <Row>
+                                <Col xs="12" md="3" className="mb-3">
+                                  <Button
+                                    color="primary"
+                                    onClick={() => {
+                                      dataForAttachment();
+                                      console.log('Question ID:', question.question_id); // Debugging line
+                                      setCurrentQuestionId(question.question_id); // Set the current question id
+                                      setAttachmentModal(true);
+                                    }}
+                                  >
+                                    Add
+                                  </Button>
+                                </Col>
+                              </Row>
+                              <AttachmentModalV2
+                                moduleId={id}
+                                quesId={currentQuestionId} // Pass the current question id as a prop
+                                roomName="ScoreManagement"
+                                altTagData="ScoreManagement Data"
+                                desc="ScoreManagement Data"
+                                fileTypes={["JPG", "PNG", "GIF", "PDF"]}
+                                modelType={attachmentData.modelType}
+
+                                attachmentModal={attachmentModal}
+                                setAttachmentModal={setAttachmentModal}
+                              />
+                              <ViewFileComponentV2 quesId={currentQuestionId} moduleId={id} roomName="ScoreManagement" />
+                            </ComponentCard>
                           </FormGroup>
                         )}
                       </CardText>
@@ -393,8 +409,6 @@ const StaffEdit = () => {
                   totalQuestion={questions.length}
                   correctCount={scoreHistory.filter(item => correctAnswers[item.question_id] === item.answer).length}
                 />
-              </TabPane>
-              <TabPane tabId="3">
                 <CategoryChart categories={categories} />
               </TabPane>
             </TabContent>
@@ -404,6 +418,5 @@ const StaffEdit = () => {
     </>
   );
 };
-
 
 export default StaffEdit;

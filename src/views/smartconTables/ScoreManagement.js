@@ -68,6 +68,12 @@ const Staff = () => {
       sortable: false,
     },
     {
+      name: 'Company',
+      selector: 'company_name',
+      sortable: true,
+      grow: 0,
+    },
+    {
       name: 'Score',
       selector: 'first_name',
       sortable: true,
@@ -81,12 +87,7 @@ const Staff = () => {
       grow: 2,
       wrap: true,
     },
-    {
-      name: 'Company',
-      selector: 'company_name',
-      sortable: true,
-      grow: 0,
-    },
+  
    
   ];
 
@@ -120,13 +121,14 @@ const Staff = () => {
                   <tr key={element.score_management_id}>
                     <td>{index + 1}</td>
                     <td>
-                      <Link to={`/ScoreManagementEdit/${element.score_management_id}`}>
+                      <Link to={`/ScoreManagementEdit/${element.score_management_id}?tab=1`}>
                         <Icon.Edit2 />
                       </Link>
                     </td>
+                    <td>{element.company_name}</td>
                     <td>{element.correct_count}</td>
                     <td>{element.review_status}</td>
-                    <td>{element.company_name}</td>
+                   
                   
                   </tr>
                 );

@@ -82,7 +82,7 @@ const ApiButton = ({ editData, navigate, applyChanges, backToList, module }) => 
               {' '}
               <HasAccess
                 roles={null}
-                permissions={`${module}-delete`}
+                permissions={`${module}-remove`}
                 renderAuthFailed={<p>You are not authorized to access!</p>}
               >
                 <Button color="danger" onClick={() => {}}>
