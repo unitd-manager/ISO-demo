@@ -130,9 +130,9 @@ const Staff = () => {
 
         <CommonTable
           loading={loading}
-          title="Staff List"
+          title="User List"
           Button={
-            <Link to="/StaffDetails">
+            <Link to="/UserDetails">
               <Button color="primary" className="shadow-none">
                 Add New
               </Button>
@@ -153,7 +153,7 @@ const Staff = () => {
                   <tr key={element.staff_id}>
                     <td>{index + 1}</td>
                     <td>
-                      <Link to={`/StaffEdit/${element.staff_id}`}>
+                      <Link to={`/UserEdit/${element.staff_id}`}>
                         <Icon.Edit2 />
                       </Link>
                     </td>

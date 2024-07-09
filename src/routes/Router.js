@@ -120,7 +120,7 @@ const AddProjects = Loadable(lazy(() => import('../views/cubosale/AddProjects'))
 const EditProject = Loadable(lazy(() => import('../views/cubosale/EditProject')));
 
 // Tender
-const StaffTable = Loadable(lazy(() => import('../views/smartconTables/Staff')));
+const UserTable = Loadable(lazy(() => import('../views/smartconTables/User')));
 const ScoreManagementTable = Loadable(lazy(() => import('../views/smartconTables/ScoreManagement')));
 
 const TaskTable = Loadable(lazy(() => import('../views/smartconTables/Task')));
@@ -172,7 +172,7 @@ const CategoryDetails = Loadable(lazy(() => import('../views/detailTable/Categor
 const UserGroupTable = Loadable(lazy(() => import('../views/smartconTables/UserGroup')));
 const UserGroupDetails = Loadable(lazy(() => import('../views/detailTable/UserGroupDetails')));
 const Support = Loadable(lazy(() => import('../views/smartconTables/Support')));
-const StaffDetails = Loadable(lazy(() => import('../views/detailTable/StaffDetails')));
+const UserDetails = Loadable(lazy(() => import('../views/detailTable/UserDetails')));
 const ScoreManagementDetails = Loadable(lazy(() => import('../views/detailTable/ScoreManagementDetails')));
 
 const PurchaseOrderEdit = Loadable(lazy(() => import('../views/EditData/PurchaseOrderEdit')));
@@ -185,7 +185,7 @@ const SupportDetails = Loadable(lazy(() => import('../views/detailTable/SupportD
 // Table Edit's
 
 const ProductEdit = Loadable(lazy(() => import('../views/EditData/ProductEdit')));
-const StaffEdit = Loadable(lazy(() => import('../views/EditData/StaffEdit')));
+const UserEdit = Loadable(lazy(() => import('../views/EditData/UserEdit')));
 const ScoreManagementEdit = Loadable(lazy(() => import('../views/EditData/ScoreManagementEdit')));
 
 const OrdersEdit = Loadable(lazy(() => import('../views/EditData/OrdersEdit')));
@@ -300,7 +300,7 @@ const Routernew = () => {
              element={token ? <SubCategoryEdit /> : <Navigate to="/login" />}
           ></Route>
           <Route path="/CategoryEdit/:id" name="categorydata" element={token ? <CategoryEdit /> : <Navigate to="/login" />}></Route>
-          <Route path="/StaffEdit/:id" name="staffdata"  element={token ? <StaffEdit /> : <Navigate to="/login" />} ></Route>
+          <Route path="/UserEdit/:id" name="staffdata"  element={token ? <UserEdit /> : <Navigate to="/login" />} ></Route>
           <Route path="/ScoreManagementEdit/:id" name="scoreManagementdata"  element={token ? <ScoreManagementEdit /> : <Navigate to="/login" />}></Route>
 
           <Route path="/SupportEdit/:id" name="supportdata"  element={token ? <SupportEdit /> : <Navigate to="/login" />}></Route>
@@ -404,11 +404,11 @@ const Routernew = () => {
           <Route path="/BlogDetails" name="blogDetaildata"  element={token ? <BlogDetailsTable /> : <Navigate to="/login" />}></Route>
           <Route path="/SupplierDetails" name="supplierDetaildata"  element={token ? <SupplierDetailsTable /> : <Navigate to="/login" />} ></Route>
           <Route path="/Task" name="taskdata"  element={token ? <TaskTable /> : <Navigate to="/login" />} ></Route>
-          <Route path="/Staff" name="staffdata"  element={token ? <StaffTable /> : <Navigate to="/login" />} ></Route>
+          <Route path="/User" name="staffdata"  element={token ? <UserTable /> : <Navigate to="/login" />} ></Route>
           <Route path="/ScoreManagement" name="scoreManagementdata"  element={token ? <ScoreManagementTable /> : <Navigate to="/login" />} ></Route>
 
           <Route path="/ProductDetails" name="productDetaildata"  element={token ? <ProductDetailsTable /> : <Navigate to="/login" />}></Route>
-          <Route path="/StaffDetails" name="staffDetaildata"  element={token ? <StaffDetails /> : <Navigate to="/login" />} ></Route>
+          <Route path="/UserDetails" name="staffDetaildata"  element={token ? <UserDetails /> : <Navigate to="/login" />} ></Route>
           <Route path="/ScoreManagementDetails" name="scoreManagementDetaildata"  element={token ? <ScoreManagementDetails /> : <Navigate to="/login" />} ></Route>
 
           <Route path="/Product" name="productdata"  element={token ? <ProductTable /> : <Navigate to="/login" />} ></Route>
