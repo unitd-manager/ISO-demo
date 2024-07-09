@@ -34,6 +34,11 @@ import './StaffEdit.css'; // Custom CSS for further styling
 
 import BarChart from './BarChart';
 import CategoryChart from '../../components/ScoreManage/CategoryChartss';
+import HistogramChart from '../../components/ScoreManage/Histogram';
+import PieChart from '../../components/ScoreManage/PieChart';
+import LineChart from '../../components/ScoreManage/LineChart';
+import BoxPlot from '../../components/ScoreManage/BoxPlot';
+
 
 const StaffEdit = () => {
   const [staffeditdetails, setStaffEditDetails] = useState('');
@@ -259,6 +264,30 @@ const StaffEdit = () => {
 
   const categories = calculateCategoryData();
 
+  const testScores = [55, 23, 67, 89, 90, 42, 33, 78, 85, 95, 48, 59, 61, 74, 88, 92, 100, 45, 58, 72, 84, 91, 66, 77]; // Example data
+  const testData = {
+    submitted: 45,
+    pending: 20,
+    approved: 35,
+  }; // Example data
+
+  const scoreData = {
+    '2023-01-01': 75,
+    '2023-02-01': 80,
+    '2023-03-01': 85,
+    '2023-04-01': 90,
+    '2023-05-01': 95,
+  }; // Example data
+
+  const plotData = {
+    'Category A': [55, 60, 65, 70, 75],
+    'Category B': [50, 55, 60, 65, 70],
+    'Category C': [45, 50, 55, 60, 65],
+    'Category D': [40, 45, 50, 55, 60],
+  }; // Example data
+
+
+
   return (
     <>
       <BreadCrumbs />
@@ -410,6 +439,11 @@ const StaffEdit = () => {
                   correctCount={scoreHistory.filter(item => correctAnswers[item.question_id] === item.answer).length}
                 />
                 <CategoryChart categories={categories} />
+              
+      <HistogramChart data={testScores} />
+      <PieChart data={testData} />
+      <LineChart data={scoreData} />
+      <BoxPlot data={plotData} />
               </TabPane>
             </TabContent>
           </ComponentCard>
