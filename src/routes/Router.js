@@ -147,9 +147,11 @@ const FinanceTable = Loadable(lazy(() => import('../views/smartconTables/Orders'
 
 const Content = Loadable(lazy(() => import('../views/smartconTables/Content')));
 const ISOcodesManagement = Loadable(lazy(() => import('../views/smartconTables/ISOcodesManagement')));
+const GapAnalysis = Loadable(lazy(() => import('../views/smartconTables/GapAnalysis')));
 const Customer = Loadable(lazy(() => import('../views/smartconTables/Customer')));
 const ContentDetailsTable = Loadable(lazy(() => import('../views/detailTable/ContentDetails')));
 const ISOcodeDetail = Loadable(lazy(() => import('../views/detailTable/ISOcodeDetail')));
+const GapAnalysisDetail = Loadable(lazy(() => import('../views/detailTable/GapAnalysisDetail')));
 const CustomerDetailsTable = Loadable(lazy(() => import('../views/detailTable/CustomerDetails')));
 const SubCategoryTable = Loadable(lazy(() => import('../views/smartconTables/SubCategory')));
 const BlogDetailsTable = Loadable(lazy(() => import('../views/detailTable/BlogDetails')));
@@ -191,6 +193,7 @@ const ScoreManagementEdit = Loadable(lazy(() => import('../views/EditData/ScoreM
 const OrdersEdit = Loadable(lazy(() => import('../views/EditData/OrdersEdit')));
 const ContentEdit = Loadable(lazy(() => import('../views/EditData/ContentEdit')));
 const ISOcodeEdit = Loadable(lazy(() => import('../views/EditData/ISOcodeEdit')));
+const GapAnalysisEdit = Loadable(lazy(() => import('../views/EditData/GapAnalysisEdit')));
 const CustomerEdit = Loadable(lazy(() => import('../views/EditData/CustomerEdit')));
 const SectionEdit = Loadable(lazy(() => import('../views/EditData/SectionEdit')));
 const Login = Loadable(lazy(() => import('../views/detailTable/Login')));
@@ -284,6 +287,7 @@ const Routernew = () => {
           <Route path="/OrdersEdit/:id" name="orderdata"  element={token ? <OrdersEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/ContentEdit/:id" name="contentdata"  element={token ? <ContentEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/ISOcodeEdit/:id" name="contentdata"  element={token ? <ISOcodeEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/GapAnalysisEdit/:id" name="contentdata"  element={token ? <GapAnalysisEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/CustomerEdit/:id" name="customerdata"  element={token ? <CustomerEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/BlogEdit/:id" name="blogdata"  element={token ? <BlogEdit /> : <Navigate to="/login" />} ></Route>
           <Route path="/InventoryEdit/:id" name="inventorydata"  element={token ? <InventoryEdit /> : <Navigate to="/login" />}></Route>
@@ -450,6 +454,7 @@ const Routernew = () => {
         
           <Route path="/Content" name="contentdata"  element={token ? <Content /> : <Navigate to="/login" />}></Route>
           <Route path="/ISOCodes" name="contentdata"  element={token ? <ISOcodesManagement /> : <Navigate to="/login" />}></Route>
+          <Route path="/GapAnalysis" name="contentdata"  element={token ? <GapAnalysis /> : <Navigate to="/login" />}></Route>
           <Route path="/Customer" name="customerdata"  element={token ? <Customer /> : <Navigate to="/login" />} ></Route>
           <Route
             path="/ContentDetails"
@@ -460,6 +465,11 @@ const Routernew = () => {
             path="/ISOcodeDetail"
             name="detailsdata"
              element={token ? <ISOcodeDetail /> : <Navigate to="/login" />}
+          ></Route>
+           <Route
+            path="/GapAnalysisDetail"
+            name="detailsdata"
+             element={token ? <GapAnalysisDetail /> : <Navigate to="/login" />}
           ></Route>
            <Route
             path="/CustomerDetails"
