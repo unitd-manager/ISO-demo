@@ -14,11 +14,13 @@ import message from '../../components/Message';
 import api from '../../constants/api';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import CommonTable from '../../components/CommonTable';
-
+import Application from './Application';
 
 const ISOCodes = () => {
   //Const Variables
   const [content, setContent] = useState(null);
+  const [showApplication, setShowApplication] = useState(false);
+  const [selectedISOCode, setSelectedISOCode] = useState(null);
 
   //getting data from content
   const getContent = () => {
@@ -31,6 +33,7 @@ const ISOCodes = () => {
         message('Cannot get Content Data', 'error');
       });
   };
+
   useEffect(() => {
     setTimeout(() => {
       $('#example').DataTable({
@@ -50,7 +53,12 @@ const ISOCodes = () => {
 
     getContent();
   }, []);
-  //Structure of Content List view
+
+  const handleApplicationClick = (isoCode) => {
+    setSelectedISOCode(isoCode);
+    setShowApplication(true);
+  };
+
   const Contentcolumns = [
     {
       name: '#',
@@ -63,7 +71,6 @@ const ISOCodes = () => {
       selector: 'edit',
       cell: () => (
         <Link to="/">
-          {' '}
           <Icon.Edit3 />
         </Link>
       ),
@@ -74,57 +81,64 @@ const ISOCodes = () => {
     },
     {
       name: 'ISO Code',
-      selector: 'title',
+      selector: 'iso_code',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
       name: 'Title',
-  
+      selector: 'title',
+      sortable: true,
     },
- 
     {
       name: 'Category',
-   
+      selector: 'category_title',
+      sortable: true,
     },
-
     {
       name: 'Status',
-
+      selector: 'status',
+      sortable: true,
     },
- 
+    {
+      name: 'Application',
+      grow: 0,
+      width: 'auto',
+      button: true,
+      sortable: false,
+    },
   ];
 
   return (
-    <div className="MainDiv  pt-xs-25">
+    <div className="MainDiv pt-xs-25">
       <BreadCrumbs />
-
-      <CommonTable
-        title="ISO Code List"
-        Button={
-          <Link to="/ISOcodeDetail">
-            <Button color="primary" className="shadow-none">
-              Add New
-            </Button>
-          </Link>
-        }
-      >
-        <thead>
-          <tr>
-            {Contentcolumns.map((cell) => {
-              return <td key={cell.name}>{cell.name}</td>;
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {content &&
-            content.map((element, index) => {
-              return (
+      {showApplication && selectedISOCode ? (
+        <Application isoCode={selectedISOCode} />
+      ) : (
+        <CommonTable
+          title="ISO Code List"
+          Button={
+            <Link to="/ISOcodeDetail">
+              <Button color="primary" className="shadow-none">
+                Add New
+              </Button>
+            </Link>
+          }
+        >
+          <thead>
+            <tr>
+              {Contentcolumns.map((cell) => (
+                <td key={cell.name}>{cell.name}</td>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {content &&
+              content.map((element, index) => (
                 <tr key={element.iso_code_id}>
                   <td>{index + 1}</td>
                   <td>
-                    {' '}
                     <Link to={`/ISOcodeEdit/${element.iso_code_id}?tab=1`}>
                       <Icon.Edit2 />
                     </Link>
@@ -133,13 +147,22 @@ const ISOCodes = () => {
                   <td>{element.title}</td>
                   <td>{element.category_title}</td>
                   <td>{element.status}</td>
-                 
+                  <td>
+                    <Button
+                      color="primary"
+                      className="shadow-none"
+                      onClick={() => handleApplicationClick(element.iso_code)}
+                    >
+                      Application Form
+                    </Button>
+                  </td>
                 </tr>
-              );
-            })}
-        </tbody>
-      </CommonTable>
+              ))}
+          </tbody>
+        </CommonTable>
+      )}
     </div>
   );
 };
+
 export default ISOCodes;

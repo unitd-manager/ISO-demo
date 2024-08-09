@@ -135,6 +135,7 @@ const PayslipGeneratedReports = Loadable(lazy(() => import('../views/smartconTab
 const IR8AReport = Loadable(lazy(() => import('../views/smartconTables/IR8AReport')));
 const Blog = Loadable(lazy(() => import('../views/smartconTables/Blog')));
 const Inventory = Loadable(lazy(() => import('../views/smartconTables/Inventory')));
+
 // Details Table
 const ProductDetailsTable = Loadable(lazy(() => import('../views/detailTable/ProductDetails')));
 
@@ -215,6 +216,7 @@ const InvoiceByYearTable = Loadable(lazy(() => import('../views/Reports/InvoiceB
 // const TaskEdit= Loadable(lazy(() => import ('..')))
 const PurchaseOrderTable = Loadable(lazy(() => import('../views/smartconTables/PurchaseOrder')));
 const SupportNewTable = Loadable(lazy(() => import('../views/smartconTables/SupportNew')));
+const Application = Loadable(lazy(() => import('../views/smartconTables/Application')));
 
 //Reports
 const CpfSummaryReports=Loadable(lazy(() => import('../views/smartconTables/CpfSummaryReports')))
@@ -261,7 +263,8 @@ const Routernew = () => {
           ></Route>
           <Route path="/editquote" name="editquote" element={<EditQuoteModal />}></Route>
           <Route path="/editlineitem" name="editlineitem" element={<EditLineItemModal />}></Route>
-          
+          <Route path="/Application" name="application" element={<Application />}></Route>
+
          
           <Route
             path="/userdashboard"
@@ -451,6 +454,7 @@ const Routernew = () => {
           <Route path="/Content" name="contentdata"  element={token ? <Content /> : <Navigate to="/login" />}></Route>
           <Route path="/ISOCodes" name="contentdata"  element={token ? <ISOcodesManagement /> : <Navigate to="/login" />}></Route>
           <Route path="/Customer" name="customerdata"  element={token ? <Customer /> : <Navigate to="/login" />} ></Route>
+
           <Route
             path="/ContentDetails"
             name="contentdetailsdata"
