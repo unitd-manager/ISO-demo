@@ -47,7 +47,7 @@ const ApplicationForm = () => {
   };
   const insertApplicationData = () => {
     api
-      .post('/api/insertApplication', applicationDetails)
+      .post('/content/insertApplication', applicationDetails)
       .then((res) => {
         setApplicationDetails(res.data.data);
         message('Content inserted successfully.', 'success');

@@ -18,7 +18,7 @@ const ApplicationList = () => {
   const [application, setApplication] = useState();
    //get category data
   const getCategory = () => {
-    api.get('/api/getApplication').then((res) => {
+    api.get('/content/getApplication').then((res) => {
       setApplication(res.data.data);
       setTimeout(() => {
         $('#example').DataTable({
