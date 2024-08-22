@@ -135,10 +135,10 @@ const PayslipGeneratedReports = Loadable(lazy(() => import('../views/smartconTab
 const IR8AReport = Loadable(lazy(() => import('../views/smartconTables/IR8AReport')));
 const Blog = Loadable(lazy(() => import('../views/smartconTables/Blog')));
 const Inventory = Loadable(lazy(() => import('../views/smartconTables/Inventory')));
-
+const Correlation = Loadable(lazy(() => import('../views/smartconTables/Correlation')));
 // Details Table
 const ProductDetailsTable = Loadable(lazy(() => import('../views/detailTable/ProductDetails')));
-
+const CorrelationDetailsTable = Loadable(lazy(() => import('../views/detailTable/CorrelationDetails')));
 // Finance Admin
 const FinanceTable = Loadable(lazy(() => import('../views/smartconTables/Orders')));
 
@@ -187,6 +187,7 @@ const SupportDetails = Loadable(lazy(() => import('../views/detailTable/SupportD
 
 // Table Edit's
 
+const CorrelationEdit = Loadable(lazy(() => import('../views/EditData/CorrelationEdit')));
 const ProductEdit = Loadable(lazy(() => import('../views/EditData/ProductEdit')));
 const UserEdit = Loadable(lazy(() => import('../views/EditData/UserEdit')));
 const ScoreManagementEdit = Loadable(lazy(() => import('../views/EditData/ScoreManagementEdit')));
@@ -284,6 +285,11 @@ const Routernew = () => {
             name="enquirydata"
              element={token ? <EnquiryDetailsTable /> : <Navigate to="/login" />}
             ></Route>
+            <Route
+            path="/CorrelationDetails"
+            name="enquirydata"
+             element={token ? <CorrelationDetailsTable /> : <Navigate to="/login" />}
+            ></Route>
       {/* Table Edit's */}
        
           <Route path="/ProductEdit/:id" name="productdata"  element={token ? <ProductEdit /> : <Navigate to="/login" />}></Route>
@@ -318,6 +324,11 @@ const Routernew = () => {
             path="/EnquiryEdit/:id"
             name="enquiryeditdata"
              element={token ? <EnquiryEdit /> : <Navigate to="/login" />}
+          ></Route>
+          <Route
+            path="/CorrelationEdit/:id"
+            name="correlationeditdata"
+             element={token ? <CorrelationEdit /> : <Navigate to="/login" />}
           ></Route>
 
           {/* Supplier Modal */}
@@ -417,7 +428,7 @@ const Routernew = () => {
           <Route path="/ProductDetails" name="productDetaildata"  element={token ? <ProductDetailsTable /> : <Navigate to="/login" />}></Route>
           <Route path="/UserDetails" name="staffDetaildata"  element={token ? <UserDetails /> : <Navigate to="/login" />} ></Route>
           <Route path="/ScoreManagementDetails" name="scoreManagementDetaildata"  element={token ? <ScoreManagementDetails /> : <Navigate to="/login" />} ></Route>
-
+          <Route path="/Correlation" name="correlationdata"  element={token ? <Correlation /> : <Navigate to="/login" />} ></Route>
           <Route path="/Product" name="productdata"  element={token ? <ProductTable /> : <Navigate to="/login" />} ></Route>
           <Route path="/Orders" name="ordersdata"  element={token ? <FinanceTable /> : <Navigate to="/login" />}> </Route>
           <Route
