@@ -14,6 +14,7 @@ const EditCostingSummaryModal = Loadable(
   lazy(() => import('../components/Tender/EditCostingSummaryModal')),
 );
 const EnquiryTable = Loadable(lazy(() => import('../views/smartconTables/Enquiry')));
+const ApplicationList = Loadable(lazy(() => import('../views/smartconTables/ApplicationList')));
 const ProjectDashboard = Loadable(lazy(() => import('../views/smartconTables/ProjectDashboard')));
 const EditQuoteModal = Loadable(lazy(() => import('../components/Tender/EditQuoteModal')));
 const EditLineItemModal = Loadable(lazy(() => import('../components/Tender/EditLineItemModal')));
@@ -268,6 +269,7 @@ const Routernew = () => {
           <Route path="/editquote" name="editquote" element={<EditQuoteModal />}></Route>
           <Route path="/editlineitem" name="editlineitem" element={<EditLineItemModal />}></Route>
           <Route path="/Application" name="application" element={<Application />}></Route>
+          <Route path="/ApplicationList" name="application" element={<ApplicationList />}></Route>
 
          
           <Route
