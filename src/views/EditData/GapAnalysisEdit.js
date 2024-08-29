@@ -269,7 +269,7 @@ const ContentUpdate = () => {
               </Col>
               <Col md="3">
                 <FormGroup>
-                  <Label> Description </Label>
+                  <Label> Description 2 </Label>
                   <Input
                     type="select"
                     onChange={handleInputs}
@@ -291,7 +291,7 @@ const ContentUpdate = () => {
             
               <Col md="3">
                 <FormGroup>
-                  <Label> Description </Label>
+                  <Label> Description 3 </Label>
                   <Input
                     type="select"
                     onChange={handleInputs}
@@ -312,7 +312,7 @@ const ContentUpdate = () => {
               </Col>
               <Col md="3">
                 <FormGroup>
-                  <Label> Description </Label>
+                  <Label> Description 4 </Label>
                   <Input
                     type="select"
                     onChange={handleInputs}
