@@ -10,7 +10,7 @@ import api from '../../constants/api';
 import creationdatetime from '../../constants/creationdatetime';
 import AppContext from '../../context/AppContext';
 
-const CustomerDetails = () => {
+const CompanyDetails = () => {
   //All const variables
   const navigate = useNavigate();
   const [contentDetails, setContentDetails] = useState({
@@ -34,7 +34,7 @@ const CustomerDetails = () => {
       contentDetails.company_code = code;
 
       api
-        .post('/contact/insertContact', contentDetails)
+        .post('/contact/insertCompany', contentDetails)
         .then((res) => {
           const insertedDataId = res.data.data.insertId;
           message('Customer inserted successfully.', 'success');
@@ -50,16 +50,16 @@ const CustomerDetails = () => {
     }
   };
  
-  // const generateCode = () => {
-  //   api
-  //     .post('/isocode/getCodeValue', { type: 'customercode' })
-  //     .then((res) => {
-  //       insertCustomerData(res.data.data);
-  //     })
-  //     .catch(() => {
-  //       insertCustomerData('');
-  //     });
-  // };
+  const generateCode = () => {
+    api
+      .post('/isocode/getCodeValue', { type: 'customercode' })
+      .then((res) => {
+        insertCustomerData(res.data.data);
+      })
+      .catch(() => {
+        insertCustomerData('');
+      });
+  };
   return (
     <div>
       <BreadCrumbs />
@@ -80,28 +80,6 @@ const CustomerDetails = () => {
                     />
                   </Col>
                 </Row>
-                <Row>
-                  <Col md="12">
-                    <Label>Email</Label>
-                    <Input
-                      type="text"
-                      onChange={handleInputs}
-                      value={contentDetails && contentDetails.email}
-                      name="email"
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="12">
-                    <Label>Password</Label>
-                    <Input
-                      type="text"
-                      onChange={handleInputs}
-                      value={contentDetails && contentDetails.pass_word}
-                      name="pass_word"
-                    />
-                  </Col>
-                </Row>
               </FormGroup>
               <FormGroup>
                 <Row>
@@ -110,7 +88,7 @@ const CustomerDetails = () => {
                       className="shadow-none"
                       color="primary"
                       onClick={() => {
-                        insertCustomerData();
+                        generateCode();
                    
                       }}
                     >
@@ -135,4 +113,4 @@ const CustomerDetails = () => {
     </div>
   );
 };
-export default CustomerDetails;
+export default CompanyDetails;

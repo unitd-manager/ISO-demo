@@ -151,10 +151,12 @@ const Content = Loadable(lazy(() => import('../views/smartconTables/Content')));
 const ISOcodesManagement = Loadable(lazy(() => import('../views/smartconTables/ISOcodesManagement')));
 const GapAnalysis = Loadable(lazy(() => import('../views/smartconTables/GapAnalysis')));
 const Customer = Loadable(lazy(() => import('../views/smartconTables/Customer')));
+const Company = Loadable(lazy(() => import('../views/smartconTables/Company')));
 const ContentDetailsTable = Loadable(lazy(() => import('../views/detailTable/ContentDetails')));
 const ISOcodeDetail = Loadable(lazy(() => import('../views/detailTable/ISOcodeDetail')));
 const GapAnalysisDetail = Loadable(lazy(() => import('../views/detailTable/GapAnalysisDetail')));
 const CustomerDetailsTable = Loadable(lazy(() => import('../views/detailTable/CustomerDetails')));
+const CompanyDetailsTable = Loadable(lazy(() => import('../views/detailTable/CompanyDetails')));
 const SubCategoryTable = Loadable(lazy(() => import('../views/smartconTables/SubCategory')));
 const BlogDetailsTable = Loadable(lazy(() => import('../views/detailTable/BlogDetails')));
 const SupplierDetailsTable = Loadable(lazy(() => import('../views/detailTable/SupplierDetails')));
@@ -198,6 +200,7 @@ const ContentEdit = Loadable(lazy(() => import('../views/EditData/ContentEdit'))
 const ISOcodeEdit = Loadable(lazy(() => import('../views/EditData/ISOcodeEdit')));
 const GapAnalysisEdit = Loadable(lazy(() => import('../views/EditData/GapAnalysisEdit')));
 const CustomerEdit = Loadable(lazy(() => import('../views/EditData/CustomerEdit')));
+const CompanyEdit = Loadable(lazy(() => import('../views/EditData/CompanyEdit')));
 const SectionEdit = Loadable(lazy(() => import('../views/EditData/SectionEdit')));
 const Login = Loadable(lazy(() => import('../views/detailTable/Login')));
 const ValueListEdit = Loadable(lazy(() => import('../views/EditData/ValueListEdit')));
@@ -300,6 +303,7 @@ const Routernew = () => {
           <Route path="/ISOcodeEdit/:id" name="contentdata"  element={token ? <ISOcodeEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/GapAnalysisEdit/:id" name="contentdata"  element={token ? <GapAnalysisEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/CustomerEdit/:id" name="customerdata"  element={token ? <CustomerEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/CompanyEdit/:id" name="customerdata"  element={token ? <CompanyEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/BlogEdit/:id" name="blogdata"  element={token ? <BlogEdit /> : <Navigate to="/login" />} ></Route>
           <Route path="/InventoryEdit/:id" name="inventorydata"  element={token ? <InventoryEdit /> : <Navigate to="/login" />}></Route>
                    <Route path="/SupplierEdit/:id" name="supplierdata"  element={token ? <SupplierEdit /> : <Navigate to="/login" />}></Route>
@@ -472,7 +476,7 @@ const Routernew = () => {
           <Route path="/ISOCodes" name="contentdata"  element={token ? <ISOcodesManagement /> : <Navigate to="/login" />}></Route>
           <Route path="/GapAnalysis" name="contentdata"  element={token ? <GapAnalysis /> : <Navigate to="/login" />}></Route>
           <Route path="/Customer" name="customerdata"  element={token ? <Customer /> : <Navigate to="/login" />} ></Route>
-
+          <Route path="/Company" name="customerdata"  element={token ? <Company /> : <Navigate to="/login" />} ></Route>
           <Route
             path="/ContentDetails"
             name="contentdetailsdata"
@@ -492,6 +496,11 @@ const Routernew = () => {
             path="/CustomerDetails"
             name="customerdetailsdata"
              element={token ? <CustomerDetailsTable /> : <Navigate to="/login" />}
+          ></Route>
+          <Route
+            path="/CompanyDetails"
+            name="companydetailsdata"
+             element={token ? <CompanyDetailsTable /> : <Navigate to="/login" />}
           ></Route>
           <Route path="/test" name="testdata"  element={token ? <TestTable /> : <Navigate to="/login" />} ></Route>
           <Route path="/Support" name="supportdata"  element={token ? <Support /> : <Navigate to="/login" />} ></Route>

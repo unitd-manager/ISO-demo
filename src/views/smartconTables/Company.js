@@ -17,14 +17,14 @@ import CommonTable from '../../components/CommonTable';
 // import Publish from '../../components/Publish';
 // import SortOrder from '../../components/SortOrder';
 
-const Customer = () => {
+const Company = () => {
   //Const Variables
   const [customer, setCustomer] = useState(null);
 
   //getting data from content
   const getCustomer = () => {
     api
-      .get('/contact/getContact')
+      .get('/contact/getCompany')
       .then((res) => {
         setCustomer(res.data.data);
       })
@@ -73,13 +73,13 @@ const Customer = () => {
       button: true,
       sortable: false,
     },
-    // {
-    //   name: 'Code',
-    //   selector: 'customer_code ',
-    //   sortable: true,
-    //   width: 'auto',
-    //   grow: 3,
-    // },
+    {
+      name: 'Code',
+      selector: 'customer_code ',
+      sortable: true,
+      width: 'auto',
+      grow: 3,
+    },
     {
       name: 'Company Name',
       selector: 'company_name',
@@ -103,7 +103,7 @@ const Customer = () => {
     },
     
     {
-      name: 'Password',
+      name: 'Creation Date',
       selector: 'creation_date',
       sortable: true,
       width: 'auto',
@@ -140,15 +140,15 @@ const Customer = () => {
                   <td>{index + 1}</td>
                   <td>
                     {' '}
-                    <Link to={`/CustomerEdit/${element.contact_id}`}>
+                    <Link to={`/CustomerEdit/${element.company_id}`}>
                       <Icon.Edit2 />
                     </Link>
                   </td>
-                  {/* <td>{element.company_code}</td> */}
+                  <td>{element.company_code}</td>
                   <td>{element.company_name}</td>
                   <td>{element.email}</td>
                   <td>{element.phone}</td>
-                  <td>{element.pass_word}</td>
+                  <td>{element.creation_date}</td>
                 
                 </tr>
               );
@@ -158,4 +158,4 @@ const Customer = () => {
     </div>
   );
 };
-export default Customer;
+export default Company;

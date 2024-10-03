@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import ComponentCard from '../ComponentCard';
 import api from '../../constants/api';
 import message from '../Message';
+import CustomerCredsMailModal from '../Customer/CustomerCredsMailModal';
 
 
 export default function KeyStaffDetails({
@@ -17,6 +18,19 @@ export default function KeyStaffDetails({
   
   };
   const [customername, setCustomerName] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [customerCredsMailModal, setCustomerCredsMailModal] = useState(false);
+
+  const getContacts = () => {
+    api
+      .get('/contact/getContact')
+      .then((res) => {
+        setContacts(res.data.data);
+      })
+      .catch(() => {
+        message('Company not found', 'info');
+      });
+  };
 
   const getCustomerName = () => {
     api
@@ -30,7 +44,7 @@ export default function KeyStaffDetails({
   };
   useEffect(() => {
     getCustomerName();
- 
+ getContacts();
   }, []);
   return (
     <Form>
@@ -114,11 +128,34 @@ export default function KeyStaffDetails({
                 />
               </FormGroup>
             </Col>
-           
-            
+            <Col md="3">
+              <FormGroup>
+                <Label>User</Label>
+                <Input
+                  type="select"
+                  name="contact_id"
+                  onChange={handleInputs}
+                  value={staffeditdetails && staffeditdetails.contact_id}
+                >
+                  <option value="">Please Select</option>
+                  {contacts &&
+                    contacts.map((e) => {
+                      return (
+                        <option key={e.contact_id} value={e.contact_id}>
+                          {e.name?e.name:e.first_name}
+                        </option>
+                      );
+                    })}
+                </Input>
+              </FormGroup>
+            </Col>
+            <Col md="3">
+            <Button  onClick={()=>{setCustomerCredsMailModal(true)}}>Send Link</Button>
+            </Col>
           </Row>
         </ComponentCard>
       </FormGroup>
+      {customerCredsMailModal&&<CustomerCredsMailModal contactId={staffeditdetails.contact_id} customerCredsMailModal={customerCredsMailModal} setCustomerCredsMailModal={setCustomerCredsMailModal}/>}
     </Form>
   );
 }

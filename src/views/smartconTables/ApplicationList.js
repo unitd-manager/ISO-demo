@@ -72,6 +72,10 @@ const ApplicationList = () => {
       name: 'Date of Application',
   
     },
+    {
+      name: 'Status',
+  
+    },
     
   ];
 
@@ -109,7 +113,7 @@ const ApplicationList = () => {
                     <td>{element.standard}</td>
                     <td>{element.organization_type}</td>
                     <td>{element.date_of_application}</td>
-                  
+                    <td>{element.status}</td>
                   </tr>
                 );
               })}
