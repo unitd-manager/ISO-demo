@@ -98,7 +98,7 @@ const ISOCodes = () => {
       <BreadCrumbs />
 
       <CommonTable
-        title="ISO Code List"
+        title="GapAnalysis List"
         Button={
           <Link to="/GapAnalysisDetail">
             <Button color="primary" className="shadow-none">
@@ -126,7 +126,7 @@ const ISOCodes = () => {
                       <Icon.Edit2 />
                     </Link>
                   </td>
-                  <td>{element.description1}</td>
+                  <td>{element.value}</td>
                   <td>{element.document_description}</td>
                   <td>{moment(element.released_date).format('YYYY-MM-DD')}</td>
                 

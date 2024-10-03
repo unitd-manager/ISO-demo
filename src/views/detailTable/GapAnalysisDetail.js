@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
@@ -19,7 +19,15 @@ const ContentDetails = () => {
   
   });
   const { loggedInuser } = useContext(AppContext);
+ // getting data from Category
+ const [categoryLinked, setCategoryLinked] = useState();
 
+ const getCategory = () => {
+  api.get('/GapAnalysis/getISOValueList')
+  .then((res) => {
+    setCategoryLinked(res.data.data);
+  });
+};
   //setting data in contentDetails
   const handleInputs = (e) => {
     setContentDetails({ ...contentDetails, [e.target.name]: e.target.value });
@@ -48,7 +56,10 @@ const ContentDetails = () => {
     }
   };
 
- 
+  useEffect(() => {
+    getCategory();
+         
+    }, []);
   return (
     <div>
       <BreadCrumbs />
@@ -60,13 +71,24 @@ const ContentDetails = () => {
               <FormGroup>
                 <Row>
                   <Col md="12">
-                    <Label>Description</Label>
-                    <Input
-                      type="text"
-                      onChange={handleInputs}
-                      value={contentDetails && contentDetails.description1}
-                      name="description1"
-                    />
+                   
+                     <Label> Description </Label>
+                  <Input
+                    type="select"
+                    onChange={handleInputs}
+                    value={contentDetails && contentDetails.description1}
+                    name="description1"
+                  >
+                    <option defaultValue="selected">Please Select</option>
+                    {categoryLinked &&
+                      categoryLinked.map((e) => {
+                        return (
+                          <option key={e.valuelist_id} value={e.valuelist_id}>
+                            {e.value}
+                          </option>
+                        );
+                      })}
+                  </Input>
                   </Col>
                 </Row>
               </FormGroup>
