@@ -13,7 +13,19 @@ const StaffDetails = () => {
 
   const [staffdetails, setStaffDetails] = useState({company_id:'',});
   const [customername, setCustomerName] = useState([]);
+  const [applications, setApplications] = useState([]);
 
+  const getApplications = () => {
+    api
+      .get('/score/getApplicationsWithoutScore')
+      .then((res) => {
+        setApplications(res.data.data);
+      
+      })
+      .catch(() => {
+        
+      });
+  };
   const getCustomerName = () => {
     api
       .get('/score/getCustomerName')
@@ -40,7 +52,7 @@ const StaffDetails = () => {
   useEffect(() => {
     getCustomerName();
     getIsoName();
- 
+ getApplications();
   }, []);
   // Navigation and Parameter Constants
 
@@ -64,6 +76,12 @@ const StaffDetails = () => {
           setTimeout(() => {
             navigate(`/ScoreManagementEdit/${insertedDataId}?tab=1`);
           }, 300);
+        }).then((res) => {
+          const insertedDataId = res.data.data.insertId;
+          message('Score Details inserted successfully.', 'success');
+          setTimeout(() => {
+            navigate(`/ScoreManagementEdit/${insertedDataId}?tab=1`);
+          }, 300);
         })
         .catch(() => {
           message('Unable to edit record.', 'error');
@@ -79,6 +97,31 @@ const StaffDetails = () => {
         <Col md="6" xs="12">
           <ComponentCard title="Score Details">
         
+            <FormGroup>
+              <Row>
+              <Col md="12">
+                <FormGroup>
+                <Label>
+                Application</Label>
+                  <Input
+                    type="select"
+                    onChange={handleInputs}
+                    name="company_id"
+                  >
+                    <option defaultValue="selected">Please Select</option>
+                    {applications &&
+                      applications.map((e) => {
+                        return (
+                          <option key={e.application_id} value={e.application_id}>
+                            {e.company_name}({e.date_of_application})
+                          </option>
+                        );               
+                      })}
+                  </Input>
+                </FormGroup>
+              </Col>
+              </Row>
+            </FormGroup>
             <FormGroup>
               <Row>
               <Col md="12">
