@@ -199,6 +199,7 @@ const OrdersEdit = Loadable(lazy(() => import('../views/EditData/OrdersEdit')));
 const ContentEdit = Loadable(lazy(() => import('../views/EditData/ContentEdit')));
 const ISOcodeEdit = Loadable(lazy(() => import('../views/EditData/ISOcodeEdit')));
 const GapAnalysisEdit = Loadable(lazy(() => import('../views/EditData/GapAnalysisEdit')));
+const ApplicationEdit = Loadable(lazy(() => import('../views/EditData/ApplicationEdit')));
 const CustomerEdit = Loadable(lazy(() => import('../views/EditData/CustomerEdit')));
 const CompanyEdit = Loadable(lazy(() => import('../views/EditData/CompanyEdit')));
 const SectionEdit = Loadable(lazy(() => import('../views/EditData/SectionEdit')));
@@ -302,6 +303,8 @@ const Routernew = () => {
           <Route path="/ContentEdit/:id" name="contentdata"  element={token ? <ContentEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/ISOcodeEdit/:id" name="contentdata"  element={token ? <ISOcodeEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/GapAnalysisEdit/:id" name="contentdata"  element={token ? <GapAnalysisEdit /> : <Navigate to="/login" />}></Route>
+          <Route path="/ApplicationEdit/:id" name="contentdata"  element={token ? <ApplicationEdit /> : <Navigate to="/login" />}></Route>
+
           <Route path="/CustomerEdit/:id" name="customerdata"  element={token ? <CustomerEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/CompanyEdit/:id" name="customerdata"  element={token ? <CompanyEdit /> : <Navigate to="/login" />}></Route>
           <Route path="/BlogEdit/:id" name="blogdata"  element={token ? <BlogEdit /> : <Navigate to="/login" />} ></Route>

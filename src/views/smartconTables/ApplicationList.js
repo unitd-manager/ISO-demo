@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import * as Icon from 'react-feather';
 import { Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-dt/js/dataTables.dataTables';
@@ -51,7 +52,20 @@ const ApplicationList = () => {
       wrap: true,
       width: '4%',
     },
-   
+    {
+      name: 'Edit',
+      selector: 'edit',
+      cell: () => (
+        <Link to="/">
+          {' '}
+          <Icon.Edit3 />
+        </Link>
+      ),
+      grow: 0,
+      width: 'auto',
+      button: true,
+      sortable: false,
+    },
     {
       name: 'Company Name',
  
@@ -107,7 +121,12 @@ const ApplicationList = () => {
                 return (
                   <tr key={element.application_id}>
                     <td>{index + 1}</td>
-                  
+                    <td>
+                    {' '}
+                    <Link to={`/ApplicationEdit/${element.application_id}`}>
+                      <Icon.Edit2 />
+                    </Link>
+                  </td>
                     <td>{element.company_name}</td>
                     <td>{element.company_rep_name}</td>
                     <td>{element.standard}</td>
