@@ -112,7 +112,16 @@ const ContentUpdate = () => {
   };
 
   const handleInputs = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+
+    // Check if the input is a radio button for the gap field
+    if (type === 'radio' && name === 'gap') {
+      setContentDetails({
+        ...contentDetails,
+        [name]: parseInt(value, 10), // Ensure the value is stored as a number (1 or 0) with radix 10
+      });
+      return;
+    }
     console.log('2222222):', name,value); // Log the numeric value
     if (name === 'description1') {
       // Convert value to a number if needed
@@ -196,7 +205,7 @@ const ContentUpdate = () => {
     getContentById();
     
   }, [id]);
-
+console.log("1q1q11",contentDetails && contentDetails.gap)
   return (
     <>
       <BreadCrumbs heading={contentDetails && contentDetails.title} />
@@ -342,21 +351,22 @@ const ContentUpdate = () => {
                   <Label>Yes</Label>
                   &nbsp;
                   <Input
+                  type="radio"
                     name="gap"
                     value="1"
-                    type="radio"
-                    defaultChecked={contentDetails && contentDetails.gap === 1 && true}
                     onChange={handleInputs}
+                    defaultChecked={contentDetails && contentDetails.gap === 1 && true}
+                    
                   />
                   &nbsp; &nbsp;
                   <Label>No</Label>
                   &nbsp;
                   <Input
+                  type="radio"
                     name="gap"
                     value="0"
-                    type="radio"
-                    defaultChecked={contentDetails && contentDetails.gap === 0 && true}
                     onChange={handleInputs}
+                    defaultChecked={contentDetails && contentDetails.gap === 0 && true}
                   />
                 </FormGroup>
               </Col>
