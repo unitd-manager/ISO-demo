@@ -7,7 +7,7 @@ import MainChart from '../../views/charts/DonutChart';
 import { ELEVATION_1 } from '@blueprintjs/core/lib/esm/common/classes';
 
 
-const DonutDashboard = () => {
+const ApplicationDonutDashboard = () => {
   const [projectStats, setProjectStats] = useState([]);
   const [projectStatsTitle, setProjectStatsTitle] = useState([]);
   const [projectStatsEmployee, setProjectStatsEmployee] = useState([]);
@@ -188,7 +188,7 @@ const DonutDashboard = () => {
                         <CardBody>
                             {/* Your status component */}
                             <div>
-                            <h5 className="status-heading">ISO Certificates Issued</h5>
+                            <h5 className="status-heading">Application Status</h5>
                   <Row>
                     {statusdata.map((project) => (
                       <Col sm="6" lg="2" key={project.id}>
@@ -196,7 +196,7 @@ const DonutDashboard = () => {
                           <CardBody>
                             <div className="d-flex align-items-center">
                               <div>
-                                <h6 className="font-12 mb-0">ISO 9001</h6>
+                                <h6 className="font-12 mb-0">No Progress</h6>
                                 <h4 className="mt-1 fw-bolder mb-0" style={{color:'orange'}}>
                                   {' '}
                                   {project.in_progress_task_count}
@@ -214,7 +214,7 @@ const DonutDashboard = () => {
                           <CardBody>
                             <div className="d-flex align-items-center">
                               <div>
-                                <h6 className="font-12 mb-0">ISO 9002</h6>
+                                <h6 className="font-12 mb-0">Quizz Created</h6>
                                 <h4 className="mt-1 fw-bolder mb-0" style={{color:'orange'}}> {project.completed}</h4>
                               </div>
                             </div>
@@ -228,7 +228,7 @@ const DonutDashboard = () => {
                           <CardBody>
                             <div className="d-flex align-items-center">
                               <div>
-                                <h6 className="font-12 mb-0">ISO 9002</h6>
+                                <h6 className="font-12 mb-0"> Quizz Submitted</h6>
                                 <h4 className="mt-1 fw-bolder mb-0" style={{color:'orange'}}> {project.on_hold}</h4>
                               </div>
                             </div>
@@ -242,7 +242,7 @@ const DonutDashboard = () => {
                           <CardBody>
                             <div className="d-flex align-items-center">
                               <div>
-                                <h6 className="font-12 mb-0">ISO 9003</h6>
+                                <h6 className="font-12 mb-0">Certificate Provided</h6>
                                 <h4 className="mt-1 fw-bolder mb-0" style={{color:'orange'}}> {project.not_started_task}</h4>
                               </div>
                             </div>
@@ -251,68 +251,7 @@ const DonutDashboard = () => {
                       </Col>
                     ))}
                   </Row>
-                  <Row>
-                    {statusdata.map((project) => (
-                      <Col sm="6" lg="2" key={project.id}>
-                        <Card className="custom-card">
-                          <CardBody>
-                            <div className="d-flex align-items-center">
-                              <div>
-                                <h6 className="font-12 mb-0">ISO 2001</h6>
-                                <h4 className="mt-1 fw-bolder mb-0" style={{color:'orange'}}>
-                                  {' '}
-                                  {project.in_progress_task_count}
-                                </h4>
-                              </div>
-                            </div>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    ))}
-
-                    {statusdata.map((project) => (
-                      <Col sm="6" lg="2" key={project.id}>
-                        <Card className="custom-card1">
-                          <CardBody>
-                            <div className="d-flex align-items-center">
-                              <div>
-                                <h6 className="font-12 mb-0">ISO 2002</h6>
-                                <h4 className="mt-1 fw-bolder mb-0" style={{color:'orange'}}> {project.completed}</h4>
-                              </div>
-                            </div>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    ))}
-                    {statusdata.map((project) => (
-                      <Col sm="6" lg="2" key={project.id}>
-                        <Card className="custom-card2">
-                          <CardBody>
-                            <div className="d-flex align-items-center">
-                              <div>
-                                <h6 className="font-12 mb-0">ISO 2003</h6>
-                                <h4 className="mt-1 fw-bolder mb-0" style={{color:'orange'}}> {project.on_hold}</h4>
-                              </div>
-                            </div>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    ))}
-                    {statusdata.map((project) => (
-                      <Col sm="12" lg="3" key={project.id}>
-                        <Card className="custom-card3">
-                          <CardBody>
-                            <div className="d-flex align-items-center">
-                              <div>
-                                <h6 className="font-12 mb-0">ISO 2004</h6>
-                                <h4 className="mt-1 fw-bolder mb-0" style={{color:'orange'}}> {project.not_started_task}</h4>
-                              </div>
-                            </div>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    ))}
-                  </Row>
+                  
                             </div>
                         </CardBody>
                     </Card>
@@ -322,7 +261,7 @@ const DonutDashboard = () => {
                         <CardBody>
                             {/* Your chart component */}
                             <div style={{ width: '400px', height: '600px' }}>
-                            <h5>ISO Codes and Customers</h5>
+                            <h5>Applications</h5>
                   {/* <Chart
                     options={{ ...optionsDonut, labels: labelsDonut }}
                     series={seriesDonut}
@@ -443,4 +382,4 @@ const DonutDashboard = () => {
   );
 };
 
-export default DonutDashboard;
+export default ApplicationDonutDashboard;

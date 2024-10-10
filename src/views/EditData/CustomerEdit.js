@@ -1,5 +1,6 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Form, FormGroup, Button, Label, Input } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Button, Label, Input, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../form-editor/editor.scss';
@@ -10,16 +11,40 @@ import message from '../../components/Message';
 import api from '../../constants/api';
 import ComponentCard from '../../components/ComponentCard';
 import creationdatetime from '../../constants/creationdatetime';
+import ContactLink from '../../components/Customer/ContactLink';
 
 const ContentUpdate = () => {
   // All state variables
   const [contentDetails, setContentDetails] = useState();
   // const [allcountries, setAllCountries] = useState();
-
+  const [teamById, setTeamById] = useState([]);
+  const [contactDataTeam, setContactDataTeam] = useState();
+  const [addContactModalTeam, setAddContactModalTeam] = useState(false);
+  const [addContactModal, setAddContactModal] = useState(false);
   // Navigation and Parameter Constants
   const { id } = useParams();
   const navigate = useNavigate();
 
+
+  // const tabs = [
+  //   { id: '1', name: 'Score History' },
+  //   { id: '2', name: 'Analytics' },
+  // ];
+  const [activeTab, setActiveTab] = useState('1');
+
+  const toggle = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const addContactToggle = () => {
+    setAddContactModal(!addContactModal);
+  };
+  // const addContactToggless = () => {
+  //   setAddContactModalss(!addContactModalss);
+  // };
+  const addContactToggleTeam = () => {
+    setAddContactModalTeam(!addContactModalTeam);
+  };
   //Setting data in contentDetails
   const handleInputs = (e) => {
     setContentDetails({ ...contentDetails, [e.target.name]: e.target.value });
@@ -35,6 +60,15 @@ const ContentUpdate = () => {
   //       //message('Country Data Not Found', 'info');
   //     });
   // };
+ //Getting data from milestone
+ const getTeamById = () => {
+  api
+    .post('/contact/getContactsByCompanyId', { company_id: id })
+    .then((res) => {
+      setTeamById(res.data.data);
+    })
+    .catch(() => { });
+};
 
   // Get content data By content id
   const getContentById = () => {
@@ -68,6 +102,7 @@ const ContentUpdate = () => {
 
   useEffect(() => {
     getContentById();
+    getTeamById();
    // getAllCountries();
   }, [id]);
 
@@ -172,7 +207,69 @@ const ContentUpdate = () => {
           </FormGroup>
       </Form>
      
-     
+      <ComponentCard title="More Details">
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={activeTab === '1' ? 'active' : ''}
+              onClick={() => {
+                toggle('1');
+              }}
+            >
+              Iso Certificates
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={activeTab === '2' ? 'active' : ''}
+              onClick={() => {
+                toggle('2');
+              }}
+            >  Contacts Linked 
+              
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={activeTab === '3' ? 'active' : ''}
+              onClick={() => {
+                toggle('3');
+              }}
+            >
+           Score Submissions
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <TabContent className="p-4" activeTab={activeTab}>
+       
+          <TabPane tabId="1">
+          <ComponentCard title="Iso linked">
+                
+                </ComponentCard>
+          </TabPane>
+          <TabPane tabId="2">
+            <Row>
+
+<ContactLink
+  setContactDataTeam={setContactDataTeam}
+  id={id}
+  teamById={teamById}
+  addContactToggleTeam={addContactToggleTeam}
+  addContactModalTeam={addContactModalTeam}
+  //setEditTeamEditModal={setEditTeamEditModal}
+  getTeamById={getTeamById}
+/>
+            </Row>
+          </TabPane>
+          <TabPane tabId="3">
+            <Row>
+              {/* <ComponentCard title="Add a note">
+                
+              </ComponentCard> */}
+            </Row>
+          </TabPane>
+        </TabContent>
+      </ComponentCard>
     </>
   );
 };

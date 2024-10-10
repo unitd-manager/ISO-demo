@@ -25,6 +25,7 @@ const Sidebar = () => {
   useEffect(() => {
     api.get('/section/getSectionForSidemenu').then((res) => {
       const arrayOfObj = Object.entries(res.data.data).map((e) => ({ id: e[0], data: e[1] }));
+      console.log('sidemenu',arrayOfObj);
       setMenu(arrayOfObj);
     });
   }, []);

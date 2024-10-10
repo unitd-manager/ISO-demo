@@ -127,12 +127,16 @@ const Correlation = () => {
 
         <CommonTable
           title="Correlation List"
-          Button={
+          Button={<>
             <Link to="/CorrelationDetails">
               <Button color="primary" className="shadow-none">
                 Add New
               </Button>
             </Link>
+             <Button color="primary" className="shadow-none">
+             Export
+           </Button>
+           </>
           }
         >
           <thead>

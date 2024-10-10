@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
@@ -19,12 +19,19 @@ const CustomerDetails = () => {
     content_date: moment(),
     content_type: '',
   });
+  const [applications, setApplications] = useState([]);
   //setting data in customerDetails
   const handleInputs = (e) => {
     setContentDetails({ ...contentDetails, [e.target.name]: e.target.value });
   };
  
   const { loggedInuser } = useContext(AppContext);
+
+
+const getApplications=()=>{
+  api.get('/content/getApplication').then((res) => {
+    setApplications(res.data.data);}).catch(()=>{})
+}
 
   //Insert Custmer Data
   const insertCustomerData = (code) => {
@@ -60,6 +67,11 @@ const CustomerDetails = () => {
   //       insertCustomerData('');
   //     });
   // };
+
+useEffect(()=>{
+  getApplications();
+},[])
+
   return (
     <div>
       <BreadCrumbs />
@@ -79,6 +91,29 @@ const CustomerDetails = () => {
                       name="company_name"
                     />
                   </Col>
+                </Row>
+                <Row>
+                <Col md="12">
+              <FormGroup>
+              <Label>Application</Label>
+              <Input
+                type="select"
+                name="application_id"
+                onChange={handleInputs}
+                value={contentDetails && contentDetails.application_id}
+              >
+                <option defaultValue="selected" value="">
+                  Please Select
+                </option>
+                {applications &&
+                  applications.map((app) => (
+                    <option key={app.application_id} value={app.application_id}>
+                      {app.customer_name}
+                    </option>
+                  ))}
+              </Input>
+            </FormGroup>
+          </Col>
                 </Row>
                 <Row>
                   <Col md="12">

@@ -15,6 +15,8 @@ import ScoreprogressSummary from '../../components/dashboard/ScoreprogressSummar
 import SubmissionScoreCharts from '../../components/DashboardProj/SubmissionScoreCharts';
 import Questionaries from '../../components/DashboardProj/Questionaries';
 import MultiCharts from '../charts/MultiCharts';
+import ApplicationMultiChart from '../charts/ApplicationMultiChart';
+import ApplicationsBarChart from '../../components/dashboard/ApplicationBarChart';
 
 const Test = () => {
 
@@ -22,13 +24,15 @@ const Test = () => {
     <div >
       <Row>
         <Col lg='12'>
+       <MultiCharts />
+       <ApplicationMultiChart />
+       <ApplicationsBarChart/>
         <IsoDashboard/>
         <ScoreprogressSummary/>
         <SubmissionScoreCharts/>
         <LabourSummary/>
         <Questionaries/>
-        <MultiCharts />
-        {/* <CustoChart/>
+                {/* <CustoChart/>
         <ProjectEnq/> */}
        
         {/* <QuoteChart/>
